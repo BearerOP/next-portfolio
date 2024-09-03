@@ -32,7 +32,7 @@ export const CarouselContext = createContext<{
   onCardClose: (index: number) => void;
   currentIndex: number;
 }>({
-  onCardClose: () => {},
+  onCardClose: () => { },
   currentIndex: 0,
 });
 
@@ -109,30 +109,28 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
             )}
           >
             {items.map((item, index) => (
-              
-              <div>
-              <motion.div
-              initial={{
-                
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 0.5,
-                  delay: 0.2 * index,
-                  ease: "easeOut",
-                  once: true,
-                },
-              }}
-              key={"card" + index}
-              className="last:pr-[5%] md:last:pr-[33%] rounded-3xl"
-              >
-                {item}
-              </motion.div>
-                </div>
+              <div key={index}> {/* Added key prop here */}
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: 20,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      delay: 0.2 * index,
+                      ease: "easeOut",
+                      once: true,
+                    },
+                  }}
+                  key={"card" + index}
+                  className="last:pr-[5%] md:last:pr-[33%] rounded-3xl"
+                >
+                  {item}
+                </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -182,7 +180,7 @@ export const Card = ({
     } else {
       document.body.style.overflow = "auto";
     }
-/* eslint-disable */
+    /* eslint-disable */
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);

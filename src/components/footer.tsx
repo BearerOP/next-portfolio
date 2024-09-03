@@ -20,6 +20,10 @@ const socialLinks = [
         href: "mailto:work.ankit189@gmail.com",
         label: "Mail",
     },
+    {
+        href: "https://dub.sh/hlcmMbf",
+        label: "Resume",
+    },
 ];
 
 const Footer = () => {
@@ -37,15 +41,17 @@ const Footer = () => {
                             <span className="relative transition-transform duration-500 ease-in-out group-hover:-translate-x-2">
                                 {label}
                             </span>
-                            <ArrowUpRight size={48}
+                            <ArrowUpRight
+                                size={48}
                                 strokeWidth={1}
-                                color={'white'} className="absolute h-[22px] -right-8 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+                                className="absolute h-[22px] -right-8 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 dark:text-white text-black"
                             />
                         </Link>
                         {index < socialLinks.length - 1 && <Separator orientation="vertical" />}
                     </React.Fragment>
                 ))}
             </div>
+            <Separator className="my-4" />
         </footer>
     );
 };

@@ -4,6 +4,7 @@ import { Manrope } from 'next/font/google';
 import "./globals.css";
 import { ThemeProvider } from "@/components/themeprovider";
 import Footer from "@/components/footer";
+import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 
 const manrope = Manrope({ subsets: ['latin'] });
 
@@ -29,30 +30,24 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
 
-          <Footer />
+        <Footer />
 
-          <div
-            className="z-50 w-screen h-[35rem] overflow-clip pointer-events-none bg-gradient-to-b from-black to-gray-300/80 text-[38rem] font-semibold leading-none dark:from-gray-300/30 dark:to-slate-900/10 text-background"
-            style={{
-              WebkitTextStroke: '1px transparent', // Sets the stroke width
-              WebkitBackgroundClip: 'text', // Applies the gradient to the text
-            }}
-          >
-            Dock
-          </div>
-          <div
-  className=" inset-0 z-50 overflow-hidden flex items-center justify-center bg-gradient-to-b from-black to-gray-300/80 dark:from-gray-300/30 dark:to-slate-900/10 text-background"
-  style={{
-    WebkitTextStroke: '1px transparent',  // Sets the stroke width
-    WebkitBackgroundClip: 'text',         // Applies the gradient to the text
-    fontSize: '650px',           // Adjust font size to fit the viewport width
-    textAlign: 'center',                  // Center-aligns the text
-    lineHeight: '1',  
-    marginRight:'20px',             // Adjust line height to ensure the text fits properly
-  }}
->
-  Dock
-</div>
+        <div
+          className="relative w-screen h-[35rem] overflow-hidden bg-gradient-to-b from-black to-gray-300/80 text-[395px] font-semibold leading-none dark:from-gray-300/30 dark:to-slate-900/10 text-background text-center flex items-center justify-between"
+          style={{
+            WebkitTextStroke: '.85px transparent',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+          }}
+        >
+          <span>A</span>
+          <span>N</span>
+          <span>K</span>
+          <span>I</span>
+          <span>T</span>
+        </div>
+
+        <ScrollToTopButton /> 
       </body>
     </html>
   );

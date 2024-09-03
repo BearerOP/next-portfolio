@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
+import { FadeText } from "./magicui/fade-text";
 
 type Card = {
   src: string;
@@ -18,12 +19,24 @@ export function ProjectCarousel() {
   return (
     <div className="w-full h-1/2 pt-8">
       <h3 className="max-w-7xl pl-4 mx-auto text-xl md:text-2xl font-light text-neutral-800/80 dark:text-neutral-200/60 font-sans">
-        Hi! I&apos;m Ankit Yadav.
+        <FadeText
+          className="text-2xl font-bold"
+          direction="up"
+          framerProps={{
+            show: { transition: { delay: 0.2, duration: .3 } },
+          }}
+
+          text="Hi! I&apos;m Ankit Yadav."
+        />
+
       </h3>
-      <h2 className="max-w-7xl pl-4 mx-auto text-3xl md:text-5xl font-bold text-neutral-800/90 dark:text-neutral-200/90 font-sans">
-      I create seamless full-stack web applications.
-      </h2>
-      <Carousel items={cards}  />
+      <FadeText className="max-w-7xl pl-4 mx-auto text-3xl md:text-5xl font-bold text-neutral-800/90 dark:text-neutral-200/90 font-sans"
+        text=" I create seamless full-stack web applications." direction="up"
+        framerProps={{
+          show: { transition: { delay: 0.4, duration: .3 } },
+        }}
+      />
+      <Carousel items={cards} />
     </div>
   );
 }
