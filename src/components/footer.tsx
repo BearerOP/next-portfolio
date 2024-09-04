@@ -5,7 +5,7 @@ import { ArrowUpRight } from 'tabler-icons-react';
 
 const socialLinks = [
     {
-        href: "https://x.com/Ankit04951140",
+        href: "https://x.com/ankit_189",
         label: "Twitter",
     },
     {
