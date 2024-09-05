@@ -10,7 +10,8 @@ const Logo: React.FC = () => {
         transition={{
           type: "spring",
           stiffness: 360,
-          damping: 40
+          damping: 40,
+          delay:.5
         }}
       >
         <Link href={'/'} className='font-extrabold text-3xl dark:bg-white/80 dark:text-background bg-foreground/80 text-background size-[50px] leading-[1.35] rounded-lg text-center align-middle shadow-inner	
