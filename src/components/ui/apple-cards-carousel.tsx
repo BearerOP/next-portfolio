@@ -9,13 +9,13 @@ import React, {
 import {
   IconArrowNarrowLeft,
   IconArrowNarrowRight,
-  IconX,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-hook";
-import { Button } from "./button";
+import AnimatedShinyText from "../magicui/animated-shiny-text";
+import { ArrowUpRight } from "lucide-react";
 
 interface CarouselProps {
   items: JSX.Element[];
@@ -26,8 +26,8 @@ type Card = {
   src: string;
   title: string;
   category: string;
-  github: string,
-  liveLink: string
+  githubLink: string;
+  liveLink: string;
 };
 
 export const CarouselContext = createContext<{
@@ -40,8 +40,8 @@ export const CarouselContext = createContext<{
 
 export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const carouselRef = React.useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
-  const [canScrollRight, setCanScrollRight] = React.useState(true);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -87,59 +87,56 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const isMobile = () => {
     return window && window.innerWidth < 768;
   };
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null; // Skip rendering on the server
+  }
 
   return (
-    <CarouselContext.Provider
-      value={{ onCardClose: handleCardClose, currentIndex }}
-    >
+    <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
       <div className="relative w-full">
         <div
           className="flex w-full overflow-x-scroll overscroll-x-auto py-10 md:py-20 scroll-smooth [scrollbar-width:none]"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
-          <div
-            className={cn(
-              "absolute right-0  z-[1000] h-auto  w-[5%] overflow-hidden bg-gradient-to-l"
-            )}
-          ></div>
+          <div className="absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l"></div>
 
-          <div
-            className={cn(
-              "flex flex-row justify-start gap-4 pl-4",
-              "max-w-7xl mx-auto" // remove max-w-4xl if you want the carousel to span the full width of its container
-            )}
-          >
+          <div className={cn("flex flex-row justify-start gap-4 pl-4", "max-w-7xl mx-auto")}>
             {items.map((item, index) => (
-              <div key={index} className="hover:-translate-y-4 transition-transform duration-500 "> {/* Added key prop here */}
+              <motion.div
+                key={"card" + index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.5,
+                    delay: 0.2 * index,
+                    ease: "easeOut",
+                    once: true,
+                  },
+                }}
 
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: 20,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      duration: 0.5,
-                      delay: 0.2 * index,
-                      ease: "easeOut",
-                      once: true,
-                    },
-                  }}
-                  key={"card" + index}
-                  className="last:pr-[5%] md:last:pr-[33%] rounded-3xl"
-                >
+                className="last:pr-[5%] md:last:pr-[33%] rounded-3xl transition-transform duration-500 hover:-translate-y-4"
+              >
+                <div className="transition-transform duration-500 hover:-translate-y-4">
+
                   {item}
-                </motion.div>
-              </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
+
         <div className="flex justify-end gap-2 mr-10">
           <button
-            className="relative h-10 w-10 rounded-full hover:bg-gray-800 flex items-center justify-center disabled:opacity-50 "
+            className="relative h-10 w-10 rounded-full hover:bg-gray-800 flex items-center justify-center disabled:opacity-50"
             onClick={scrollLeft}
             disabled={!canScrollLeft}
           >
@@ -201,84 +198,70 @@ export const Card = ({
 
   const redirectLiveLink = () => {
     if (card.liveLink) {
-      window.open(card.liveLink, "_blank"); 
+      window.open(card.liveLink, "_blank");
+    }
+  };
+
+  const redirectGithubLink = () => {
+    if (card.githubLink) {
+      window.open(card.githubLink, "_blank");
     }
   };
 
   return (
     <>
-      <AnimatePresence>
-        {open && (
-          <div className="fixed inset-0 h-screen z-50 overflow-auto">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="bg-black/80 backdrop-blur-lg h-full w-full fixed inset-0 transition-opacity duration-300 hover:opacity-55"
-            />
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              ref={containerRef}
-              layoutId={layout ? `card-${card.title}` : undefined}
-              className="max-w-5xl mx-auto bg-white dark:bg-neutral-900 h-fit  z-[60] my-10 p-4 md:p-10 rounded-3xl font-sans relative "
+      <div className="relative group">
+        {/* Container for hover opacity */}
+        <motion.button
+          layoutId={layout ? `card-${card.title}` : undefined}
+          onClick={redirectLiveLink}
+          className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-40 w-56 md:h-[33rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 transition-opacity duration-300 group-hover:opacity-[0.55]"
+        >
+          {/* Overlay gradient */}
+          <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
+          {/* Text content */}
+          <div className="relative z-40 p-8">
+            <motion.p
+              layoutId={layout ? `title-${card.title}` : undefined}
+              className="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2 group-hover:opacity-100"
             >
-              <button
-                className="sticky top-4 h-8 w-8 right-0 ml-auto bg-black dark:bg-white rounded-full flex items-center justify-center"
-                onClick={handleClose}
-              >
-                <IconX className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
-              </button>
-              <motion.p
-                layoutId={layout ? `category-${card.title}` : undefined}
-                className="text-base font-medium text-black dark:text-white"
-              >
-                {card.category}
-              </motion.p>
-              <motion.p
-                layoutId={layout ? `title-${card.title}` : undefined}
-                className="text-2xl md:text-5xl font-semibold text-neutral-700 mt-4 dark:text-white"
-              >
-                {card.title}
-              </motion.p>
-            </motion.div>
+              {card.title}
+            </motion.p>
+            <motion.p
+              layoutId={layout ? `category-${card.category}` : undefined}
+              className="text-slate-300 text-sm md:text-base font-medium font-sans text-left group-hover:opacity-100"
+            >
+              {card.category}
+            </motion.p>
           </div>
+
+          <BlurImage
+            src={card.src}
+            alt={card.title}
+            fill
+            className="object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-55"
+          />
+        </motion.button>
+        <div
+          className="relative bottom-[350px] left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50"
+          onClick={redirectGithubLink}
+        >
+        <div
+        className={cn(
+          " absolute group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900/50 dark:hover:bg-white/20 z-10",
         )}
-      </AnimatePresence>
-      <motion.button
-        layoutId={layout ? `card-${card.title}` : undefined}
-        onClick={redirectLiveLink}
-        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10"
       >
-        <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
-        <div className="relative z-40 p-8">
-          <motion.p
-            layoutId={layout ? `title-${card.title}` : undefined}
-            className="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
-          >
-            {card.title}
-          </motion.p>
-          <motion.p
-            layoutId={layout ? `category-${card.category}` : undefined}
-            className="text-white text-sm md:text-base font-medium font-sans text-left"
-          >
-            {card.category}
-          </motion.p>
-        </div>
-        <Button className="relative left-5 ">
-          Github
-        </Button>
-        <BlurImage
-          src={card.src}
-          alt={card.title}
-          fill
-          className="object-cover absolute  inset-0 transition-opacity duration-300 hover:opacity-55"
-        />
-      </motion.button>
+        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-[120px]">
+          <span>✨ Github</span>
+          <ArrowUpRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+        </AnimatedShinyText>
+      </div>
+      </div>
+      </div>
     </>
   );
 };
+
 
 
 export const BlurImage = ({
@@ -308,7 +291,6 @@ export const BlurImage = ({
         alt={alt ? alt : "Background of a beautiful view"}
         {...rest}
       />
-      {/* <div className="absolute inset-0 bg-[radial-gradient(circle,transparent_5%,rgba(0,0,0,.5)_100%)]  pointer-events-none z-10 drop-shadow-2xl"></div> */}
     </>
   );
 };

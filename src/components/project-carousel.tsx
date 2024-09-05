@@ -42,21 +42,21 @@ const data = [
     category: "URL Shortener",
     title: "Slug",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.09.08.png?alt=media&token=5d295480-e9b8-4e4d-ac2f-dc5cad22e191",
-    github: "https://github.com/bearerOP/TheSlugProject",
+    githubLink: "https://github.com/bearerOP/TheSlugProject",
     liveLink: "https://theslug.netlify.app"
   },
   {
     category: "Web 3 Wallet",
     title: "Dhanam",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.10.10.png?alt=media&token=7df4bc7e-1bea-4b1b-a9d6-809a574f1b87", 
-    github: "https://github.com/bearerOP/dhanam",
+    githubLink: "https://github.com/bearerOP/dhanam",
     liveLink: "https://dhanam.vercel.app"
   },
   {
     category: "API Monitoring",
     title: "Avadhi",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.09.27.png?alt=media&token=d7ae6831-77e0-41cb-9821-f6d345ae5645", 
-    github: "https://github.com/bearerOP/avadhi",
+    githubLink: "https://github.com/bearerOP/avadhi",
     liveLink: "https://up-status-xi.vercel.app"
   },
 
@@ -64,21 +64,7 @@ const data = [
     category: "NPM Package",
     title: "OTP generation package",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.10.23.png?alt=media&token=7b55cdc6-9df5-482f-9a2c-92da4949ae69", 
-    github: "https://github.com/BearerOP/otp-generation-package",
+    githubLink: "https://github.com/BearerOP/otp-generation-package",
     liveLink: "https://www.npmjs.com/package/otp-generation"
-  },
-  {
-    category: "Product",
-    title: "Maps for your iPhone 15 Pro Max.",
-    src: "https://images.unsplash.com/photo-1599202860130-f600f4948364?q=80&w=2515&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
-    github: "https://github.com/bearerOP/Slug",
-    liveLink: "https://slug.bearer.sh"
-  },
-  {
-    category: "iOS",
-    title: "Photography just got better.",
-    src: "https://images.unsplash.com/photo-1602081957921-9137a5d6eaee?q=80&w=2793&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
-    github: "https://github.com/bearerOP/Slug",
-    liveLink: "https://slug.bearer.sh"
-  },
+  }
 ];
