@@ -248,7 +248,7 @@ export const Card = ({
         >
         <div
         className={cn(
-          " absolute group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900/50 dark:hover:bg-white/20 z-10",
+          " absolute group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:hover:bg-neutral-900/50 dark:bg-white/20 z-10",
         )}
       >
         <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-[120px]">
