@@ -118,7 +118,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                   transition: {
                     duration: 0.5,
                     delay: 0.2 * index,
-                    ease: "easeOut",
+                    ease: "easeInOut",
                     once: true,
                   },
                 }}
@@ -233,6 +233,21 @@ export const Card = ({
             >
               {card.category}
             </motion.p>
+            <div
+          className="mt-5 w-fit left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50"
+          onClick={redirectGithubLink}
+        >
+          <div
+            className={cn(
+              "group rounded-full border border-black/5 bg-neutral-700 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white dark:hover:border-white/50 dark:hover:bg-neutral-900/50 dark:bg-white/20",
+            )}
+          >
+            <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out  hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-[120px] ">
+              <span className="text-white">✨ Github</span>
+              <ArrowUpRight className="ml-1 size-3 text-white transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+            </AnimatedShinyText>
+          </div>
+        </div>
           </div>
 
           <BlurImage
@@ -242,21 +257,7 @@ export const Card = ({
             className="object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-55"
           />
         </motion.button>
-        <div
-          className="relative bottom-[350px] left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50"
-          onClick={redirectGithubLink}
-        >
-        <div
-        className={cn(
-          " absolute group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:hover:bg-neutral-900/50 dark:bg-white/20 z-10",
-        )}
-      >
-        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-[120px]">
-          <span>✨ Github</span>
-          <ArrowUpRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-        </AnimatedShinyText>
-      </div>
-      </div>
+        
       </div>
     </>
   );
