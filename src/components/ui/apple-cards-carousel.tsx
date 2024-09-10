@@ -13,7 +13,6 @@ import {
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
-import { useOutsideClick } from "@/hooks/use-outside-hook";
 import AnimatedShinyText from "../magicui/animated-shiny-text";
 import { ArrowUpRight } from "lucide-react";
 
@@ -164,38 +163,7 @@ export const Card = ({
   index: number;
   layout?: boolean;
 }) => {
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const { onCardClose, currentIndex } = useContext(CarouselContext);
-
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        handleClose();
-      }
-    }
-
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
-
-  useOutsideClick(containerRef, () => handleClose());
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    onCardClose(index);
-  };
-
   const redirectLiveLink = () => {
     if (card.liveLink) {
       window.open(card.liveLink, "_blank");
@@ -215,7 +183,7 @@ export const Card = ({
         <motion.button
           layoutId={layout ? `card-${card.title}` : undefined}
           onClick={redirectLiveLink}
-          className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-40 w-56 md:h-[33rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 transition-opacity duration-300 group-hover:opacity-[0.55]"
+          className="rounded-3xl bg-black dark:bg-neutral-900 h-[20rem] w-56 md:h-[33rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 transition-opacity duration-300 group-hover:[absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black opacity-100 group-hover:opacity-80 transition-opacity duration-300 z-20 pointer-events-none]"
         >
           {/* Overlay gradient */}
           <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
@@ -233,21 +201,24 @@ export const Card = ({
             >
               {card.category}
             </motion.p>
-            <div
-          className="mt-5 w-fit left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50"
-          onClick={redirectGithubLink}
+           
+              <div className="flex justify-center pt-4" onClick={redirectGithubLink}>
+                
+      <div
+        className={cn(
+          "group rounded-full border border-white/80 hover:border-white/50 hover:bg-neutral-900/50 bg-white/20 text-white transition-all ease-in hover:cursor-pointer",
+          "text-sm sm:text-base" // Smaller text on mobile, larger on larger screens
+        )}
+      >
+        <AnimatedShinyText 
+          className="inline-flex items-center justify-center px-3 py-1 sm:px-4 sm:py-2 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-full sm:w-[120px]"
         >
-          <div
-            className={cn(
-              "group rounded-full border border-black/5 bg-neutral-700 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white dark:hover:border-white/50 dark:hover:bg-neutral-900/50 dark:bg-white/20",
-            )}
-          >
-            <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out  hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-[120px] ">
-              <span className="text-white">✨ Github</span>
-              <ArrowUpRight className="ml-1 size-3 text-white transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-            </AnimatedShinyText>
-          </div>
-        </div>
+          <span className="text-white whitespace-nowrap">✨ Github</span>
+          <ArrowUpRight className="ml-1 size-3 sm:size-4 text-white transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+        </AnimatedShinyText>
+      </div>
+    </div>
+
           </div>
 
           <BlurImage
@@ -257,7 +228,7 @@ export const Card = ({
             className="object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-55"
           />
         </motion.button>
-        
+
       </div>
     </>
   );
