@@ -201,26 +201,23 @@ export const Card = ({
             >
               {card.category}
             </motion.p>
-           
-              <div className="flex justify-center pt-4" onClick={redirectGithubLink}>
-                
-      <div
-        className={cn(
-          "group rounded-full border border-white/80 hover:border-white/50 hover:bg-neutral-900/50 bg-white/20 text-white transition-all ease-in hover:cursor-pointer",
-          "text-sm sm:text-base" // Smaller text on mobile, larger on larger screens
-        )}
-      >
-        <AnimatedShinyText 
-          className="inline-flex items-center justify-center px-3 py-1 sm:px-4 sm:py-2 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-full sm:w-[120px]"
-        >
-          <span className="text-white whitespace-nowrap">✨ Github</span>
-          <ArrowUpRight className="ml-1 size-3 sm:size-4 text-white transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-        </AnimatedShinyText>
-      </div>
-    </div>
-
+            
+            {/* GitHub button, hidden by default and appears on hover */}
+            <div className="flex justify-center pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" onClick={redirectGithubLink}>
+              <div
+                className="group rounded-full border border-white/80 hover:border-white/50 hover:bg-neutral-900/50 bg-white/20 text-white transition-all ease-in hover:cursor-pointer text-sm sm:text-base"
+              >
+                <AnimatedShinyText 
+                  className="inline-flex items-center justify-center px-3 py-1 sm:px-4 sm:py-2 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-full sm:w-[120px]"
+                >
+                  <span className="text-white whitespace-nowrap">✨ Github</span>
+                  <ArrowUpRight className="ml-1 size-3 sm:size-4 text-white transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                </AnimatedShinyText>
+              </div>
+            </div>
+  
           </div>
-
+  
           <BlurImage
             src={card.src}
             alt={card.title}
@@ -228,10 +225,10 @@ export const Card = ({
             className="object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-55"
           />
         </motion.button>
-
       </div>
     </>
   );
+  
 };
 
 
