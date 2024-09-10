@@ -29,7 +29,7 @@ export const ScrollToTopButton = () => {
     <Button
       aria-label='scroll to the top button'
       size='sm'
-      className={`text-xs text-white h-10 w-10 bg-transparent border-2 border-slate-700 backdrop-blur-md hover:bg-white/5 fixed bottom-4 right-4 rounded-full p-2 outline-none scrollToTheTop transition-opacity duration-300 ${
+      className={`text-xs text-white h-10 w-10 bg-black hover:bg-black/80 dark:bg-transparent border-2 border-slate-700 backdrop-blur-md dark:hover:bg-white/5 fixed bottom-4 right-4 rounded-full p-2 outline-none scrollToTheTop transition-opacity duration-300 ${
         isVisible ? 'showBtn' : 'opacity-0'
       }`}
       onClick={scrollToTop}

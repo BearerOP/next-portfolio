@@ -9,7 +9,7 @@ const socialLinks = [
         label: "Twitter",
     },
     {
-        href: "https://linkedin/in/yadavankit189",
+        href: "https://www.linkedin.com/in/yadavankit189/",
         label: "LinkedIn",
     },
     {
@@ -26,34 +26,36 @@ const socialLinks = [
     },
 ];
 
-const Footer = () => {
-    return (
-        <footer className="max-w-7xl mx-auto px-4 py-8">
-            <Separator className="my-4" />
-            <div className="flex h-10 items-center justify-center space-x-8 text-lg">
-                {socialLinks.map(({ href, label }, index) => (
-                    <React.Fragment key={index}>
-                        <Link
-                            href={href}
-                            target="_blank"
-                            className="opacity-70 font-bold flex items-center gap-2 relative group transition-opacity hover:opacity-100"
-                        >
-                            <span className="relative transition-transform duration-500 ease-in-out group-hover:-translate-x-2">
-                                {label}
-                            </span>
-                            <ArrowUpRight
-                                size={48}
-                                strokeWidth={1}
-                                className="absolute h-[22px] -right-8 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 dark:text-white text-black"
-                            />
-                        </Link>
-                        {index < socialLinks.length - 1 && <Separator orientation="vertical" />}
-                    </React.Fragment>
-                ))}
-            </div>
-            <Separator className="my-4" />
-        </footer>
-    );
-};
+function Footer() {
+  return (
+    <footer className="max-w-7xl mx-auto px-4 py-8">
+      <Separator className="my-4" />
+      <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+        {socialLinks.map(({ href, label }, index) => (
+          <React.Fragment key={index}>
+            <Link
+              href={href}
+              target="_blank"
+              className="opacity-70 font-bold flex items-center gap-2 relative group transition-opacity hover:opacity-100"
+            >
+              <span className="relative transition-transform duration-500 ease-in-out group-hover:-translate-x-2">
+                {label}
+              </span>
+              <ArrowUpRight
+                size={48}
+                strokeWidth={1}
+                className="absolute h-[22px] -right-8 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 dark:text-white text-black"
+              />
+            </Link>
+            {index < socialLinks.length - 1 && (
+              <Separator orientation="vertical" className="hidden sm:block h-6" />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+      <Separator className="my-4" />
+    </footer>
+  )
+}
 
 export default Footer;
