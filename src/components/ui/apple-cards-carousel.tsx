@@ -203,7 +203,7 @@ export const Card = ({
             </motion.p>
             
             {/* GitHub button, hidden by default and appears on hover */}
-            <div className="flex justify-center pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" onClick={redirectGithubLink}>
+            <div className="flex justify-start pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" onClick={redirectGithubLink}>
               <div
                 className="group rounded-full border border-white/80 hover:border-white/50 hover:bg-neutral-900/50 bg-white/20 text-white transition-all ease-in hover:cursor-pointer text-sm sm:text-base"
               >
