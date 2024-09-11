@@ -66,7 +66,7 @@ const data = [
     category: "API Monitoring",
     title: "Avadhi",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.09.27.png?alt=media&token=d7ae6831-77e0-41cb-9821-f6d345ae5645",
-    githubLink: "https://github.com/bearerOP/avadhi",
+    githubLink: "https://github.com/BearerOP/API-Monitoring-Frontend",
     liveLink: "https://up-status-xi.vercel.app",
   },
   {
