@@ -76,4 +76,11 @@ const data = [
     githubLink: "https://github.com/BearerOP/otp-generation-package",
     liveLink: "https://www.npmjs.com/package/otp-generation",
   },
+  {
+    category: "Health & Fitness Monitoring System",
+    title: "Swasthya",
+    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.10.23.png?alt=media&token=7b55cdc6-9df5-482f-9a2c-92da4949ae69",
+    githubLink: "https://github.com/BearerOP/Swasthya-backend",
+    liveLink: "",
+  },
 ];

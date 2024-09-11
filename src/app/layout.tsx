@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Manrope } from 'next/font/google';
-
 import "./globals.css";
 import { ThemeProvider } from "@/components/themeprovider";
 import Footer from "@/components/footer";
@@ -49,9 +48,6 @@ export default function RootLayout({
           <span>I</span>
           <span>T</span>
         </div> */}
-
-
-
         <ScrollToTopButton />
       </body>
     </html>
