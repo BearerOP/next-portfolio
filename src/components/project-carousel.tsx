@@ -49,11 +49,18 @@ export function ProjectCarousel() {
 
 const data = [
   {
-    category: "URL Shortener",
-    title: "Slug",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.09.08.png?alt=media&token=5d295480-e9b8-4e4d-ac2f-dc5cad22e191",
-    githubLink: "https://github.com/bearerOP/TheSlugProject",
-    liveLink: "https://theslug.netlify.app",
+    category: "Learning Management System ( LMS )",
+    title: "Gyan-Sagar",
+    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FWR0OsZCbE.png?alt=media&token=f66f7d5b-a12d-4757-854a-e62a767dee83",
+    githubLink: "https://github.com/BearerOP/gyansagar-client.git",
+    liveLink: "https://gyansagar-client.vercel.app/",
+  },
+  {
+    category: "API Monitoring",
+    title: "Avadhi",
+    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.09.27.png?alt=media&token=d7ae6831-77e0-41cb-9821-f6d345ae5645",
+    githubLink: "https://github.com/BearerOP/API-Monitoring-Frontend",
+    liveLink: "https://up-status-xi.vercel.app",
   },
   {
     category: "Web 3 Wallet",
@@ -63,11 +70,11 @@ const data = [
     liveLink: "https://dhanam.vercel.app",
   },
   {
-    category: "API Monitoring",
-    title: "Avadhi",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.09.27.png?alt=media&token=d7ae6831-77e0-41cb-9821-f6d345ae5645",
-    githubLink: "https://github.com/BearerOP/API-Monitoring-Frontend",
-    liveLink: "https://up-status-xi.vercel.app",
+    category: "URL Shortener",
+    title: "Slug",
+    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.09.08.png?alt=media&token=5d295480-e9b8-4e4d-ac2f-dc5cad22e191",
+    githubLink: "https://github.com/bearerOP/TheSlugProject",
+    liveLink: "https://theslug.netlify.app",
   },
   {
     category: "NPM Package",
@@ -79,7 +86,7 @@ const data = [
   {
     category: "Health & Fitness Monitoring System",
     title: "Swasthya",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.10.23.png?alt=media&token=7b55cdc6-9df5-482f-9a2c-92da4949ae69",
+    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2F5f4ebf8b732%20(1).png?alt=media&token=9bfd853f-de2e-4f7b-a163-1a948fc3a4a7",
     githubLink: "https://github.com/BearerOP/Swasthya-backend",
     liveLink: "",
   },
