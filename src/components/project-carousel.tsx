@@ -64,14 +64,14 @@ const data = [
     liveLink: "https://gyansagar-client.vercel.app/",
   },
   {
-    category: "API Monitoring",
+    category: "API Monitoring Dashboard",
     title: "Avadhi",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Favadhi.jpg?alt=media&token=27115960-b6fa-41d4-af7d-c54f693c767a",
     githubLink: "https://github.com/BearerOP/API-Monitoring-Frontend",
     liveLink: "https://avadhi.bearerop.tech/",
   },
   {
-    category: "Health & Fitness Monitoring System App (Backend)",
+    category: "Health & Fitness Monitoring System App (Backend only)",
     title: "Swasthya",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Fswasthya.jpg?alt=media&token=0d5e5117-c79d-4e43-b7e9-1cf0443c7d55",
     githubLink: "https://github.com/BearerOP/Swasthya-backend",
