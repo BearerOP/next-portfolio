@@ -1,31 +1,31 @@
-"use client";
+"use client"
 
-import React, { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react"
+import { motion } from "framer-motion"
 
 export default function TextHoverEffect({
   text,
   duration,
 }: {
-  text: string;
-  duration?: number;
+  text: string
+  duration?: number
 }) {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const [cursor, setCursor] = useState({ x: 0, y: 0 });
-  const [hovered, setHovered] = useState(false);
-  const [maskPosition, setMaskPosition] = useState({ cx: "50%", cy: "50%" });
+  const svgRef = useRef<SVGSVGElement>(null)
+  const [cursor, setCursor] = useState({ x: 0, y: 0 })
+  const [hovered, setHovered] = useState(false)
+  const [maskPosition, setMaskPosition] = useState({ cx: "50%", cy: "50%" })
 
   useEffect(() => {
     if (svgRef.current && cursor.x !== null && cursor.y !== null) {
-      const svgRect = svgRef.current.getBoundingClientRect();
-      const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100;
-      const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100;
+      const svgRect = svgRef.current.getBoundingClientRect()
+      const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100
+      const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100
       setMaskPosition({
         cx: `${cxPercentage}%`,
         cy: `${cyPercentage}%`,
-      });
+      })
     }
-  }, [cursor]);
+  }, [cursor])
 
   return (
     <svg
@@ -49,11 +49,11 @@ export default function TextHoverEffect({
         >
           {hovered && (
             <>
-              <stop offset="0%" stopColor="var(--yellow-500)" />
-              <stop offset="25%" stopColor="var(--red-500)" />
-              <stop offset="50%" stopColor="var(--blue-500)" />
-              <stop offset="75%" stopColor="var(--cyan-500)" />
-              <stop offset="100%" stopColor="var(--violet-500)" />
+              <stop offset="0%" stopColor="#fff" />
+              <stop offset="25%" stopColor="#fff" />
+              <stop offset="50%" stopColor="#fff" />
+              <stop offset="75%" stopColor="#fff" />
+              <stop offset="100%" stopColor="#fff" />
             </>
           )}
         </linearGradient>
@@ -84,8 +84,8 @@ export default function TextHoverEffect({
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.3"
-        className="font-[helvetica] font-bold stroke-neutral-200 dark:stroke-neutral-800/30 fill-transparent text-7xl"
-        style={{ opacity: hovered ? 0.7 : 0, strokeDasharray: ".5 .5" }}
+        className="font-[helvetica] font-bold stroke-neutral-200 dark:stroke-neutral-800/50 fill-transparent text-7xl"
+        style={{ opacity: hovered ? .51 : 0 }}
       >
         {text}
       </text>
@@ -117,10 +117,10 @@ export default function TextHoverEffect({
         strokeWidth="0.3"
         mask="url(#textMask)"
         className="font-[helvetica] font-bold fill-transparent text-7xl"
-        style={{ strokeDasharray: ".5 .5" }}
+        // style={{ strokeDasharray: ".5 .5" }}
       >
         {text}
       </text>
     </svg>
-  );
+  )
 }

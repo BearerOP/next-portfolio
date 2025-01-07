@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import TextHoverEffect from "@/components/ui/text-hover-effect";
 import { Toaster } from "@/components/ui/sonner";
+import TextSVG from "@/components/ui/text-hover-effect";
 
 const manrope = Manrope({ subsets: ['latin'] });
 
@@ -33,7 +34,7 @@ export default function RootLayout({
         </ThemeProvider>
 
         <Footer />
-        <TextHoverEffect text="ANKIT"/>
+        <TextSVG text="bearerop"/>
         {/* <div
           className="relative w-screen h-[35rem] overflow-hidden bg-gradient-to-b from-black to-gray-300/80 text-[395px] font-semibold leading-none dark:from-gray-300/30 dark:to-slate-900/10 text-background text-center flex items-center justify-between"
           style={{
