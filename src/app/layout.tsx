@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Manrope } from 'next/font/google';
 import "./globals.css";
 import { ThemeProvider } from "@/components/themeprovider";
+import Image from 'next/image';
 import Footer from "@/components/footer";
 import { ScrollToTopButton } from "@/components/scroll-to-top-button";
-import TextHoverEffect from "@/components/ui/text-hover-effect";
 import { Toaster } from "@/components/ui/sonner";
 import TextSVG from "@/components/ui/text-hover-effect";
 
@@ -30,6 +30,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+            {/* <div className="mx-auto w-full h-full flex justify-center items-center">
+            <Image width={1200} height={800} src="https://firebasestorage.googleapis.com/v0/b/smartkaksha-fe32c.appspot.com/o/opbento%2FBearerOP0591b.png?alt=media" alt="Ankit" />
+            </div> */}
           <Toaster />
         </ThemeProvider>
 
