@@ -61,7 +61,7 @@ const data = [
     title: "GyanSagar",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Fgyansagar.jpg?alt=media&token=d939d4e6-76eb-413e-828a-e3d789172c24",
     githubLink: "https://github.com/BearerOP/gyansagar-client.git",
-    liveLink: "https://gyansagar-client.vercel.app/",
+    liveLink: "https://gyansagar.bearerop.tech/",
   },
   {
     category: "API Monitoring Dashboard",
