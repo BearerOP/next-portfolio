@@ -21,7 +21,7 @@ const socialLinks = [
         label: "Mail",
     },
     {
-        href: "https://dub.sh/NdeEWE2",
+        href: "https://dub.sh/resume189",
         label: "Resume",
     },
 ];
