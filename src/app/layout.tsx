@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Manrope } from 'next/font/google';
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/themeprovider";
-import Image from 'next/image';
+import Image from "next/image";
 import Footer from "@/components/footer";
 import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
 import TextSVG from "@/components/ui/text-hover-effect";
 
-const manrope = Manrope({ subsets: ['latin'] });
+const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Ankit's Portfolio",
-  description: "A Personal portfolio of a Full Stack Developer.",
+  description: "Portfolio of a Full Stack Developer.",
   openGraph: {
     title: "Ankit's Portfolio",
-    description: "A Personal portfolio of a Full Stack Developer.",
+    description: "Portfolio of a Full Stack Developer.",
     url: "https://bearerop.tech",
     type: "website",
     images: [
@@ -31,10 +31,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@ankit_189", // Replace with your Twitter handle if available
     title: "Ankit's Portfolio",
-    description: "A Personal portfolio of a Full Stack Developer.",
-    images: [
-      "/images/cover.png",
-    ],
+    description: "Portfolio of a Full Stack Developer.",
+    images: ["/images/cover.png"],
   },
   icons: [
     {
@@ -67,14 +65,14 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-            {/* <div className="mx-auto w-full h-full flex justify-center items-center">
+          {/* <div className="mx-auto w-full h-full flex justify-center items-center">
             <Image width={1200} height={800} src="https://firebasestorage.googleapis.com/v0/b/smartkaksha-fe32c.appspot.com/o/opbento%2FBearerOP0591b.png?alt=media" alt="Ankit" />
             </div> */}
           <Toaster />
         </ThemeProvider>
 
         <Footer />
-        <TextSVG text="bearerop"/>
+        <TextSVG text="bearerop" />
         {/* <div
           className="relative w-screen h-[35rem] overflow-hidden bg-gradient-to-b from-black to-gray-300/80 text-[395px] font-semibold leading-none dark:from-gray-300/30 dark:to-slate-900/10 text-background text-center flex items-center justify-between"
           style={{
