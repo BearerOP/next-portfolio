@@ -14,13 +14,13 @@ export const metadata: Metadata = {
   title: "Ankit's Portfolio",
   description: "A Personal portfolio of a Full Stack Developer.",
   openGraph: {
-    url: "https://bearerop.tech",
-    type: "website",
     title: "Ankit's Portfolio",
     description: "A Personal portfolio of a Full Stack Developer.",
+    url: "https://bearerop.tech",
+    type: "website",
     images: [
       {
-        url: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FIMG_4874-3.jpg?alt=media&token=35d78679-3f58-4cee-909e-008d136f0280",
+        url: "/images/cover.png",
         width: 1200,
         height: 630,
         alt: "Ankit's Portfolio",
@@ -29,11 +29,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@yourTwitterHandle", // Replace with your Twitter handle if available
+    site: "@ankit_189", // Replace with your Twitter handle if available
     title: "Ankit's Portfolio",
     description: "A Personal portfolio of a Full Stack Developer.",
     images: [
-      "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FIMG_4874-3.jpg?alt=media&token=35d78679-3f58-4cee-909e-008d136f0280",
+      "/images/cover.png",
     ],
   },
   icons: [
