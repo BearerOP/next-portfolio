@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/themeprovider";
-import Image from "next/image";
 import Footer from "@/components/footer";
 import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
@@ -65,8 +64,8 @@ export const metadata: Metadata = {
       "/images/ankit-02.png",
       "/images/ankit-03.JPG",
       "/images/ankit-04.png",
-      "/images/bearer.jpg",
       "/images/ay.png",
+      "/images/bearer.jpg",
     ],
   },
   icons: {
