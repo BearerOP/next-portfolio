@@ -11,6 +11,7 @@ import TextSVG from "@/components/ui/text-hover-effect";
 const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bearerop.tech"),
   title: "Ankit Yadav - Full Stack Developer Portfolio",
   description: "Discover the diverse skills and projects of Ankit Yadav, an experienced full stack developer proficient in web development, software engineering, and more.",
   keywords: [
@@ -73,17 +74,17 @@ export const metadata: Metadata = {
         alt: "Ankit's Portfolio",
       },
       {
-        url: "/images/ay.png",
-        width: 800,
-        height: 418,
-        alt: "Ankit's Portfolio",
-      },
-      {
         url: "/images/bearer.jpg",
         width: 800,
         height: 418,
         alt: "Ankit's Portfolio",
       },      
+      {
+        url: "/images/ay.png",
+        width: 800,
+        height: 418,
+        alt: "Ankit's Portfolio",
+      },
     ],
   },
   twitter: {
@@ -91,7 +92,14 @@ export const metadata: Metadata = {
     site: "@ankit_189", // Replace with your Twitter handle if available
     title: "Ankit's Portfolio",
     description: "Portfolio of a Full Stack Developer.",
-    images: ["/images/cover.png"],
+    images: ["/images/cover.png",
+      "/images/ankit-01.jpg",
+      "/images/ankit-02.png",
+      "/images/ankit-03.JPG",
+      "/images/ankit-04.png",
+      "/images/bearer.jpg",
+      "/images/ay.png",
+    ],
   },
   icons: [
     {
