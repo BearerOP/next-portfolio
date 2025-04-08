@@ -11,11 +11,34 @@ import TextSVG from "@/components/ui/text-hover-effect";
 const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ankit's Portfolio",
-  description: "Portfolio of a Full Stack Developer.",
+  title: "Ankit Yadav - Full Stack Developer Portfolio",
+  description: "Discover the diverse skills and projects of Ankit Yadav, an experienced full stack developer proficient in web development, software engineering, and more.",
+  keywords: [
+    "ankit yadav",
+    "full stack developer",
+    "portfolio",
+    "web development",
+    "software engineering",
+    "javascript",
+    "typescript",
+    "react",
+    "nextjs",
+    "nodejs",
+    "express",
+    "mongodb",
+    "postgresql",
+    "css",
+    "html",
+    "tailwindcss",
+    "git",
+    "github",
+    "docker",
+    "aws",
+    "devops",
+  ],
   openGraph: {
-    title: "Ankit's Portfolio",
-    description: "Portfolio of a Full Stack Developer.",
+    title: "Ankit Yadav - Full Stack Developer Portfolio",
+    description: "Discover the diverse skills and projects of Ankit Yadav, an experienced full stack developer proficient in web development, software engineering, and more.",
     url: "https://bearerop.tech",
     type: "website",
     images: [
@@ -25,6 +48,42 @@ export const metadata: Metadata = {
         height: 630,
         alt: "Ankit's Portfolio",
       },
+      {
+        url: "/images/ankit-01.jpg",
+        width: 800,
+        height: 418,
+        alt: "Ankit's Portfolio",
+      },
+      {
+        url: "/images/ankit-02.png",
+        width: 800,
+        height: 418,
+        alt: "Ankit's Portfolio",
+      },
+      {
+        url: "/images/ankit-03.JPG",
+        width: 800,
+        height: 418,
+        alt: "Ankit's Portfolio",
+      },
+      {
+        url: "/images/ankit-04.png",
+        width: 800,
+        height: 418,
+        alt: "Ankit's Portfolio",
+      },
+      {
+        url: "/images/ay.png",
+        width: 800,
+        height: 418,
+        alt: "Ankit's Portfolio",
+      },
+      {
+        url: "/images/bearer.jpg",
+        width: 800,
+        height: 418,
+        alt: "Ankit's Portfolio",
+      },      
     ],
   },
   twitter: {
@@ -65,28 +124,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          {/* <div className="mx-auto w-full h-full flex justify-center items-center">
-            <Image width={1200} height={800} src="https://firebasestorage.googleapis.com/v0/b/smartkaksha-fe32c.appspot.com/o/opbento%2FBearerOP0591b.png?alt=media" alt="Ankit" />
-            </div> */}
           <Toaster />
         </ThemeProvider>
 
         <Footer />
         <TextSVG text="bearerop" />
-        {/* <div
-          className="relative w-screen h-[35rem] overflow-hidden bg-gradient-to-b from-black to-gray-300/80 text-[395px] font-semibold leading-none dark:from-gray-300/30 dark:to-slate-900/10 text-background text-center flex items-center justify-between"
-          style={{
-            WebkitTextStroke: '.85px transparent',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-          }}
-        >
-          <span>A</span>
-          <span>N</span>
-          <span>K</span>
-          <span>I</span>
-          <span>T</span>
-        </div> */}
         <ScrollToTopButton />
       </body>
     </html>
