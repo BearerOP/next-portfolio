@@ -20,9 +20,9 @@ export default function Home() {
           )}
         />
         <nav className="flex justify-between items-center p-4 flex-wrap gap-2">
-          <div className="flex items-center gap-2">
+          <h2 className="flex items-center gap-2">
             <Logo />
-          </div>
+          </h2>
 
           <ModeToggle />
         </nav>

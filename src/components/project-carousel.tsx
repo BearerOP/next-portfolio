@@ -12,7 +12,7 @@ export function ProjectCarousel() {
 
   return (
     <div className="w-full h-1/2 pt-8">
-      <h3 className="max-w-7xl pl-4 mx-auto text-xl md:text-2xl font-light text-neutral-800/80 dark:text-neutral-200/60 font-sans">
+      <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-2xl font-light text-neutral-800/80 dark:text-neutral-200/60 font-sans">
         <FadeText
           className="text-2xl font-bold"
           direction="up"
@@ -21,7 +21,7 @@ export function ProjectCarousel() {
           }}
           text="Hi! I'm Ankit Yadav."
         />
-      </h3>
+      </h2>
       <FadeText
         className="max-w-7xl pl-4 mx-auto text-3xl md:text-5xl font-bold text-neutral-800/90 dark:text-neutral-200/90 font-sans text-wrap"
         text="I create seamless full-stack web applications."
