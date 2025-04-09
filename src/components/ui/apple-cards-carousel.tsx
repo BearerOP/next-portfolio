@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
 import AnimatedShinyText from "../magicui/animated-shiny-text";
 import { ArrowUpRight } from "lucide-react";
+import useSound from "@/hooks/use-sound";
 
 interface CarouselProps {
   items: JSX.Element[];
@@ -43,6 +44,8 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const clickSound = useSound("/audio/click.wav");
+
   useEffect(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollLeft = initialScroll;
@@ -58,17 +61,20 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     }
   };
 
-  const scrollLeft = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
-  };
 
-  const scrollRight = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
-    }
-  };
+const scrollLeft = () => {
+  clickSound(); // 🔊 play on click
+  if (carouselRef.current) {
+    carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
+  }
+};
+
+const scrollRight = () => {
+  clickSound(); // 🔊 play on click
+  if (carouselRef.current) {
+    carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
+  }
+}
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
@@ -164,13 +170,16 @@ export const Card = ({
   layout?: boolean;
 }) => {
   const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const clickSound = useSound("/audio/click.wav");
   const redirectLiveLink = () => {
+    clickSound(); // 🔊
     if (card.liveLink) {
       window.open(card.liveLink, "_blank");
     }
   };
-
+  
   const redirectGithubLink = () => {
+    clickSound(); // 🔊
     if (card.githubLink) {
       window.open(card.githubLink, "_blank");
     }

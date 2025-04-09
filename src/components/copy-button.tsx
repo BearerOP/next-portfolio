@@ -5,21 +5,24 @@ import { Toast, ToastProvider } from "@/components/ui/toast"
 import { ClipboardCopyIcon } from 'lucide-react'
 import { toast } from "sonner"
 import { GlareCard } from './ui/glare-card'
+import useSound from '@/hooks/use-sound'
 
 export function CopyButton() {
   const [isCopied, setIsCopied] = useState(false)
+  const clickSound = useSound("/audio/click.wav");
 
 
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText('npm i -g ankit-cli && ankit')
       setIsCopied(true)
+      clickSound();
       toast(
         "Copied!",
         {
           description: "Make sure to run the command in your terminal.",
         })
-      setTimeout(() => setIsCopied(false), 2000)
+      setTimeout(() => setIsCopied(false), 3000)
     } catch (err) {
       toast("Error",
         {

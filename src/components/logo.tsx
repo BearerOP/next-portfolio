@@ -1,7 +1,11 @@
+"use client"
 import Link from 'next/link';
 import React from 'react'
 import * as motion from "framer-motion/client"
+import useSound from '@/hooks/use-sound';
 const Logo: React.FC = () => {
+
+  const clickSound = useSound("/audio/click.wav");
   return (
     <>
       <motion.div
@@ -14,7 +18,9 @@ const Logo: React.FC = () => {
           delay:.5
         }}
       >
-        <Link href={'/'} className='font-extrabold text-3xl dark:bg-white/80 dark:text-background bg-foreground/80 text-background size-[50px] leading-[1.35] rounded-lg text-center align-middle shadow-inner	
+        <Link href={'/'} onClick={()=>{
+          clickSound();
+        }} className='font-extrabold text-3xl dark:bg-white/80 dark:text-background bg-foreground/80 text-background size-[50px] leading-[1.35] rounded-lg text-center align-middle shadow-inner	
     '>
           ay.
           

@@ -4,10 +4,12 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Switch } from "@/components/ui/switch";
+import useSound from "@/hooks/use-sound";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
+  const clickSound = useSound("/audio/click.wav");
 
   React.useEffect(() => {
     setMounted(true);
@@ -21,6 +23,7 @@ export function ModeToggle() {
       window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   const handleThemeChange = (checked: boolean) => {
+   clickSound();
     setTheme(checked ? "dark" : "light");
   };
 

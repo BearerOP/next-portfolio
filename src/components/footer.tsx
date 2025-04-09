@@ -1,7 +1,9 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import { Separator } from "./ui/separator";
 import { ArrowUpRight } from 'tabler-icons-react';
+import useSound from "@/hooks/use-sound";
 
 const socialLinks = [
     {
@@ -27,6 +29,7 @@ const socialLinks = [
 ];
 
 function Footer() {
+  const clickSound = useSound("/audio/click.wav");
   return (
     <footer className="max-w-7xl mx-auto px-4 py-8">
       <Separator className="my-4" />
@@ -35,6 +38,7 @@ function Footer() {
           <React.Fragment key={index}>
             <Link
               href={href}
+              onClick={clickSound}
               target="_blank"
               className="opacity-70 font-bold flex items-center gap-2 relative group transition-opacity hover:opacity-100"
             >
