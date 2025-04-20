@@ -6,10 +6,7 @@ import React, {
   createContext,
   useContext,
 } from "react";
-import {
-  IconArrowNarrowLeft,
-  IconArrowNarrowRight,
-} from "@tabler/icons-react";
+import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
@@ -34,7 +31,7 @@ export const CarouselContext = createContext<{
   onCardClose: (index: number) => void;
   currentIndex: number;
 }>({
-  onCardClose: () => { },
+  onCardClose: () => {},
   currentIndex: 0,
 });
 
@@ -61,24 +58,23 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     }
   };
 
+  const scrollLeft = () => {
+    clickSound(); // 🔊 play on click
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  };
 
-const scrollLeft = () => {
-  clickSound(); // 🔊 play on click
-  if (carouselRef.current) {
-    carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
-  }
-};
-
-const scrollRight = () => {
-  clickSound(); // 🔊 play on click
-  if (carouselRef.current) {
-    carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
-  }
-}
+  const scrollRight = () => {
+    clickSound(); // 🔊 play on click
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  };
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
+      const cardWidth = isMobile() ? 230 : 384
       const gap = isMobile() ? 4 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
@@ -99,11 +95,13 @@ const scrollRight = () => {
   }, []);
 
   if (!mounted) {
-    return null; // Skip rendering on the server
+    return null;
   }
 
   return (
-    <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
+    <CarouselContext.Provider
+      value={{ onCardClose: handleCardClose, currentIndex }}
+    >
       <div className="relative w-full">
         <div
           className="flex w-full overflow-x-scroll overscroll-x-auto py-10 md:py-20 scroll-smooth [scrollbar-width:none]"
@@ -112,7 +110,12 @@ const scrollRight = () => {
         >
           <div className="absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l"></div>
 
-          <div className={cn("flex flex-row justify-start gap-4 pl-4", "max-w-7xl mx-auto")}>
+          <div
+            className={cn(
+              "flex flex-row justify-start gap-4 pl-4",
+              "max-w-7xl mx-auto"
+            )}
+          >
             {items.map((item, index) => (
               <motion.div
                 key={"card" + index}
@@ -127,11 +130,9 @@ const scrollRight = () => {
                     once: true,
                   },
                 }}
-
-                className="last:pr-[5%] md:last:pr-[33%] rounded-3xl transition-transform duration-500 hover:-translate-y-4"
+                className="last:pr-[5%] md:last:pr-[33%] rounded-3xl transition-transform duration-500 hover:-translate-y-4 cursor-pointer"
               >
                 <div className="transition-transform duration-500 hover:-translate-y-4">
-
                   {item}
                 </div>
               </motion.div>
@@ -177,7 +178,7 @@ export const Card = ({
       window.open(card.liveLink, "_blank");
     }
   };
-  
+
   const redirectGithubLink = () => {
     clickSound(); // 🔊
     if (card.githubLink) {
@@ -189,7 +190,7 @@ export const Card = ({
     <>
       <div className="relative group">
         {/* Container for hover opacity */}
-        <motion.button
+        <motion.div
           layoutId={layout ? `card-${card.title}` : undefined}
           onClick={redirectLiveLink}
           className="rounded-3xl bg-black dark:bg-neutral-900 h-[20rem] w-56 md:h-[33rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 transition-opacity duration-300 group-hover:[absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black opacity-100 group-hover:opacity-80 transition-opacity duration-300 z-20 pointer-events-none]"
@@ -210,37 +211,35 @@ export const Card = ({
             >
               {card.category}
             </motion.h2>
-            
             {/* GitHub button, hidden by default and appears on hover */}
-            <div className="flex justify-start pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" onClick={redirectGithubLink}>
+            <div className="flex justify-start pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 gap-2 z-[999]">
               <div
                 className="group rounded-full border border-white/80 hover:border-white/50 hover:bg-neutral-900/50 bg-white/20 text-white transition-all ease-in hover:cursor-pointer text-sm sm:text-base"
+                onClick={(e)=> {
+                  e.stopPropagation();
+                  redirectGithubLink();
+                }}
               >
-                <AnimatedShinyText 
-                  className="inline-flex items-center justify-center px-3 py-1 sm:px-4 sm:py-2 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-full sm:w-[120px]"
-                >
-                  <span className="text-white whitespace-nowrap">✨ Github</span>
+                <AnimatedShinyText className="inline-flex items-center justify-center px-3 py-1 sm:px-4 sm:py-2 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-full sm:w-[120px]">
+                  <span className="text-white whitespace-nowrap">
+                    ✨ Github
+                  </span>
                   <ArrowUpRight className="ml-1 size-3 sm:size-4 text-white transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
                 </AnimatedShinyText>
               </div>
             </div>
-  
           </div>
-  
           <BlurImage
             src={card.src}
             alt={card.title}
             fill
             className="object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-55"
           />
-        </motion.button>
+        </motion.div>
       </div>
     </>
   );
-  
 };
-
-
 
 export const BlurImage = ({
   height,
