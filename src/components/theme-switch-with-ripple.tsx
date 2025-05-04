@@ -1,5 +1,12 @@
 "use client";
 
+// 👇 Add this patch to tell TypeScript about startViewTransition
+declare global {
+  interface Document {
+    startViewTransition?: (callback: () => void) => void;
+  }
+}
+
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -27,7 +34,6 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
     audio.play();
   };
 
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -35,30 +41,34 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
   if (!mounted) {
     return null;
   }
-
   const handleChangeTheme = (
     newTheme: "light" | "dark",
     e: React.MouseEvent
   ) => {
     if (newTheme === theme) return;
-    if (!document.startViewTransition) {
+  
+    // Safe check using built-in DOM typing
+    if (typeof document.startViewTransition !== "function") {
       setTheme(newTheme);
       return;
     }
+  
     switchSound();
-
+  
     const x = e.clientX;
     const y = e.clientY;
     setRipple({ x, y });
-
+  
+    // TypeScript expects a ViewTransitionCallback
     document.startViewTransition(() => {
       setTheme(newTheme);
     });
-
+  
     setTimeout(() => {
-      setRipple(null); // Cleanup ripple
+      setRipple(null);
     }, 1000);
   };
+  
 
   return (
     <>
@@ -68,8 +78,7 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
         exit={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
         className={cn(
-          "relative flex h-10 w-14 items-center justify-between rounded-2xl border border-primary/10 bg-foreground/5 px-1 py-2    shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.03),0px_3px_3px_-1.5px_rgba(0,0,0,0.03)] hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)]" +
-          "dark:border-primary/10 dark:hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)]",
+          "relative flex h-10 w-14 items-center justify-between rounded-2xl border border-primary/10 bg-foreground/5 px-1 py-2 shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.03),0px_3px_3px_-1.5px_rgba(0,0,0,0.03)] hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)] dark:border-primary/10 dark:hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)]",
           className
         )}
       >
@@ -103,7 +112,7 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
         })}
       </motion.div>
 
-      {/* Full Page Ripple Portal */}
+      {/* Ripple transition animation */}
       {createPortal(
         <AnimatePresence>
           {ripple && (
