@@ -4,11 +4,13 @@ import { ModeToggle } from "@/components/theme-button";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
+import { GithubGraph } from "@/components/github";
+import { Navbar } from "@/components/navbar";
 
 export default function Home() {
   return (
     <>
-      <main className="max-w-7xl mx-auto flex flex-col gap-4 px-4 min-h-[92vh]">
+      <main className="max-w-5xl mx-auto flex flex-col gap-4 px-4 min-h-[92vh]">
         <DotPattern
           width={5}
           height={5}
@@ -19,13 +21,7 @@ export default function Home() {
             "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
           )}
         />
-        <nav className="flex justify-between items-center p-4 flex-wrap gap-2">
-          <h2 className="flex items-center gap-2">
-            <Logo />
-          </h2>
-
-          <ModeToggle />
-        </nav>
+      <Navbar />
 
         {/* Add responsive classes to the carousel */}
         <ProjectCarousel />

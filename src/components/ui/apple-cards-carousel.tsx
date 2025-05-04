@@ -41,7 +41,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const clickSound = useSound("/audio/click.wav");
+  const clickSound = useSound("/audio/button-click.wav");
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -112,7 +112,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
           <div
             className={cn(
-              "flex flex-row justify-start gap-4 pl-4",
+              "flex flex-row justify-start gap-4 ",
               "max-w-7xl mx-auto"
             )}
           >
@@ -171,7 +171,7 @@ export const Card = ({
   layout?: boolean;
 }) => {
   const { onCardClose, currentIndex } = useContext(CarouselContext);
-  const clickSound = useSound("/audio/click.wav");
+  const clickSound = useSound("/audio/button-click.wav");
   const redirectLiveLink = () => {
     clickSound(); // 🔊
     if (card.liveLink) {

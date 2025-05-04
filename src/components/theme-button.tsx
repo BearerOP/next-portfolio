@@ -5,11 +5,12 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Switch } from "@/components/ui/switch";
 import useSound from "@/hooks/use-sound";
+import { ThemeSwitch } from "./theme-switch-with-ripple";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
-  const clickSound = useSound("/audio/click.wav");
+  const clickSound = useSound("/audio/button-click.wav");
 
   React.useEffect(() => {
     setMounted(true);
@@ -29,16 +30,20 @@ export function ModeToggle() {
 
   return (
     <div className="flex items-center gap-2">
-      <Sun
+      {/* <Sun
         className={`h-5 w-5 ${isDarkMode ? "text-primary/50" : "text-primary"}`}
-      />
-      <Switch
+      /> */}
+      {/* <Switch
         checked={isDarkMode}
         onCheckedChange={handleThemeChange}
+      /> */}
+      <ThemeSwitch
+      // checked={isDarkMode}
+      // onCheckedChange={handleThemeChange}
       />
-      <Moon
+      {/* <Moon
         className={`h-5 w-5 ${isDarkMode ? "text-primary" : "text-primary/50"}`}
-      />
+      /> */}
     </div>
   );
 }

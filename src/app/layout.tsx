@@ -7,6 +7,16 @@ import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
 import TextSVG from "@/components/ui/text-hover-effect";
 
+import { Instrument_Serif } from 'next/font/google'
+
+const instrumentSerif = Instrument_Serif({
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-instrument-serif',
+})
+
+
 const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -110,7 +120,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={instrumentSerif.variable}>
       <head>
         <script
           type="application/ld+json"
@@ -143,7 +153,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <Toaster  />
+          <Toaster richColors />
         </ThemeProvider>
         <Footer />
         <TextSVG text="bearerop" />

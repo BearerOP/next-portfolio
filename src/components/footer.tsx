@@ -29,7 +29,7 @@ const socialLinks = [
 ];
 
 function Footer() {
-  const clickSound = useSound("/audio/click.wav");
+  const clickSound = useSound("/audio/button-click.wav");
   return (
     <footer className="max-w-7xl mx-auto px-4 py-8">
       <Separator className="my-4" />

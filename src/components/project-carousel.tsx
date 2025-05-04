@@ -1,37 +1,51 @@
 "use client";
 import React from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
-import { FadeText } from "./magicui/fade-text";
-import { CopyButton } from "./copy-button";
 import { motion } from "framer-motion";
+import { GithubGraph } from "./github";
+import SplitText from "./split-text";
+import { CustomButton } from "./custom-button";
 
 export function ProjectCarousel() {
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} layout={true} />
   ));
 
+
   return (
-    <div className="w-full h-1/2 pt-8">
-      <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-2xl font-light text-neutral-800/80 dark:text-neutral-200/60 font-sans">
-        <FadeText
-          className="text-2xl font-bold"
-          direction="up"
-          framerProps={{
-            show: { transition: { delay: 0.2, duration: 0.3 } },
-          }}
-          text="Hi! I'm Ankit Yadav."
+    <div className="w-full pt-8 space-y-6">
+      {/* Main Heading Section */}
+      <div className="max-w-7xl mx-auto px-4 flex  flex-col gap-2">
+          <SplitText
+            className="text-lg md:text-xl flex items-start w-fit font-sans font-normal text-zinc-900 dark:text-zinc-200"
+            description="Hi! I'm Ankit Yadav aka BearerOP"
+          />
+        <SplitText
+          className="text-2xl md:text-3xl w-full font-semibold text-neutral-800/90 dark:text-neutral-200/90 "
+          description="I build web applications that look good, feel fast, and work flawlessly across devices."
+        
         />
-      </h2>
-      <FadeText
-        className="max-w-7xl pl-4 mx-auto text-3xl md:text-5xl font-bold text-neutral-800/90 dark:text-neutral-200/90 font-sans text-wrap"
-        text="I create seamless full-stack web applications."
-        direction="up"
-        framerProps={{
-          show: { transition: { delay: 0.4, duration: 0.3 } },
-        }}
-      />
-      <motion.div
-        className="mt-6 pl-4 flex justify-start items-center  "
+          <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.7,
+            ease: "easeIn",
+            delay: 1,
+          }}
+          className="flex items-center justify-center w-fit mt-4">
+          <CustomButton textToCopy="npm i -g ankit-cli && ankit"/>
+          </motion.div>
+
+        {/* <SplitText
+          className="text-5xl w-full font-semibold text-neutral-800/90 dark:text-neutral-200/90 "
+          description="Here are some of my projects that I have built so far."
+        /> */}
+      </div>
+
+      {/* GitHub Graph + Copy Button Section */}
+      {/* <motion.div
+        className="max-w-7xl mx-auto px-4 flex justify-start items-center mt-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -40,13 +54,37 @@ export function ProjectCarousel() {
           delay: 0.6,
         }}
       >
-        <CopyButton />
-      </motion.div>
-      <Carousel items={cards} />
+        <div className="flex flex-col gap-4">
+          <div className="hidden md:block">
+            <GithubGraph
+              username="bearerop"
+              blockMargin={2}
+              lightColorPalette={[
+                "#1e1e2f",
+                "#5a3e7a",
+                "#7e5aa2",
+                "#a87cc3",
+                "#d9a9e6",
+              ]}
+              darkColorPalette={[
+                "#1e1e2f",
+                "#5a3e7a",
+                "#7e5aa2",
+                "#a87cc3",
+                "#d9a9e6",
+              ]}
+            />
+          </div>
+        </div>
+      </motion.div> */}
+
+      {/* Carousel */}
+      <div className="max-w-5xl mx-auto">
+        <Carousel items={cards} />
+      </div>
     </div>
   );
 }
-
 const data = [
   {
     category: "Link-in-bio web",
@@ -55,7 +93,7 @@ const data = [
     githubLink: "https://github.com/BearerOP/vraksh-project",
     liveLink: "https://vraksh.bearerop.tech/",
   },
-  
+
   {
     category: "Learning Management System ( LMS )",
     title: "GyanSagar",

@@ -9,7 +9,7 @@ import useSound from '@/hooks/use-sound'
 
 export function CopyButton() {
   const [isCopied, setIsCopied] = useState(false)
-  const clickSound = useSound("/audio/click.wav");
+  const clickSound = useSound("/audio/rizz.mp3");
 
 
   const copyToClipboard = async () => {
@@ -17,8 +17,9 @@ export function CopyButton() {
       await navigator.clipboard.writeText('npm i -g ankit-cli && ankit')
       setIsCopied(true)
       clickSound();
-      toast(
-        "Copied!",
+      toast.success(
+        "Command Copied!",
+
         {
           description: "Make sure to run the command in your terminal.",
         })
@@ -40,6 +41,8 @@ export function CopyButton() {
             ankit to clipboard"
             className="w-fit max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl"
             >
+
+              
           <GlareCard className=" w-full flex items-center justify-center font-mono text-sm space-x-2  dark:text-white text-white/70 dark:bg-slate-900 bg-slate-800" >
             <ClipboardCopyIcon className="h-4 w-4 sm:h-5 sm:w-5 text-white/70 dark:text-white " />
             <code className="font-mono text-xs sm:text-sm md:text-base text-white/70 dark:text-white">
