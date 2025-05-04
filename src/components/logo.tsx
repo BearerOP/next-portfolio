@@ -8,13 +8,15 @@ const Logo: React.FC = () => {
   return (
     <>
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ rotate: 360, scale: 1.2 }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1, rotate: 360 }}
+        whileHover={{ scale: 1.1, rotate: 0 }}
+        exit={{ opacity: 1 }}
         transition={{
           type: "spring",
-          stiffness: 360,
-          damping: 40,
-          delay: 0.5,
+          stiffness: 100,
+          duration: 0.2,
+          damping: 20,
         }}
       >
         <Link

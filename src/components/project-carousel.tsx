@@ -27,12 +27,12 @@ export function ProjectCarousel() {
         />
           <motion.div
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{
-            duration: 0.7,
-            ease: "easeIn",
-            delay: 1,
+            duration: 0.3,
           }}
+          whileHover={{ scale: 1.05 }}
+          exit={{ opacity: 1 }}
           className="flex items-center justify-center w-fit mt-4">
           <CustomButton textToCopy="npm i -g ankit-cli && ankit"/>
           </motion.div>

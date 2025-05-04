@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
 import { GithubGraph } from "@/components/github";
 import { Navbar } from "@/components/navbar";
+import Booker from "@/components/cta";
 
 export default function Home() {
   return (
@@ -21,9 +22,7 @@ export default function Home() {
             "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
           )}
         />
-      <Navbar />
-
-        {/* Add responsive classes to the carousel */}
+        <Navbar />
         <ProjectCarousel />
         <Toaster />
       </main>

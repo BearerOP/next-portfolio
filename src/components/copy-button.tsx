@@ -11,7 +11,6 @@ export function CopyButton() {
   const [isCopied, setIsCopied] = useState(false)
   const clickSound = useSound("/audio/rizz.mp3");
 
-
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText('npm i -g ankit-cli && ankit')
