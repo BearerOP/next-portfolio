@@ -7,15 +7,14 @@ import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
 import TextSVG from "@/components/ui/text-hover-effect";
 
-import { Instrument_Serif } from 'next/font/google'
+import { Instrument_Serif } from "next/font/google";
 
 const instrumentSerif = Instrument_Serif({
-  weight: ['400'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  variable: '--font-instrument-serif',
-})
-
+  weight: ["400"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-instrument-serif",
+});
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -54,13 +53,18 @@ export const metadata: Metadata = {
     url: "https://bearerop.tech",
     type: "website",
     images: [
-      { url: "/images/cover.png", width: 1200, height: 630, alt: "Ankit's Portfolio" },
-      { url: "/images/ankit-01.jpg", width: 800, height: 418, alt: "Ankit's Portfolio" },
-      { url: "/images/ankit-02.png", width: 800, height: 418, alt: "Ankit's Portfolio" },
-      { url: "/images/ankit-03.JPG", width: 800, height: 418, alt: "Ankit's Portfolio" },
-      { url: "/images/ankit-04.png", width: 800, height: 418, alt: "Ankit's Portfolio" },
-      { url: "/images/bearer.jpg", width: 800, height: 418, alt: "Ankit's Portfolio" },
-      { url: "/images/ay.png", width: 800, height: 418, alt: "Ankit's Portfolio" },
+      {
+        url: "/images/bearer.jpg",
+        width: 800,
+        height: 418,
+        alt: "Ankit's Portfolio",
+      },
+      {
+        url: "/images/ay.png",
+        width: 800,
+        height: 418,
+        alt: "Ankit's Portfolio",
+      },
     ],
   },
   twitter: {
@@ -69,13 +73,8 @@ export const metadata: Metadata = {
     title: "Ankit's Portfolio",
     description: "Portfolio of a Full Stack Developer.",
     images: [
-      "/images/cover.png",
-      "/images/ankit-01.jpg",
-      "/images/ankit-02.png",
-      "/images/ankit-03.JPG",
-      "/images/ankit-04.png",
-      "/images/ay.png",
       "/images/bearer.jpg",
+      "/images/ay.png",
     ],
   },
   icons: {
@@ -106,13 +105,22 @@ export const metadata: Metadata = {
   ],
   creator: "Ankit Yadav",
   publisher: "Ankit Yadav",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
-  ],
   category: "technology",
-  viewport: "width=device-width, initial-scale=1",
 };
+export const icons = {
+  icon: "/favicon.ico",
+  apple: "/apple-touch-icon.png",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
+export const themeColor = [
+  { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  { media: "(prefers-color-scheme: dark)", color: "#13151a" },
+];
 
 export default function RootLayout({
   children,
