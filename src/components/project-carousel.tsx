@@ -5,27 +5,28 @@ import { motion } from "framer-motion";
 import { GithubGraph } from "./github";
 import SplitText from "./split-text";
 import { CustomButton } from "./custom-button";
+import { AvatarIcon } from "@radix-ui/react-icons";
+import AvatarComponent from "./avatar-comp";
 
 export function ProjectCarousel() {
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} layout={true} />
   ));
 
-
   return (
     <div className="w-full pt-8 space-y-6">
       {/* Main Heading Section */}
-      <div className="max-w-7xl mx-auto px-4 flex  flex-col gap-2">
-          <SplitText
-            className="text-lg md:text-xl flex items-start w-fit font-sans font-normal text-zinc-900 dark:text-zinc-200"
-            description="Hi! I'm Ankit Yadav aka BearerOP"
-          />
+      <div className="max-w-7xl mx-auto px-4 flex gap-2">
+        <div>
+        <SplitText
+          className="text-lg md:text-xl flex items-start w-fit font-sans font-normal text-zinc-900 dark:text-zinc-200"
+          description="Hi! I'm Ankit Yadav aka BearerOP"
+        />
         <SplitText
           className="text-2xl md:text-3xl w-full font-semibold text-neutral-800/90 dark:text-neutral-200/90 "
           description="I build web applications that look good, feel fast, and work flawlessly across devices."
-        
         />
-          <motion.div
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{
@@ -33,10 +34,17 @@ export function ProjectCarousel() {
           }}
           whileHover={{ scale: 1.05 }}
           exit={{ opacity: 1 }}
-          className="flex items-center justify-center w-fit mt-4">
-          <CustomButton textToCopy="npm i -g ankit-cli && ankit"/>
-          </motion.div>
-
+          className="flex items-center justify-center w-fit mt-4"
+        >
+          <CustomButton textToCopy="npm i -g ankit-cli && ankit" />
+        </motion.div>
+        </div>
+        <div className="flex items-start justify-center min-w-[16rem] w-fit">
+          <div className="mt-4">
+          <AvatarComponent/>
+          </div>
+          
+          </div>
         {/* <SplitText
           className="text-5xl w-full font-semibold text-neutral-800/90 dark:text-neutral-200/90 "
           description="Here are some of my projects that I have built so far."
