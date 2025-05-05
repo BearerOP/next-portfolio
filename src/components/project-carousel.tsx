@@ -19,7 +19,7 @@ export function ProjectCarousel() {
       <div className="max-w-7xl mx-auto px-4 flex gap-2">
         <div>
         <SplitText
-          className="text-lg md:text-xl flex items-start w-fit font-sans font-normal text-zinc-900 dark:text-zinc-200"
+          className="text-lg md:text-xl flex items-start w-fit font-sans font-normal text-zinc-500 dark:text-zinc-400"
           description="Hi! I'm Ankit Yadav aka BearerOP"
         />
         <SplitText

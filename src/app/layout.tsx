@@ -6,8 +6,8 @@ import Footer from "@/components/footer";
 import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
 import TextSVG from "@/components/ui/text-hover-effect";
-
 import { Instrument_Serif } from "next/font/google";
+import { SplashLayout } from "@/components/splash-layout";
 
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
@@ -72,10 +72,7 @@ export const metadata: Metadata = {
     site: "@ankit_189",
     title: "Ankit's Portfolio",
     description: "Portfolio of a Full Stack Developer.",
-    images: [
-      "/images/bearer.jpg",
-      "/images/ay.png",
-    ],
+    images: ["/images/bearer.jpg", "/images/ay.png"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -107,6 +104,7 @@ export const metadata: Metadata = {
   publisher: "Ankit Yadav",
   category: "technology",
 };
+
 export const icons = {
   icon: "/favicon.ico",
   apple: "/apple-touch-icon.png",
@@ -153,19 +151,21 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={manrope.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster richColors />
-        </ThemeProvider>
-        <Footer />
-        <TextSVG text="bearerop" />
-        <ScrollToTopButton />
+      <body className={`${manrope.className} antialiased min-h-screen bg-background`}>
+        <SplashLayout>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster richColors />
+            <Footer />
+            <TextSVG text="bearerop" />
+            <ScrollToTopButton />
+          </ThemeProvider>
+        </SplashLayout>
       </body>
     </html>
   );

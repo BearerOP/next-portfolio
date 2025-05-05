@@ -40,6 +40,8 @@ export default function SplitText({ description, className }: SplitTextProps) {
         const text = word.textContent?.trim()
         if (text === "Ankit" || text === "Yadav" || text === "BearerOP") {
           word.classList.add("italic", "font-instrument")
+          word.classList.add("text-black")
+          word.classList.add("dark:text-white")
         }
         if (text === "aka") {
           word.classList.add("text-sm")

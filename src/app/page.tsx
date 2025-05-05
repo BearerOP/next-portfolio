@@ -24,7 +24,6 @@ export default function Home() {
         />
         <Navbar />
         <ProjectCarousel />
-        <Toaster />
       </main>
     </>
   );
