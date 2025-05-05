@@ -1,17 +1,65 @@
 "use client";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 import { motion } from "framer-motion";
-import { GithubGraph } from "./github";
 import SplitText from "./split-text";
 import { CustomButton } from "./custom-button";
-import { AvatarIcon } from "@radix-ui/react-icons";
 import AvatarComponent from "./avatar-comp";
+import ContributionsPage from "./graph";
+import { TwitterIcon } from "./ui/twitter-icon";
+import { MailCheckIcon } from "./ui/mail-icon";
+import { GithubIcon } from "./ui/github-icon";
+import { LinkedinIcon } from "./ui/linkedin-icon";
+import { ArchiveIcon } from "./archive-icon";
+import { VolumeIcon } from "./volume-icon";
 
 export function ProjectCarousel() {
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} layout={true} />
   ));
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const toggleSound = () => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio("/audio/click.mp3");
+      audioRef.current.loop = true;
+    }
+
+    const audio = audioRef.current;
+
+    if (audio.paused) {
+      audio.play();
+      setIsPlaying(true);
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const containerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+        staggerDirection: 1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 20 },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 25,
+      },
+    },
+  };
 
   return (
     <div className="w-full pt-8 space-y-6">
@@ -19,29 +67,17 @@ export function ProjectCarousel() {
       <div className="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row gap-2">
         <div className="flex flex-col gap-1 md:gap-2 items-start justify-center w-full">
           <SplitText
-            className="text-xl md:text-2xl flex items-start w-fit font-sans font-normal text-zinc-500 dark:text-zinc-400"
+            className="hover:font-thin transition-all duration-700 text-xl md:text-2xl flex items-start w-fit font-sans font-normal text-zinc-500 dark:text-zinc-400"
             description="Hi! I'm Ankit Yadav aka BearerOP"
           />
-            <SplitText
-              className="text-sm md:text-md w-fit font-semibold text-neutral-800/90 dark:text-neutral-200/70 "
-              description="21 • Rajasthan, IN • Web Developer/Designer"
-            />
           <SplitText
-            className="text-sm md:text-lg w-full font-semibold text-neutral-800/90 dark:text-neutral-200/90 "
+            className="text-sm md:text-md w-fit font-semibold text-neutral-800/90 dark:text-neutral-200/70 "
+            description="21 • Rajasthan, IN • Web Developer/Designer"
+          />
+          <SplitText
+            className="text-sm md:text-lg w-fit font-semibold text-neutral-800/90 dark:text-neutral-200/90 "
             description="I build web applications that look good, feel fast, and work flawlessly across devices."
           />
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.3,
-            }}
-            whileHover={{ scale: 1.05 }}
-            exit={{ opacity: 1 }}
-            className="flex items-center justify-center w-fit mt-4"
-          >
-            <CustomButton textToCopy="npm i -g ankit-cli && ankit" />
-          </motion.div>
         </div>
         <div className="flex items-start justify-center w-fit md:min-w-[16rem]">
           <div className="md:mt-4">
@@ -53,41 +89,71 @@ export function ProjectCarousel() {
           description="Here are some of my projects that I have built so far."
         /> */}
       </div>
+      <div className="flex items-center justify-between w-full gap-2 mt-4 px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.3,
+          }}
+          whileHover={{ scale: 1.1 }}
+          exit={{ opacity: 1 }}
+          className="flex items-center justify-center w-fit"
+        >
+          <CustomButton textToCopy="npm i -g ankit-cli && ankit" />
+        </motion.div>
 
-      {/* GitHub Graph + Copy Button Section */}
-      {/* <motion.div
-        className="max-w-7xl mx-auto px-4 flex justify-start items-center mt-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.3,
-          ease: "easeInOut",
-          delay: 0.6,
-        }}
-      >
-        <div className="flex flex-col gap-4">
-          <div className="hidden md:block">
-            <GithubGraph
-              username="bearerop"
-              blockMargin={2}
-              lightColorPalette={[
-                "#1e1e2f",
-                "#5a3e7a",
-                "#7e5aa2",
-                "#a87cc3",
-                "#d9a9e6",
-              ]}
-              darkColorPalette={[
-                "#1e1e2f",
-                "#5a3e7a",
-                "#7e5aa2",
-                "#a87cc3",
-                "#d9a9e6",
-              ]}
-            />
-          </div>
-        </div>
-      </motion.div> */}
+        <motion.div
+          className="flex items-center justify-center w-fit gap-2 md:pr-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+        >
+          {[
+            {
+              href: "https://x.com/ankit_189",
+              icon: <TwitterIcon size={16} />,
+            },
+            {
+              href: "https://linkedin.com/in/yadavankit189",
+              icon: <LinkedinIcon size={16} />,
+            },
+            {
+              href: "mailto:work.ankit189@gmail.com",
+              icon: <MailCheckIcon size={16} />,
+            },
+            {
+              href: "https://github.com/BearerOP",
+              icon: <GithubIcon size={16} />,
+            },
+            // {
+            //   onclick: "",
+            //   icon: <VolumeIcon size={16} />,
+            // },
+            {
+              href: "/resources",
+              icon: <ArchiveIcon size={16} />,
+            },
+          ].map(({ href, icon }, idx) => (
+            <motion.a
+              key={idx}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              variants={itemVariants}
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="border p-2 transition-all ease-in duration-75 whitespace-nowrap text-center select-none disabled:shadow-none disabled:opacity-50 disabled:cursor-not-allowed gap-x-1 active:shadow-none text-sm leading-5 rounded-xl text-neutral-700 bg-gray-200 dark:bg-gray-300  border-neutral-200  dark:border-neutral-300  dark:disabled:bg-neutral-00 dark:disabled:hover:bg-neutral-00 shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.03),0px_3px_3px_-1.5px_rgba(0,0,0,0.03)] hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)] dark:shadow-[0px_1px_1px_-0.5px_rgba(255,255,255,0.03),0px_3px_3px_-1.5px_rgba(255,255,255,0.03)] dark:hover:shadow-[0px_3px_3px_-1.5px_rgba(255,255,255,0.03),0px_6px_6px_-3px_rgba(255,255,255,0.03),0px_12px_12px_-6px_rgba(255,255,255,0.2)]"
+            >
+              {icon}
+            </motion.a>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* GitHub Graph */}
+      <ContributionsPage />
 
       {/* Carousel */}
       <div className="max-w-5xl mx-auto">
