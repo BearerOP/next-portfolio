@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 import TextSVG from "@/components/ui/text-hover-effect";
 import { Instrument_Serif } from "next/font/google";
 import { SplashLayout } from "@/components/splash-layout";
+import { AnimatedLayout } from "@/components/animated-layout";
 
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
@@ -153,6 +154,7 @@ export default function RootLayout({
       </head>
       <body className={`${manrope.className} antialiased min-h-screen bg-background`}>
         <SplashLayout>
+        <AnimatedLayout>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -165,6 +167,7 @@ export default function RootLayout({
             <TextSVG text="bearerop" />
             <ScrollToTopButton />
           </ThemeProvider>
+        </AnimatedLayout>
         </SplashLayout>
       </body>
     </html>

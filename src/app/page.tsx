@@ -11,6 +11,7 @@ import Booker from "@/components/cta";
 export default function Home() {
   return (
     <>
+    
       <main className="max-w-5xl mx-auto flex flex-col gap-4 px-4 min-h-[92vh]">
         <DotPattern
           width={5}
