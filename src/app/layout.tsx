@@ -55,9 +55,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/bearer.jpg",
-        width: 800,
-        height: 418,
+        url: "/images/og-twitter.png",
+        width: 1200,
+        height: 675,
         alt: "Ankit's Portfolio",
       },
       {
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     site: "@ankit_189",
     title: "Ankit's Portfolio",
     description: "Portfolio of a Full Stack Developer.",
-    images: ["/images/bearer.jpg", "/images/ay.png"],
+    images: ["/images/og-twitter.png","/images/bearer.jpg", "/images/ay.png"],
   },
   icons: {
     icon: "/favicon.ico",

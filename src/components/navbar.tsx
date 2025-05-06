@@ -1,10 +1,6 @@
-import { url } from "inspector";
 import Logo from "./logo";
-import Noise from "./magicui/noise";
 import { ModeToggle } from "./theme-button";
-import noise from "../public/images/noise.svg";
 import Booker from "./cta";
-import { Frame } from "./figma-button";
 
 export const Navbar = () => {
   return (
