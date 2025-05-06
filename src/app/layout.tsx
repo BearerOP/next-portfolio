@@ -59,13 +59,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 675,
         alt: "Ankit's Portfolio",
-      },
-      {
-        url: "/images/ay.png",
-        width: 800,
-        height: 418,
-        alt: "Ankit's Portfolio",
-      },
+      }
     ],
   },
   twitter: {
@@ -73,7 +67,7 @@ export const metadata: Metadata = {
     site: "@ankit_189",
     title: "Ankit's Portfolio",
     description: "Portfolio of a Full Stack Developer.",
-    images: ["/images/og-twitter.png","/images/bearer.jpg", "/images/ay.png"],
+    images: ["/images/og-twitter.png","/images/bearer.jpg"],
   },
   icons: {
     icon: "/favicon.ico",
