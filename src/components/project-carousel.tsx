@@ -77,7 +77,7 @@ export function ProjectCarousel() {
     <div className="w-full pt-8 space-y-6">
       {/* Main Heading Section */}
       <div className="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row gap-2">
-        <div className="flex flex-col gap-1 md:gap-2 items-start justify-center w-full">
+        <h1 className="flex flex-col gap-1 md:gap-2 items-start justify-center w-full">
           <SplitText
             className="hover:font-thin transition-all duration-700 text-xl md:text-2xl flex items-start w-fit font-sans font-normal text-zinc-500 dark:text-zinc-400"
             description="Hi! I'm Ankit Yadav aka BearerOP"
@@ -90,7 +90,7 @@ export function ProjectCarousel() {
             className="text-sm md:text-lg w-fit font-semibold text-neutral-800/90 dark:text-neutral-200/90 "
             description="I build web applications that look good, feel fast, and work flawlessly across devices."
           />
-        </div>
+        </h1>
         <div className="flex items-start justify-center w-fit md:min-w-[16rem]">
           <div className="md:mt-4">
             <AvatarComponent />
