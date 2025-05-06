@@ -37,6 +37,18 @@ export function ProjectCarousel() {
     }
   };
 
+  const hoverSound = () => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio("/audio/click_min.mp3");
+    }
+
+    const audio = audioRef.current;
+
+    audio.pause(); // Stop any ongoing playback
+    audio.currentTime = 0; // Reset to the beginning
+    audio.play(); // Play instantly
+  };
+
   const containerVariants = {
     hidden: {},
     show: {
@@ -138,13 +150,15 @@ export function ProjectCarousel() {
             <motion.a
               key={idx}
               href={href}
-              target="_blank"
+              target={href.startsWith("http") ? "_blank" : "_self"}
               rel="noopener noreferrer"
               variants={itemVariants}
               whileHover={{ scale: 1.15 }}
+              onHoverStart={hoverSound}
               whileTap={{ scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="border p-2 transition-all ease-in duration-75 whitespace-nowrap text-center select-none disabled:shadow-none disabled:opacity-50 disabled:cursor-not-allowed gap-x-1 active:shadow-none text-sm leading-5 rounded-xl text-neutral-700 bg-gray-200 dark:bg-gray-300  border-neutral-200  dark:border-neutral-300  dark:disabled:bg-neutral-00 dark:disabled:hover:bg-neutral-00 shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.03),0px_3px_3px_-1.5px_rgba(0,0,0,0.03)] hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)] dark:shadow-[0px_1px_1px_-0.5px_rgba(255,255,255,0.03),0px_3px_3px_-1.5px_rgba(255,255,255,0.03)] dark:hover:shadow-[0px_3px_3px_-1.5px_rgba(255,255,255,0.03),0px_6px_6px_-3px_rgba(255,255,255,0.03),0px_12px_12px_-6px_rgba(255,255,255,0.2)]"
+              className="border p-2 transition-all ease-in duration-75 whitespace-nowrap text-center select-none disabled:shadow-none disabled:opacity-50 disabled:cursor-not-allowed gap-x-1 active:shadow-none text-sm leading-5 rounded-xl text-neutral-700 dark:text-white/80 relative  overflow-hidden shadow-[inset_0px_4.35px_8.7px_#ffffff99,inset_0px_-4.35px_4px_#cccccc99,0px_7px_11.7px_#00000040]
+"
             >
               {icon}
             </motion.a>

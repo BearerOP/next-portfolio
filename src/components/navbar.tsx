@@ -4,6 +4,7 @@ import Noise from "./magicui/noise";
 import { ModeToggle } from "./theme-button";
 import noise from "../public/images/noise.svg";
 import Booker from "./cta";
+import { Frame } from "./figma-button";
 
 export const Navbar = () => {
   return (
@@ -21,7 +22,7 @@ export const Navbar = () => {
         <Logo />
       </div>
       <div className="flex items-center gap-2 h-12 relative">
-
+        {/* <Frame/> */}
       <Booker/>
       <ModeToggle />
       </div>

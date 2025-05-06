@@ -33,12 +33,12 @@ export const CustomButton = ({ textToCopy }: { textToCopy: string }) => {
       type="button"
       whileTap={{ scale: 0.9 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="w-fit  flex font-mono items-center justify-center font-semibold border transition-all ease-in duration-75 whitespace-nowrap text-center select-none disabled:shadow-none disabled:opacity-50 disabled:cursor-not-allowed gap-x-1 active:shadow-none text-sm leading-5 rounded-xl  h-8 px-4 text-neutral-700 bg-gray-200 dark:bg-gray-300  border-neutral-200  dark:border-neutral-300  dark:disabled:bg-neutral-00 dark:disabled:hover:bg-neutral-00 shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.03),0px_3px_3px_-1.5px_rgba(0,0,0,0.03)] hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)] dark:shadow-[0px_1px_1px_-0.5px_rgba(255,255,255,0.03),0px_3px_3px_-1.5px_rgba(255,255,255,0.03)] dark:hover:shadow-[0px_3px_3px_-1.5px_rgba(255,255,255,0.03),0px_6px_6px_-3px_rgba(255,255,255,0.03),0px_12px_12px_-6px_rgba(255,255,255,0.2)]"
+      className="w-fit  flex font-mono items-center justify-center font-semibold  border p-2 transition-all ease-in duration-75 whitespace-nowrap text-center select-none disabled:shadow-none disabled:opacity-50 disabled:cursor-not-allowed gap-x-1 active:shadow-none text-sm leading-5 rounded-xl text-neutral-700 dark:text-white/80 relative  overflow-hidden shadow-[inset_0px_4.35px_8.7px_#ffffff99,inset_0px_-4.35px_4px_#cccccc99,0px_7px_11.7px_#00000040]"
     >
       <span className="size-icon">
-        <ClipboardCopyIcon className="h-4 w-4 text-neutral-70" />
+        <ClipboardCopyIcon className="h-4 w-4" />
       </span>
-      <span className="text-neutral-700">
+      <span>
         npx ankit
       </span>
     </motion.button>

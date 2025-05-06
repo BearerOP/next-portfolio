@@ -79,7 +79,7 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
         exit={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
         className={cn(
-          "relative flex h-10 w-fit items-center justify-between rounded-2xl border border-primary/10 bg-foreground/5 px-1 py-2 shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.03),0px_3px_3px_-1.5px_rgba(0,0,0,0.03)] hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)] dark:border-primary/10 dark:hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)]",
+          "relative flex h-10 w-fit items-center justify-between rounded-2xl border border-primary/10 bg-foreground/5 px-1 py-2 shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.03),0px_3px_3px_-1.5px_rgba(0,0,0,0.03)] hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)] dark:border-primary/10 dark:hover:shadow-[0px_3px_3px_-1.5px_rgba(0,0,0,0.03),0px_6px_6px_-3px_rgba(0,0,0,0.03),0px_12px_12px_-6px_rgba(0,0,0,0.03)] ",
           className
         )}
       >
@@ -89,7 +89,7 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
             <button
               type="button"
               key={key}
-              className="relative px-1 h-6 w-2/3 rounded-xl cursor-pointer z-10"
+              className="relative px-1 h-6 w-2/3 rounded-xl cursor-pointer z-10 "
               onClick={(e) => handleChangeTheme(key as any, e)}
               aria-label={label}
             >
