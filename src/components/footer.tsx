@@ -7,7 +7,7 @@ import useSound from "@/hooks/use-sound";
 
 const socialLinks = [
     {
-        href: "https://x.com/ankit_189",
+        href: "https://x.com/ankit_twt",
         label: "Twitter",
     },
     {
