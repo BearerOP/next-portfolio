@@ -65,7 +65,7 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               {children}
-              <Toaster richColors />
+              <Toaster richColors closeButton />
               <Footer />
               <TextSVG text="bearerop" />
               <ScrollToTopButton />
