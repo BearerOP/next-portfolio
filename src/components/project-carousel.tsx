@@ -123,7 +123,7 @@ export function ProjectCarousel() {
         >
           {[
             {
-              href: "https://x.com/ankit_189",
+              href: "https://x.com/ankit_twt",
               icon: <TwitterIcon size={16} />,
             },
             {

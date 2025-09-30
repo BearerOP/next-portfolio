@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Metadata } from "next"
 import { Button } from "@/components/ui/button"
@@ -6,10 +6,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { AnimatedContainer } from "@/components/ui/animated-container"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-export const metadata: Metadata = {
-  title: "Button Documentation | Resources",
-  description: "Complete documentation for the Button component including usage, props, and examples.",
-}
+// export const metadata: Metadata = {
+//   title: "Button Documentation | Resources",
+//   description: "Complete documentation for the Button component including usage, props, and examples.",
+// }
 
 const codeExample = `import { Button } from "@/components/ui/button"
 
@@ -58,7 +58,7 @@ export default function ButtonDocsPage() {
             <CardHeader>
               <CardTitle>Basic Example</CardTitle>
               <CardDescription>
-                Here's a simple example of how to use the Button component.
+                Here&apos;s a simple example of how to use the Button component.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">

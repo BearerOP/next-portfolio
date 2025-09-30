@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { AnimatedContainer } from "@/components/ui/animated-container"
 
-export const metadata: Metadata = {
-  title: "Button Demo | Resources",
-  description: "Interactive demo of the Button component with various variants and states.",
-}
+// export const metadata: Metadata = {
+//   title: "Button Demo | Resources",
+//   description: "Interactive demo of the Button component with various variants and states.",
+// }
 
 const variants = [
   { name: "Default", variant: "default" },

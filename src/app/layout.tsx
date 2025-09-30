@@ -1,14 +1,17 @@
-import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
 import "./globals.css";
+import { Manrope, Instrument_Serif } from "next/font/google";
 import { ThemeProvider } from "@/components/themeprovider";
 import Footer from "@/components/footer";
 import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
 import TextSVG from "@/components/ui/text-hover-effect";
-import { Instrument_Serif } from "next/font/google";
-import { SplashLayout } from "@/components/splash-layout";
+import { ConditionalSplashLayout } from "@/components/conditional-splash-layout";
 import { AnimatedLayout } from "@/components/animated-layout";
+
+// metadata imports
+import { metadata, viewport, themeColor, icons } from "./metadata";
+
+export { metadata, viewport, themeColor, icons };
 
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
@@ -19,107 +22,11 @@ const instrumentSerif = Instrument_Serif({
 
 const manrope = Manrope({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://bearerop.tech"),
-  title: "Ankit Yadav - Full Stack Developer Portfolio",
-  description:
-    "Discover the diverse skills and projects of Ankit Yadav, an experienced full stack developer proficient in web development, software engineering, and more.",
-  keywords: [
-    "ankit yadav",
-    "full stack developer",
-    "portfolio",
-    "web development",
-    "software engineering",
-    "javascript",
-    "typescript",
-    "react",
-    "nextjs",
-    "nodejs",
-    "express",
-    "mongodb",
-    "postgresql",
-    "css",
-    "html",
-    "tailwindcss",
-    "git",
-    "github",
-    "docker",
-    "aws",
-    "devops",
-  ],
-  openGraph: {
-    title: "Ankit Yadav - Full Stack Developer Portfolio",
-    description:
-      "Discover the diverse skills and projects of Ankit Yadav, an experienced full stack developer proficient in web development, software engineering, and more.",
-    url: "https://bearerop.tech",
-    type: "website",
-    images: [
-      {
-        url: "/images/og-twitter.png",
-        width: 1200,
-        height: 675,
-        alt: "Ankit's Portfolio",
-      }
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@ankit_189",
-    title: "Ankit's Portfolio",
-    description: "Portfolio of a Full Stack Developer.",
-    images: ["/images/og-twitter.png","/images/bearer.jpg"],
-  },
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-  alternates: {
-    canonical: "https://bearerop.tech",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  authors: [
-    {
-      name: "Ankit Yadav",
-      url: "https://bearerop.tech",
-    },
-  ],
-  creator: "Ankit Yadav",
-  publisher: "Ankit Yadav",
-  category: "technology",
-};
-
-export const icons = {
-  icon: "/favicon.ico",
-  apple: "/apple-touch-icon.png",
-};
-
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-};
-
-export const themeColor = [
-  { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-  { media: "(prefers-color-scheme: dark)", color: "#13151a" },
-];
-
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className={instrumentSerif.variable}>
       <head>
@@ -131,11 +38,11 @@ export default function RootLayout({
               "@type": "Person",
               name: "Ankit Yadav",
               url: "https://bearerop.tech",
-              image: "https://bearerop.tech/images/cover.png",
+              image: "https://bearerop.tech/images/og-twitter.png",
               sameAs: [
                 "https://github.com/bearerop",
-                "https://linkedin.com/in/ankityadav189",
-                "https://twitter.com/ankit_189",
+                "https://linkedin.com/in/yadavankit189",
+                "https://twitter.com/ankit_twt",
               ],
               jobTitle: "Full Stack Developer",
               worksFor: {
@@ -146,23 +53,25 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${manrope.className} antialiased min-h-screen bg-background`}>
-        <SplashLayout>
-        <AnimatedLayout>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster richColors />
-            <Footer />
-            <TextSVG text="bearerop" />
-            <ScrollToTopButton />
-          </ThemeProvider>
-        </AnimatedLayout>
-        </SplashLayout>
+      <body
+        className={`${manrope.className} antialiased min-h-screen bg-background`}
+      >
+        <ConditionalSplashLayout>
+          <AnimatedLayout>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster richColors />
+              <Footer />
+              <TextSVG text="bearerop" />
+              <ScrollToTopButton />
+            </ThemeProvider>
+          </AnimatedLayout>
+        </ConditionalSplashLayout>
       </body>
     </html>
   );
