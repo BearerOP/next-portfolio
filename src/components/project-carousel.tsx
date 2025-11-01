@@ -182,7 +182,7 @@ const data = [
     title: "Vraksh",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2F632shots_so.png?alt=media&token=a79bac5e-b1aa-45e3-b989-85edceacaed4",
     githubLink: "https://github.com/BearerOP/vraksh-project",
-    liveLink: "https://vraksh.bearerop.tech/",
+    liveLink: "https://vraksh.bearerop.live/",
   },
 
   {
@@ -190,21 +190,21 @@ const data = [
     title: "GyanSagar",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Fgyansagar.jpg?alt=media&token=d939d4e6-76eb-413e-828a-e3d789172c24",
     githubLink: "https://github.com/BearerOP/gyansagar-client.git",
-    liveLink: "https://gyansagar.bearerop.tech/",
+    liveLink: "https://gyansagar.bearerop.live/",
   },
   {
     category: "Startup Website Clone @MagicUI",
     title: "MagicUI template",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Fstartup-template.jpg?alt=media&token=e20f0c2d-71d7-4736-8369-220d1b3c149d",
     githubLink: "https://github.com/BearerOP/startup-landing-page-nextjs",
-    liveLink: "https://startup-template.bearerop.tech/",
+    liveLink: "https://startup-template.bearerop.live/",
   },
   {
     category: "API Monitoring Dashboard",
     title: "Avadhi",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Favadhi.jpg?alt=media&token=27115960-b6fa-41d4-af7d-c54f693c767a",
     githubLink: "https://github.com/BearerOP/API-Monitoring-Frontend",
-    liveLink: "https://avadhi.bearerop.tech/",
+    liveLink: "https://avadhi.bearerop.live/",
   },
   {
     category: "Health & Fitness Monitoring System App (Backend only)",
@@ -225,7 +225,7 @@ const data = [
     title: "Dhanam",
     src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.10.10.png?alt=media&token=7df4bc7e-1bea-4b1b-a9d6-809a574f1b87",
     githubLink: "https://github.com/bearerOP/dhanam",
-    liveLink: "https://dhanam.bearerop.tech/",
+    liveLink: "https://dhanam.bearerop.live/",
   },
   {
     category: "URL Shortener",

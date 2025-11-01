@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bearerop.tech"),
+  metadataBase: new URL("https://bearerop.live"),
   title: "Ankit Yadav - Full Stack Developer Portfolio",
   description:
     "Discover the diverse skills and projects of Ankit Yadav, an experienced full stack developer proficient in web development, software engineering, and more.",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Ankit Yadav - Full Stack Developer Portfolio",
     description:
       "Discover the diverse skills and projects of Ankit Yadav, an experienced full stack developer proficient in web development, software engineering, and more.",
-    url: "https://bearerop.tech",
+    url: "https://bearerop.live",
     type: "website",
     images: [
       {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   alternates: {
-    canonical: "https://bearerop.tech",
+    canonical: "https://bearerop.live",
   },
   robots: {
     index: true,
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Ankit Yadav",
-      url: "https://bearerop.tech",
+      url: "https://bearerop.live",
     },
   ],
   creator: "Ankit Yadav",

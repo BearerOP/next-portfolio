@@ -3,7 +3,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-      domains: ['images.unsplash.com', 'assets.aceternity.com','firebasestorage.googleapis.com','ghchart.rshah.org'], // Replace with your allowed domains
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'images.unsplash.com',
+        },
+        {
+          protocol: 'https',
+          hostname: 'assets.aceternity.com',
+        },
+        {
+          protocol: 'https',
+          hostname: 'firebasestorage.googleapis.com',
+        },
+        {
+          protocol: 'https',
+          hostname: 'ghchart.rshah.org',
+        },
+      ],
       deviceSizes: [640, 768, 1024, 1280, 1600], // Configure breakpoints for responsive images
       imageSizes: [16, 32, 48, 64, 96,128,144,196], // Additional sizes for images
     },
