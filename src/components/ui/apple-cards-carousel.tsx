@@ -221,10 +221,10 @@ export const Card = ({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Mouse Follower Pointer */}
+        {/* Mouse Follower Pointer - Hidden on mobile */}
         {isHovered && card.liveLink && !isButtonHovered && (
           <motion.div
-            className="absolute pointer-events-none z-50"
+            className="absolute pointer-events-none z-50 hidden md:block"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{
               opacity: 1,

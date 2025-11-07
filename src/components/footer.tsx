@@ -102,8 +102,8 @@ function Footer() {
             transition: 'opacity 2s ease-out',
           }}
         >
-          <div className="h-full relative -bottom-[6vh] flex items-end justify-center">
-            <h2 className="align-bottom text-[12vw] sm:text-[15vw] md:text-[18vw] lg:text-[18vw] font-black tracking-tighter text-white/50 dark:text-white/30 select-none leading-none">
+          <div className="h-full relative -bottom-[1.2rem] lg:-bottom-[2rem] flex items-end justify-center">
+            <h2 className="align-bottom text-[124px] sm:text-[96px] md:text-[18vw] lg:text-[18vw] font-black tracking-tighter text-white/50 dark:text-white/30 select-none leading-none">
               bearer
             </h2>
           </div>
