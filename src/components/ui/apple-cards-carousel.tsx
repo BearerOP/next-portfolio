@@ -10,9 +10,9 @@ import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
-import AnimatedShinyText from "../magicui/animated-shiny-text";
 import { ArrowUpRight } from "lucide-react";
 import useSound from "@/hooks/use-sound";
+import { GithubIcon } from "./github-icon";
 
 interface CarouselProps {
   items: JSX.Element[];
@@ -142,18 +142,18 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
         <div className="flex justify-end gap-2 mr-10">
           <button
-            className="relative h-10 w-10 rounded-full hover:bg-gray-800 flex items-center justify-center disabled:opacity-50"
+            className="relative h-10 w-10 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 flex items-center justify-center disabled:opacity-30 transition-all duration-200 ease-in-out hover:scale-105 active:scale-95 border border-gray-200 dark:border-gray-700"
             onClick={scrollLeft}
             disabled={!canScrollLeft}
           >
-            <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
+            <IconArrowNarrowLeft className="h-6 w-6 text-gray-700 dark:text-gray-300 transition-colors duration-200" />
           </button>
           <button
-            className="relative h-10 w-10 rounded-full hover:bg-gray-800 flex items-center justify-center disabled:opacity-50"
+            className="relative h-10 w-10 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 flex items-center justify-center disabled:opacity-30 transition-all duration-200 ease-in-out hover:scale-105 active:scale-95 border border-gray-200 dark:border-gray-700"
             onClick={scrollRight}
             disabled={!canScrollRight}
           >
-            <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
+            <IconArrowNarrowRight className="h-6 w-6 text-gray-700 dark:text-gray-300 transition-colors duration-200" />
           </button>
         </div>
       </div>
@@ -172,6 +172,11 @@ export const Card = ({
 }) => {
   const { onCardClose, currentIndex } = useContext(CarouselContext);
   const clickSound = useSound("/audio/button-click.wav");
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
   const redirectLiveLink = () => {
     clickSound(); // 🔊
     if (card.liveLink) {
@@ -186,9 +191,74 @@ export const Card = ({
     }
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (cardRef.current) {
+      const rect = cardRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    }
+  };
+
+  // Extract domain from liveLink for favicon
+  const getFaviconUrl = () => {
+    if (!card.liveLink) return null;
+    try {
+      const url = new URL(card.liveLink);
+      return `https://www.google.com/s2/favicons?domain=${url.hostname}&sz=32`;
+    } catch {
+      return null;
+    }
+  };
+
   return (
     <>
-      <div className="relative group">
+      <div
+        ref={cardRef}
+        className="relative group"
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Mouse Follower Pointer - Hidden on mobile */}
+        {isHovered && card.liveLink && !isButtonHovered && (
+          <motion.div
+            className="absolute pointer-events-none z-50 hidden md:block"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              x: mousePosition.x + 15,
+              y: mousePosition.y + 15,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 28,
+              mass: 0.5,
+            }}
+          >
+            <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-black/40 dark:bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl">
+              {getFaviconUrl() && (
+                <img
+                  src={getFaviconUrl()!}
+                  alt=""
+                  className="w-4 h-4 rounded-sm"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              )}
+              <span className="text-xs font-medium text-white whitespace-nowrap">
+                Visit - {' '}
+                <span className="font-bold">{card.title}</span>
+              </span>
+              <ArrowUpRight className="w-3 h-3 text-white/80" />
+            </div>
+          </motion.div>
+        )}
+
         {/* Container for hover opacity */}
         <motion.div
           layoutId={layout ? `card-${card.title}` : undefined}
@@ -196,7 +266,7 @@ export const Card = ({
           className="rounded-3xl bg-black dark:bg-neutral-900 h-[20rem] w-56 md:h-[33rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 transition-opacity duration-300 group-hover:[absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black opacity-100 group-hover:opacity-80 transition-opacity duration-300 z-20 pointer-events-none]"
         >
           {/* Overlay gradient */}
-          <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
+          <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none rounded-3xl" />
           {/* Text content */}
           <div className="relative z-40 p-8">
             <motion.h2
@@ -213,27 +283,39 @@ export const Card = ({
             </motion.h2>
             {/* GitHub button, hidden by default and appears on hover */}
             <div className="flex justify-start pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 gap-2 z-[999]">
-              <div
-                className="group rounded-full border border-white/80 hover:border-white/50 hover:bg-neutral-900/50 bg-white/20 text-white transition-all ease-in hover:cursor-pointer text-sm sm:text-base"
+              <motion.button
+                onMouseEnter={() => setIsButtonHovered(true)}
+                onMouseLeave={() => setIsButtonHovered(false)}
+                whileTap={{ scale: 0.95 }}
+                className="relative overflow-hidden rounded-full border border-white/60 hover:border-white/90 hover:bg-white/10 bg-white/5 text-white transition-all duration-300 hover:cursor-pointer backdrop-blur-sm"
                 onClick={(e)=> {
                   e.stopPropagation();
                   redirectGithubLink();
                 }}
               >
-                <AnimatedShinyText className="inline-flex items-center justify-center px-3 py-1 sm:px-4 sm:py-2 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 z-50 w-full sm:w-[120px]">
-                  <span className="text-white whitespace-nowrap">
-                    ✨ Github
-                  </span>
-                  <ArrowUpRight className="ml-1 size-3 sm:size-4 text-white transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-                </AnimatedShinyText>
-              </div>
+                <div className="flex items-center gap-2 px-3 py-2">
+                  <GithubIcon size={12} className="text-white flex-shrink-0" />
+                  <span className="text-sm font-medium whitespace-nowrap">Github</span>
+                  <motion.div
+                    animate={{
+                      width: isButtonHovered ? "auto" : 0,
+                      opacity: isButtonHovered ? 1 : 0,
+                      marginLeft: isButtonHovered ? "0.125rem" : 0,
+                    }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="overflow-hidden flex items-center"
+                  >
+                    <ArrowUpRight className="size-4 text-white flex-shrink-0" />
+                  </motion.div>
+                </div>
+              </motion.button>
             </div>
           </div>
           <BlurImage
             src={card.src}
             alt={card.title}
             fill
-            className="object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-55"
+            className="object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-55 rounded-3xl"
           />
         </motion.div>
       </div>

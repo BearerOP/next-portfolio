@@ -37,7 +37,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Ankit Yadav",
-              url: "https://bearerop.tech",
+              url: "https://bearerop.live",
               image: "https://bearerop.tech/images/og-twitter.png",
               sameAs: [
                 "https://github.com/bearerop",
@@ -65,10 +65,10 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               {children}
-              <Toaster richColors />
-              <Footer />
-              <TextSVG text="bearerop" />
+              <Toaster richColors closeButton />
+              {/* <TextSVG text="bearerop" /> */}
               <ScrollToTopButton />
+              <Footer />
             </ThemeProvider>
           </AnimatedLayout>
         </ConditionalSplashLayout>

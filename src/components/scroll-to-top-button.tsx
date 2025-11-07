@@ -29,12 +29,12 @@ export const ScrollToTopButton = () => {
     <Button
       aria-label='scroll to the top button'
       size='sm'
-      className={`text-xs text-white h-10 w-10 bg-black hover:bg-black/80 dark:bg-transparent border-2 border-slate-700 backdrop-blur-md dark:hover:bg-white/5 fixed bottom-4 right-4 rounded-full p-2 outline-none scrollToTheTop transition-opacity duration-300 ${
-        isVisible ? 'showBtn' : 'opacity-0'
+      className={`text-xs h-10 w-10 bg-gray-100 hover:bg-gray-200 dark:bg-transparent border-2 border-gray-300 dark:border-slate-700 backdrop-blur-md dark:hover:bg-white/5 fixed bottom-4 right-4 rounded-full p-2 outline-none scrollToTheTop transition-all duration-300 hover:scale-110 active:scale-95 text-gray-700 dark:text-white ${
+        isVisible ? 'showBtn opacity-100' : 'opacity-0'
       }`}
       onClick={scrollToTop}
     >
-      <ChevronUp />
+      <ChevronUp className="transition-transform duration-200" />
     </Button>
   )
 }
