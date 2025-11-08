@@ -4,26 +4,27 @@ import React, { useEffect, useRef, useState } from "react";
 import { Separator } from "./ui/separator";
 import { ArrowUpRight } from 'tabler-icons-react';
 import useSound from "@/hooks/use-sound";
+import { contactInfo, personalInfo } from "@/lib/resume";
 
 const socialLinks = [
     {
-        href: "https://x.com/ankit_twt",
+        href: contactInfo.twitter,
         label: "Twitter",
     },
     {
-        href: "https://www.linkedin.com/in/yadavankit189/",
+        href: contactInfo.linkedin,
         label: "LinkedIn",
     },
     {
-        href: "https://github.com/BearerOP",
+        href: contactInfo.github,
         label: "Github",
     },
     {
-        href: "mailto:work.ankit189@gmail.com",
+        href: `mailto:${contactInfo.email}`,
         label: "Mail",
     },
     {
-        href: "https://dub.sh/resume189",
+        href: personalInfo.resumeUrl,
         label: "Resume",
     },
 ];
@@ -59,7 +60,7 @@ function Footer() {
     <>
       <footer className="max-w-7xl mx-auto px-4 py-8">
         <Separator className="my-4" />
-        <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-8">
           {socialLinks.map(({ href, label }, index) => (
             <React.Fragment key={index}>
               <Link

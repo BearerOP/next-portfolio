@@ -12,6 +12,7 @@ import { GithubIcon } from "./ui/github-icon";
 import { LinkedinIcon } from "./ui/linkedin-icon";
 import { ArchiveIcon } from "./archive-icon";
 import { VolumeIcon } from "./volume-icon";
+import { projects } from "@/lib/resume";
 
 export function ProjectCarousel() {
   const cards = data.map((card, index) => (
@@ -176,69 +177,11 @@ export function ProjectCarousel() {
     </div>
   );
 }
-const data = [
-  {
-    category: "Link-in-bio web",
-    title: "Vraksh",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2F632shots_so.png?alt=media&token=a79bac5e-b1aa-45e3-b989-85edceacaed4",
-    githubLink: "https://github.com/BearerOP/vraksh-project",
-    liveLink: "https://vraksh.bearerop.live/",
-  },
-
-  {
-    category: "Learning Management System ( LMS )",
-    title: "GyanSagar",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Fgyansagar.jpg?alt=media&token=d939d4e6-76eb-413e-828a-e3d789172c24",
-    githubLink: "https://github.com/BearerOP/gyansagar-client.git",
-    liveLink: "https://gyansagar.bearerop.live/",
-  },
-  {
-    category: "Startup Website Clone @MagicUI",
-    title: "MagicUI template",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Fstartup-template.jpg?alt=media&token=e20f0c2d-71d7-4736-8369-220d1b3c149d",
-    githubLink: "https://github.com/BearerOP/startup-landing-page-nextjs",
-    liveLink: "https://startup-template.bearerop.live/",
-  },
-  {
-    category: "API Monitoring Dashboard",
-    title: "Avadhi",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Favadhi.jpg?alt=media&token=27115960-b6fa-41d4-af7d-c54f693c767a",
-    githubLink: "https://github.com/BearerOP/API-Monitoring-Frontend",
-    liveLink: "https://avadhi.bearerop.live/",
-  },
-  {
-    category: "Health & Fitness Monitoring System App (Backend only)",
-    title: "Swasthya",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Fswasthya.jpg?alt=media&token=0d5e5117-c79d-4e43-b7e9-1cf0443c7d55",
-    githubLink: "https://github.com/BearerOP/Swasthya-backend",
-    liveLink: "",
-  },
-  {
-    category: "Food Order & Delivery App - (Backend only)",
-    title: "FoodPlanet",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FfoodPlanet.jpg?alt=media&token=cabaf9f7-e520-478c-ad2d-4ec34f061ee2",
-    githubLink: "https://github.com/BearerOP/food-delivery-app",
-    liveLink: "https://www.youtube.com/watch?v=oRNMadW335g",
-  },
-  {
-    category: "Web 3 Wallet",
-    title: "Dhanam",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.10.10.png?alt=media&token=7df4bc7e-1bea-4b1b-a9d6-809a574f1b87",
-    githubLink: "https://github.com/bearerOP/dhanam",
-    liveLink: "https://dhanam.bearerop.live/",
-  },
-  {
-    category: "URL Shortener",
-    title: "Slug",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2Fslug.jpg?alt=media&token=adb0c27d-2a2d-4795-8127-5d0c13cd615e",
-    githubLink: "https://github.com/bearerOP/TheSlugProject",
-    liveLink: "https://theslug.netlify.app",
-  },
-  {
-    category: "NPM Package",
-    title: "OTP generation package",
-    src: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2FScreenshot%202024-08-29%20at%2009.10.23.png?alt=media&token=7b55cdc6-9df5-482f-9a2c-92da4949ae69",
-    githubLink: "https://github.com/BearerOP/otp-generation-package",
-    liveLink: "https://www.npmjs.com/package/otp-generation",
-  },
-];
+// Transform resume project data to match the carousel's expected format
+const data = projects.map(project => ({
+  category: project.category,
+  title: project.title,
+  src: project.image,
+  githubLink: project.githubUrl,
+  liveLink: project.liveUrl,
+}));

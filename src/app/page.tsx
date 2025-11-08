@@ -2,6 +2,7 @@ import { ProjectCarousel } from "@/components/project-carousel";
 import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
 import { Navbar } from "@/components/navbar";
+import { WorkExperience } from "@/components/work-experience";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         />
         <Navbar />
         <ProjectCarousel />
+        <WorkExperience />
       </main>
     </>
   );

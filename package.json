@@ -19,6 +19,7 @@
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-toast": "^1.2.1",
     "@tabler/icons-react": "^3.14.0",
+    "caniuse-lite": "^1.0.30001754",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
