@@ -31,7 +31,7 @@ export const CarouselContext = createContext<{
   onCardClose: (index: number) => void;
   currentIndex: number;
 }>({
-  onCardClose: () => {},
+  onCardClose: () => { },
   currentIndex: 0,
 });
 
@@ -225,7 +225,10 @@ export const Card = ({
         {isHovered && card.liveLink && !isButtonHovered && (
           <motion.div
             className="absolute pointer-events-none z-50 hidden md:block"
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{
+              opacity: 0, scale: 0.8, x: mousePosition.x + 15,
+              y: mousePosition.y + 15,
+            }}
             animate={{
               opacity: 1,
               scale: 1,
@@ -234,7 +237,7 @@ export const Card = ({
             }}
             transition={{
               type: "spring",
-              stiffness: 400,
+              stiffness: 300,
               damping: 28,
               mass: 0.5,
             }}
@@ -288,7 +291,7 @@ export const Card = ({
                 onMouseLeave={() => setIsButtonHovered(false)}
                 whileTap={{ scale: 0.95 }}
                 className="relative overflow-hidden rounded-full border border-white/60 hover:border-white/90 hover:bg-white/10 bg-white/5 text-white transition-all duration-300 hover:cursor-pointer backdrop-blur-sm"
-                onClick={(e)=> {
+                onClick={(e) => {
                   e.stopPropagation();
                   redirectGithubLink();
                 }}
