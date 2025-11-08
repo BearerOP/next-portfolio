@@ -81,11 +81,6 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-export const icons = {
-  icon: "/favicon.ico",
-  apple: "/apple-touch-icon.png",
-};
-
 export const viewport = {
   width: "device-width",
   initialScale: 1,
