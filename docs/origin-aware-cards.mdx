@@ -1,0 +1,236 @@
+# Origin Aware Cards
+
+An interactive card component with origin-aware animations powered by Framer Motion.
+
+## Overview
+
+The Origin Aware Cards component uses Framer Motion's `layoutId` feature to create smooth, origin-aware transitions. When a card is clicked, it seamlessly expands from its original position to a centered modal view, maintaining visual continuity throughout the animation.
+
+## Features
+
+- ✨ **Origin-aware animations** - Cards expand from their exact position using shared layout animations
+- 🎨 **Customizable colors** - Set different colors for collapsed and expanded states
+- 🌓 **Dark mode support** - Fully styled for both light and dark themes
+- ⌨️ **Keyboard accessible** - Full keyboard navigation with ESC to close
+- 📱 **Responsive** - Works seamlessly across all device sizes
+- 🎯 **Backdrop blur** - Elegant backdrop overlay with blur effect
+- 🔄 **Smooth transitions** - Powered by Framer Motion's layout animations
+
+## Installation
+
+First, ensure you have the required dependencies:
+
+```bash
+npm install framer-motion
+# or
+yarn add framer-motion
+# or
+pnpm add framer-motion
+```
+
+## Usage
+
+### Basic Example
+
+```tsx
+import { OriginAwareCards } from "@/components/resources/origin-aware-cards";
+
+export default function MyPage() {
+  return (
+    <div className="min-h-screen p-8">
+      <OriginAwareCards />
+    </div>
+  );
+}
+```
+
+### Custom Cards
+
+```tsx
+import { OriginAwareCards, Card } from "@/components/resources/origin-aware-cards";
+
+const myCards: Card[] = [
+  {
+    id: 1,
+    title: "Feature 1",
+    description: "This is an amazing feature with lots of details",
+    color: "bg-blue-200 dark:bg-blue-900",
+    expandedColor: "bg-blue-400 dark:bg-blue-700",
+  },
+  {
+    id: 2,
+    title: "Feature 2",
+    description: "Another great feature to showcase",
+    color: "bg-purple-200 dark:bg-purple-900",
+    expandedColor: "bg-purple-400 dark:bg-purple-700",
+  },
+  {
+    id: 3,
+    title: "Feature 3",
+    description: "One more incredible feature",
+    color: "bg-green-200 dark:bg-green-900",
+    expandedColor: "bg-green-400 dark:bg-green-700",
+  },
+];
+
+export default function MyPage() {
+  return <OriginAwareCards cards={myCards} />;
+}
+```
+
+### Custom Styling
+
+```tsx
+<OriginAwareCards
+  cards={myCards}
+  containerClassName="bg-gradient-to-br from-slate-200 to-slate-400 dark:from-slate-900 dark:to-slate-700"
+  cardClassName="border-2 border-zinc-400"
+  expandedClassName="border-4 border-white"
+/>
+```
+
+## API Reference
+
+### OriginAwareCards Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `cards` | `Card[]` | `defaultCards` | Array of card objects to display |
+| `containerClassName` | `string` | `""` | Additional classes for the container wrapper |
+| `cardClassName` | `string` | `""` | Additional classes for cards in collapsed state |
+| `expandedClassName` | `string` | `""` | Additional classes for expanded modal state |
+
+### Card Interface
+
+```typescript
+interface Card {
+  id: number;                // Unique identifier for the card
+  title: string;             // Card title (displayed in both states)
+  description: string;       // Card description (displayed in both states)
+  color?: string;            // Tailwind classes for collapsed card background
+  expandedColor?: string;    // Tailwind classes for expanded modal background
+}
+```
+
+## How It Works
+
+The component leverages Framer Motion's shared layout animations through the `layoutId` prop:
+
+1. **Collapsed State**: Cards are displayed in a grid layout
+2. **Click Event**: When a card is clicked, its `layoutId` is matched with the expanded modal
+3. **Animation**: Framer Motion automatically animates the transition between the two states
+4. **Expanded State**: The card expands to a centered modal with additional content
+5. **Close**: Click backdrop, ESC key, or close button to animate back to original position
+
+### Key Animation Properties
+
+- **layoutId**: Shared between collapsed and expanded states for smooth transitions
+- **AnimatePresence**: Handles enter/exit animations for the backdrop
+- **whileHover/whileTap**: Provides interactive feedback on card hover and tap
+
+## Accessibility
+
+The component includes full accessibility features:
+
+- ✅ **ARIA labels** - Proper `aria-label`, `role`, and `aria-modal` attributes
+- ✅ **Keyboard navigation** - Tab through cards, Enter to open, ESC to close
+- ✅ **Focus management** - Proper tab index for interactive elements
+- ✅ **Semantic HTML** - Uses appropriate heading levels (h1, h2)
+
+## Examples
+
+### Product Showcase
+
+```tsx
+const products = [
+  {
+    id: 1,
+    title: "Premium Plan",
+    description: "Perfect for professionals who need advanced features",
+    color: "bg-indigo-200 dark:bg-indigo-900",
+    expandedColor: "bg-indigo-300 dark:bg-indigo-800",
+  },
+  {
+    id: 2,
+    title: "Business Plan",
+    description: "Ideal for growing teams and businesses",
+    color: "bg-emerald-200 dark:bg-emerald-900",
+    expandedColor: "bg-emerald-300 dark:bg-emerald-800",
+  },
+];
+
+<OriginAwareCards cards={products} />
+```
+
+### Feature Highlights
+
+```tsx
+const features = [
+  {
+    id: 1,
+    title: "Fast Performance",
+    description: "Lightning-fast load times with optimized code",
+  },
+  {
+    id: 2,
+    title: "Secure",
+    description: "Enterprise-grade security for your data",
+  },
+  {
+    id: 3,
+    title: "Scalable",
+    description: "Grows with your business needs",
+  },
+];
+
+<OriginAwareCards cards={features} />
+```
+
+## Customization Tips
+
+### Changing Animation Duration
+
+You can customize the animation by wrapping the component in a `LayoutGroup` and setting transition properties:
+
+```tsx
+import { LayoutGroup } from "framer-motion";
+
+<LayoutGroup>
+  <OriginAwareCards cards={myCards} />
+</LayoutGroup>
+```
+
+### Custom Close Button Styling
+
+Modify the close button by targeting the `expandedClassName` prop:
+
+```tsx
+<OriginAwareCards
+  expandedClassName="ring-4 ring-blue-500"
+/>
+```
+
+### Grid Layout
+
+For more than 3 cards, the component automatically wraps using `flex-wrap`.
+
+## Browser Support
+
+- ✅ Chrome (latest)
+- ✅ Firefox (latest)
+- ✅ Safari (latest)
+- ✅ Edge (latest)
+
+## Performance Notes
+
+- Uses GPU-accelerated transforms for smooth animations
+- Minimal re-renders with proper React state management
+- Optimized with `layoutId` for efficient DOM updates
+
+## License
+
+MIT
+
+## Credits
+
+Built with [Framer Motion](https://www.framer.com/motion/) by Ankit Yadav.

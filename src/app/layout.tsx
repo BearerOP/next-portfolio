@@ -9,9 +9,9 @@ import { ConditionalSplashLayout } from "@/components/conditional-splash-layout"
 import { AnimatedLayout } from "@/components/animated-layout";
 
 // metadata imports
-import { metadata, viewport, themeColor, icons } from "./metadata";
+import { metadata, viewport } from "./metadata";
 
-export { metadata, viewport, themeColor, icons };
+export { metadata, viewport };
 
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
