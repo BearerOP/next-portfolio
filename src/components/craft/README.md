@@ -48,7 +48,7 @@ pnpm add framer-motion
 
 ```bash
 # Copy the component to your project
-cp src/components/resources/origin-aware-cards.tsx your-project/components/
+cp src/components/craft/origin-aware-cards.tsx your-project/components/
 ```
 
 ## 🚀 Usage
@@ -56,7 +56,7 @@ cp src/components/resources/origin-aware-cards.tsx your-project/components/
 ### Basic Usage
 
 ```tsx
-import { OriginAwareCards } from "@/components/resources/origin-aware-cards";
+import { OriginAwareCards } from "@/components/craft/origin-aware-cards";
 
 export default function MyPage() {
   return (
@@ -70,7 +70,7 @@ export default function MyPage() {
 ### Custom Cards
 
 ```tsx
-import { OriginAwareCards, Card } from "@/components/resources/origin-aware-cards";
+import { OriginAwareCards, Card } from "@/components/craft/origin-aware-cards";
 
 const myCards: Card[] = [
   {
@@ -300,6 +300,6 @@ MIT © Ankit Yadav
 
 ---
 
-**Live Demo:** [View Demo](/resources/demo/origin-aware-cards)
+**Live Demo:** [View Demo](/craft/demo/origin-aware-cards)
 
 **Documentation:** [Full Docs](/docs/origin-aware-cards.mdx)

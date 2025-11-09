@@ -5,6 +5,7 @@ import { OriginAwareCards } from "./origin-aware-cards";
 import { motion } from "framer-motion";
 import { Copy, Check, Maximize2, ArrowLeft, ChevronRight, ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { FamilyStyleModal } from "./family-style-modal";
 
 interface Component {
   id: string;
@@ -39,8 +40,10 @@ function CopyButton({ code }: { code: string }) {
   };
 
   return (
-    <button
+    <motion.button
       onClick={handleCopy}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="absolute top-4 right-4 p-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg transition-colors"
       aria-label="Copy code"
     >
@@ -49,11 +52,11 @@ function CopyButton({ code }: { code: string }) {
       ) : (
         <Copy className="w-4 h-4 text-zinc-300" />
       )}
-    </button>
+    </motion.button>
   );
 }
 
-export function ResourcesLayout() {
+export function CraftLayout() {
   const [selectedComponent, setSelectedComponent] = useState<string>("origin-aware-cards");
   const [activeTab, setActiveTab] = useState<"usage" | "source">("usage");
   const [isSourceExpanded, setIsSourceExpanded] = useState(false);
@@ -156,7 +159,7 @@ export function ResourcesLayout() {
                     {activeTab === "usage" ? (
                       <div className="relative">
                         <CopyButton
-                          code={`import { OriginAwareCards } from "@/components/resources/origin-aware-cards";
+                          code={`import { OriginAwareCards } from "@/components/craft/origin-aware-cards";
 
 const cards = [
   {
@@ -181,7 +184,7 @@ export default function MyComponent() {
                         />
                         <div className="bg-zinc-900 dark:bg-zinc-800 rounded-xl p-6 overflow-x-auto">
                           <pre className="text-sm text-zinc-100">
-                            <code>{`import { OriginAwareCards } from "@/components/resources/origin-aware-cards";
+                            <code>{`import { OriginAwareCards } from "@/components/craft/origin-aware-cards";
 
 const cards = [
   {
@@ -511,12 +514,15 @@ export function OriginAwareCards({ cards = defaultCards }: OriginAwareCardsProps
         case "family-style-modal":
           return (
             <div className="space-y-6 sm:space-y-8">
+              {/* Component Header */}
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div>
                   <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-2">
                     Family Style Modal
                   </h2>
-                  <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">Coming soon...</p>
+                  <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
+                    Multi-step modal component with smooth animations and stateful workflow using Framer Motion
+                  </p>
                 </div>
 
                 {/* Navigation Buttons */}
@@ -540,6 +546,394 @@ export function OriginAwareCards({ cards = defaultCards }: OriginAwareCardsProps
                     </button>
                   )}
                 </div>
+              </div>
+
+              {/* Demo Section */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">Demo</h3>
+                <FamilyStyleModal />
+              </div>
+
+              {/* Installation Section */}
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">
+                  Installation
+                </h3>
+
+                {/* Step 1 */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-bold text-sm">
+                      1
+                    </div>
+                    <h4 className="font-semibold text-zinc-900 dark:text-white">
+                      Install dependencies
+                    </h4>
+                  </div>
+                  <div className="relative">
+                    <CopyButton code="npm install framer-motion lucide-react" />
+                    <div className="bg-zinc-900 dark:bg-zinc-800 rounded-xl p-6 overflow-x-auto">
+                      <pre className="text-sm text-zinc-100">
+                        <code>npm install framer-motion lucide-react</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-bold text-sm">
+                      2
+                    </div>
+                    <h4 className="font-semibold text-zinc-900 dark:text-white">
+                      Copy and paste the following code into your project.
+                    </h4>
+                  </div>
+
+                  {/* Tabs */}
+                  <div className="flex gap-2 border-b border-zinc-200 dark:border-zinc-800">
+                    <button
+                      onClick={() => setActiveTab("usage")}
+                      className={`px-4 py-2 text-sm font-medium transition-colors ${
+                        activeTab === "usage"
+                          ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
+                          : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                      }`}
+                    >
+                      Usage
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("source")}
+                      className={`px-4 py-2 text-sm font-medium transition-colors ${
+                        activeTab === "source"
+                          ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
+                          : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                      }`}
+                    >
+                      Source Code
+                    </button>
+                  </div>
+
+                  {/* Tab Content */}
+                  <div className="relative">
+                    {activeTab === "usage" ? (
+                      <div className="relative">
+                        <CopyButton
+                          code={`import { FamilyStyleModal } from "@/components/craft/family-style-modal";
+
+export default function MyPage() {
+  return (
+    <div className="min-h-screen p-8">
+      <FamilyStyleModal />
+    </div>
+  );
+}`}
+                        />
+                        <div className="bg-zinc-900 dark:bg-zinc-800 rounded-xl p-6 overflow-x-auto">
+                          <pre className="text-sm text-zinc-100">
+                            <code>{`import { FamilyStyleModal } from "@/components/craft/family-style-modal";
+
+export default function MyPage() {
+  return (
+    <div className="min-h-screen p-8">
+      <FamilyStyleModal />
+    </div>
+  );
+}`}</code>
+                          </pre>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="relative">
+                        <CopyButton
+                          code={`"use client";
+
+import { useState, useEffect } from "react";
+import { X, Check, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+type ModalStep = "initial" | "confirmation" | "processing" | "success";
+
+export function FamilyStyleModal() {
+  const [step, setStep] = useState<ModalStep>("initial");
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (step === "processing") {
+      const timer = setTimeout(() => setStep("success"), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
+
+  const handleReceive = () => { setIsOpen(true); setStep("confirmation"); };
+  const handleConfirm = () => setStep("processing");
+  const handleCancel = () => { setIsOpen(false); setStep("initial"); };
+  const handleClose = () => { setIsOpen(false); setStep("initial"); };
+
+  return (
+    <div className="relative flex items-center justify-center min-h-[400px] bg-zinc-100 dark:bg-zinc-900 rounded-3xl p-8 overflow-hidden">
+      {/* ... rest of component code ... */}
+    </div>
+  );
+}`}
+                        />
+                        <div className="relative rounded-xl overflow-hidden">
+                          <div
+                            className={`bg-zinc-900 dark:bg-zinc-800 p-6 overflow-y-auto transition-all ${
+                              isSourceExpanded ? "max-h-[800px]" : "max-h-[400px]"
+                            }`}
+                            style={{ scrollbarWidth: "none" }}
+                          >
+                            <pre className="text-sm text-zinc-100 whitespace-pre-wrap break-words pb-12">
+                              <code>{`"use client";
+
+import { useState, useEffect } from "react";
+import { X, Check, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+type ModalStep = "initial" | "confirmation" | "processing" | "success";
+
+export function FamilyStyleModal() {
+  const [step, setStep] = useState<ModalStep>("initial");
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (step === "processing") {
+      const timer = setTimeout(() => setStep("success"), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
+
+  const handleReceive = () => { setIsOpen(true); setStep("confirmation"); };
+  const handleConfirm = () => setStep("processing");
+  const handleCancel = () => { setIsOpen(false); setStep("initial"); };
+  const handleClose = () => { setIsOpen(false); setStep("initial"); };
+
+  return (
+    <div className="relative flex items-center justify-center min-h-[400px] bg-zinc-100 dark:bg-zinc-900 rounded-3xl p-8 overflow-hidden">
+      <div className="text-center space-y-4">
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.2 }}
+              layoutId="receive-button" onClick={handleReceive}
+              className="bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 rounded-full px-6 py-3 font-semibold cursor-pointer">
+              <motion.span layoutId="receive-button-text">Receive</motion.span>
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {isOpen && (
+            <>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }} onClick={handleClose}
+                className="absolute inset-0 bg-black/50 z-40 backdrop-blur-sm rounded-3xl" />
+
+              <motion.div initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 50, scale: 0.9 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                onClick={(e) => e.stopPropagation()}
+                className="absolute inset-0 z-50 flex items-center justify-center p-4">
+                <div className="bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl max-w-md w-full p-6 md:p-8 relative">
+                  {step !== "processing" && (
+                    <motion.button initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+                      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={handleClose}
+                      className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100">
+                      <X className="w-5 h-5" />
+                    </motion.button>
+                  )}
+
+                  <AnimatePresence mode="wait">
+                    {step === "confirmation" && (
+                      <motion.div key="confirmation" initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }} className="space-y-6">
+                        <div className="text-center">
+                          <motion.h3 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mb-2">
+                            Confirm
+                          </motion.h3>
+                          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}
+                            className="text-zinc-600 dark:text-zinc-400">
+                            Are you sure you want to receive a load of money?
+                          </motion.p>
+                        </div>
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.2 }} className="flex gap-3">
+                          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                            onClick={handleCancel}
+                            className="flex-1 px-6 py-3 rounded-full border-2 border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-white font-semibold">
+                            Cancel
+                          </motion.button>
+                          <motion.button layoutId="receive-button" whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }} onClick={handleConfirm}
+                            className="flex-1 px-6 py-3 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold">
+                            Receive
+                          </motion.button>
+                        </motion.div>
+                      </motion.div>
+                    )}
+
+                    {step === "processing" && (
+                      <motion.div key="processing" initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.3 }} className="text-center py-8">
+                        <div className="flex flex-col items-center gap-4">
+                          <motion.div animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}>
+                            <Loader2 className="w-12 h-12 text-zinc-900 dark:text-zinc-100" />
+                          </motion.div>
+                          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-lg font-semibold text-zinc-900 dark:text-white">
+                            Processing...
+                          </motion.p>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {step === "success" && (
+                      <motion.div key="success" initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                        className="text-center py-8">
+                        <div className="flex flex-col items-center gap-4">
+                          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
+                            transition={{ type: "spring", damping: 15, stiffness: 400, delay: 0.1 }}
+                            className="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center">
+                            <motion.div initial={{ scale: 0, rotate: -90 }} animate={{ scale: 1, rotate: 0 }}
+                              transition={{ delay: 0.3, type: "spring", damping: 12 }}>
+                              <Check className="w-8 h-8 text-white" />
+                            </motion.div>
+                          </motion.div>
+                          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="text-xl font-bold text-zinc-900 dark:text-white">
+                            Amount Credited
+                          </motion.p>
+                          <motion.button initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }} whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }} onClick={handleClose}
+                            className="mt-4 px-6 py-2 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold">
+                            Done
+                          </motion.button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}`}</code>
+                            </pre>
+                          </div>
+
+                          {/* Gradient Mask with Show More Button */}
+                          {!isSourceExpanded && (
+                            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-zinc-900 dark:from-zinc-800 to-transparent pointer-events-none flex items-end justify-center pb-4">
+                              <button
+                                onClick={() => setIsSourceExpanded(true)}
+                                className="pointer-events-auto flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
+                              >
+                                <Maximize2 className="w-4 h-4" />
+                                Show More
+                              </button>
+                            </div>
+                          )}
+
+                          {/* Show Less Button */}
+                          {isSourceExpanded && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-zinc-900 dark:bg-zinc-800 flex items-center justify-center py-4">
+                              <button
+                                onClick={() => setIsSourceExpanded(false)}
+                                className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
+                              >
+                                <Maximize2 className="w-4 h-4" />
+                                Show Less
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Features Section */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">Features</h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Multi-step workflow (4 states)</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Layout animations with layoutId</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Staggered entrance animations</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Spring physics transitions</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Dark mode support</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Responsive design</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Auto-progression (processing to success)</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Backdrop blur effect</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Props Section */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">Component Props</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                        <th className="text-left py-2 px-4 font-semibold text-zinc-900 dark:text-white">Prop</th>
+                        <th className="text-left py-2 px-4 font-semibold text-zinc-900 dark:text-white">Type</th>
+                        <th className="text-left py-2 px-4 font-semibold text-zinc-900 dark:text-white">Default</th>
+                        <th className="text-left py-2 px-4 font-semibold text-zinc-900 dark:text-white">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                        <td className="py-2 px-4 font-mono text-zinc-600 dark:text-zinc-400">-</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">-</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">-</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">No props required. Component manages its own state.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-2">
+                  Note: The component is self-contained with internal state management. For customization, you can modify the source code directly.
+                </p>
               </div>
             </div>
           );
@@ -587,16 +981,23 @@ export function OriginAwareCards({ cards = defaultCards }: OriginAwareCardsProps
 
                 {/* Mobile: Horizontal scrolling tabs */}
                 <nav className="lg:space-y-2">
-                  <div className="flex lg:flex-col gap-2 overflow-x-auto pb-2 lg:pb-0 -mx-2 px-2 lg:mx-0 lg:px-0 scrollbar-hide">
+                  <div className="flex lg:flex-col gap-2 overflow-x-auto pb-2 lg:pb-0 -mx-2 px-2 lg:mx-0 lg:px-0 scrollbar-hide relative">
                     {components.map((component) => (
                       <button
                         key={component.id}
                         onClick={() => setSelectedComponent(component.id)}
-                        className={`flex-shrink-0 lg:w-full text-left px-4 py-3 rounded-xl transition-all ${selectedComponent === component.id
-                            ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900"
-                            : "bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700"
+                        className={`flex-shrink-0 lg:w-full text-left px-4 py-3 rounded-xl relative z-10 ${selectedComponent === component.id
+                            ? "text-white dark:text-zinc-900"
+                            : "text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700"
                           }`}
                       >
+                        {selectedComponent === component.id && (
+                          <motion.div
+                            layoutId="active-tab-bg"
+                            className="absolute inset-0 bg-zinc-900 dark:bg-zinc-100 rounded-xl -z-10"
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                          />
+                        )}
                         <div className="font-semibold text-sm sm:text-base whitespace-nowrap lg:whitespace-normal">
                           {component.name}
                         </div>

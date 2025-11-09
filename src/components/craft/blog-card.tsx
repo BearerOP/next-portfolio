@@ -40,7 +40,7 @@ export function BlogCard({ title, description, date, tags, slug }: BlogCardProps
         </CardContent>
         <CardFooter>
           <Link
-            href={`/resources/blogs/${slug}`}
+            href={`/craft/blogs/${slug}`}
             className="text-sm font-medium text-primary hover:underline"
           >
             Read more →

@@ -17,6 +17,7 @@ interface ExperienceItem {
   achievements?: string[];
   skills?: string[];
   link?: string;
+  logo?: string;
 }
 
 const BriefcaseIcon = () => {
@@ -95,18 +96,22 @@ const BookOpenIcon = () => {
   )
 }
 // Transform work experience data
-const workItems: ExperienceItem[] = workExperience.map(work => ({
-  id: work.id,
-  title: work.position,
-  organization: work.company,
-  location: work.location,
-  duration: `${work.startDate} – ${work.endDate}`,
-  type: "work" as const,
-  description: [...work.responsibilities],
-  achievements: [],
-  skills: [...work.technologies],
-  current: work.current,
-})) as ExperienceItem[];
+const workItems: ExperienceItem[] = workExperience.map(work => {
+  const workAny = work as any;
+  return {
+    id: work.id,
+    title: work.position,
+    organization: work.company,
+    location: work.location,
+    duration: `${work.startDate} – ${work.endDate}`,
+    type: "work" as const,
+    description: [...work.responsibilities],
+    achievements: [],
+    skills: [...work.technologies],
+    current: work.current,
+    logo: workAny.logo,
+  };
+}) as ExperienceItem[];
 
 // Transform education data
 const educationItems: ExperienceItem[] = education.map(edu => {
@@ -123,6 +128,7 @@ const educationItems: ExperienceItem[] = education.map(edu => {
     achievements: [...edu.achievements],
     skills: [],
     current: false,
+    logo: eduAny.logo,
   };
 });
 
@@ -168,11 +174,19 @@ function ExperienceSection({
             <div key={item.id} className="relative">
               {/* Timeline Dot */}
               <div className="absolute left-0 top-6 z-10">
-                <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shadow-sm relative">
-                  <Icon className="w-5 h-5 text-zinc-600 dark:text-zinc-400" />
+                <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shadow-sm relative overflow-hidden">
+                  {item.logo ? (
+                    <img
+                      src={item.logo}
+                      alt={item.organization}
+                      className="w-8 h-8 object-contain rounded-full"
+                    />
+                  ) : (
+                    <Icon className="w-5 h-5 text-zinc-600 dark:text-zinc-400" />
+                  )}
 
                   {/* Green ripple indicator for current/first item */}
-                 
+
                 </div>
               </div>
 

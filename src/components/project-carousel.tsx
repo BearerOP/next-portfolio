@@ -144,7 +144,7 @@ export function ProjectCarousel() {
             //   icon: <VolumeIcon size={16} />,
             // },
             {
-              href: "/resources",
+              href: "/craft",
               icon: <ArchiveIcon size={16} />,
             },
           ].map(({ href, icon }, idx) => (

@@ -1,0 +1,443 @@
+# Family Style Modal
+
+A multi-step modal component with smooth animations, layout transitions, and a stateful workflow powered by Framer Motion.
+
+## Overview
+
+The Family Style Modal is a beautifully animated, multi-step modal component that demonstrates a complete user flow from initial action to success confirmation. It features shared layout animations, staggered transitions, and a polished user experience suitable for payment confirmations, form submissions, or any multi-step workflow.
+
+## Features
+
+- ✨ **Multi-step workflow** - Four distinct states: initial, confirmation, processing, and success
+- 🎯 **Layout animations** - Smooth button morphing using Framer Motion's `layoutId`
+- 🎨 **Staggered animations** - Sequential entrance animations for each element
+- 🌓 **Dark mode support** - Fully styled for both light and dark themes
+- 📱 **Responsive design** - Optimized for mobile (bottom sheet) and desktop (centered modal)
+- ⌨️ **Keyboard accessible** - ESC key and click-outside to close
+- 🔄 **Spring physics** - Natural, bouncy animations using spring transitions
+- ⏱️ **Auto-progression** - Automatic transition from processing to success state
+- 🎭 **Backdrop blur** - Elegant semi-transparent backdrop with blur effect
+
+## Installation
+
+First, ensure you have the required dependencies:
+
+```bash
+npm install framer-motion lucide-react
+# or
+yarn add framer-motion lucide-react
+# or
+pnpm add framer-motion lucide-react
+```
+
+## Usage
+
+### Basic Example
+
+```tsx
+import { FamilyStyleModal } from "@/components/craft/family-style-modal";
+
+export default function MyPage() {
+  return (
+    <div className="min-h-screen p-8">
+      <FamilyStyleModal />
+    </div>
+  );
+}
+```
+
+### With Custom Container
+
+```tsx
+<div className="container mx-auto py-12">
+  <h1 className="text-3xl font-bold mb-8">Payment Demo</h1>
+  <FamilyStyleModal />
+</div>
+```
+
+## How It Works
+
+The component uses a state machine pattern with four distinct steps:
+
+### 1. Initial State
+- Displays a "Receive" button
+- Button uses `layoutId="receive-button"` for layout animations
+- Text also has `layoutId="receive-button-text"` for smooth morphing
+
+### 2. Confirmation State
+- Modal appears with spring animation
+- Title: "Confirm"
+- Message: "Are you sure you want to receive a load of money?"
+- Two buttons: Cancel and Receive
+- Close (X) button in top-right corner
+- Staggered animations for title, description, and buttons
+
+### 3. Processing State
+- Shows loading spinner with rotation animation
+- "Processing..." text
+- No close button during processing
+- Automatically transitions to success after 5 seconds
+- Uses `useEffect` with cleanup for timer management
+
+### 4. Success State
+- Green circle with checkmark icon
+- Checkmark animates with scale and rotation
+- "Amount Credited" message
+- "Done" button to close and reset
+- Spring animations for all elements
+
+## Animation Details
+
+### Layout Animations
+
+The component uses Framer Motion's shared layout animations:
+
+```tsx
+// Initial button
+<motion.button layoutId="receive-button">
+  <motion.span layoutId="receive-button-text">Receive</motion.span>
+</motion.button>
+
+// Confirmation button (same layoutId)
+<motion.button layoutId="receive-button">
+  Receive
+</motion.button>
+```
+
+This creates a seamless morphing effect when transitioning between states.
+
+### Spring Physics
+
+Spring transitions provide natural, bouncy animations:
+
+```tsx
+transition={{ type: "spring", damping: 25, stiffness: 300 }}
+```
+
+- **damping**: Controls oscillation (higher = less bouncy)
+- **stiffness**: Controls speed (higher = faster)
+
+### Staggered Animations
+
+Elements animate sequentially with delays:
+
+```tsx
+<motion.h3 transition={{ delay: 0.1 }}>Confirm</motion.h3>
+<motion.p transition={{ delay: 0.15 }}>Message</motion.p>
+<motion.div transition={{ delay: 0.2 }}>Buttons</motion.div>
+```
+
+## Responsive Behavior
+
+### Mobile (< 768px)
+- Modal appears as a bottom sheet
+- Full width with bottom alignment
+- Optimized touch targets
+
+### Desktop (≥ 768px)
+- Centered modal
+- Maximum width of 28rem (448px)
+- Larger padding and text sizes
+
+## State Management
+
+The component uses React hooks for state management:
+
+```typescript
+type ModalStep = "initial" | "confirmation" | "processing" | "success";
+
+const [step, setStep] = useState<ModalStep>("initial");
+const [isOpen, setIsOpen] = useState(false);
+```
+
+### State Transitions
+
+1. **Initial → Confirmation**: User clicks "Receive" button
+2. **Confirmation → Processing**: User clicks "Receive" in modal
+3. **Processing → Success**: Automatic after 5 seconds
+4. **Any → Initial**: User clicks Cancel, Done, Close (X), or backdrop
+
+## Customization
+
+### Change Processing Duration
+
+Modify the timeout in the `useEffect`:
+
+```tsx
+useEffect(() => {
+  if (step === "processing") {
+    const timer = setTimeout(() => {
+      setStep("success");
+    }, 3000); // Change to 3 seconds
+    return () => clearTimeout(timer);
+  }
+}, [step]);
+```
+
+### Customize Messages
+
+Update the text in the confirmation step:
+
+```tsx
+<motion.h3>Your Custom Title</motion.h3>
+<motion.p>Your custom confirmation message</motion.p>
+```
+
+### Change Colors
+
+Modify the Tailwind classes:
+
+```tsx
+// Button colors
+className="bg-blue-600 dark:bg-blue-500 text-white"
+
+// Success circle color
+className="bg-emerald-500"
+```
+
+### Adjust Animation Speed
+
+Modify transition values:
+
+```tsx
+// Faster animations
+transition={{ type: "spring", damping: 30, stiffness: 400 }}
+
+// Slower animations
+transition={{ type: "spring", damping: 20, stiffness: 200 }}
+```
+
+## Component Structure
+
+```
+FamilyStyleModal
+├── Container (flex center)
+│   ├── Initial Button (AnimatePresence)
+│   │   └── motion.button (with layoutId)
+│   │       └── motion.span (text with layoutId)
+│   └── Modal (AnimatePresence)
+│       ├── Backdrop (motion.div)
+│       └── Modal Container (motion.div)
+│           ├── Close Button (conditional)
+│           └── Step Content (AnimatePresence mode="wait")
+│               ├── Confirmation Step
+│               │   ├── Title (staggered)
+│               │   ├── Description (staggered)
+│               │   └── Buttons (staggered)
+│               ├── Processing Step
+│               │   ├── Loader (rotate animation)
+│               │   └── Text
+│               └── Success Step
+│                   ├── Checkmark (spring animation)
+│                   ├── Message
+│                   └── Done Button
+```
+
+## Accessibility
+
+The component includes accessibility features:
+
+- ✅ **Keyboard support** - ESC key to close modal
+- ✅ **Click outside** - Backdrop click closes modal
+- ✅ **Focus management** - Tab navigation through buttons
+- ✅ **Semantic HTML** - Proper heading hierarchy
+- ✅ **Interactive states** - Hover and active states for all buttons
+
+### Improvements for Production
+
+Consider adding:
+
+```tsx
+// ARIA attributes
+<div role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <h3 id="modal-title">Confirm</h3>
+</div>
+
+// Focus trap
+import { FocusTrap } from 'focus-trap-react';
+
+// Screen reader announcements
+<div role="status" aria-live="polite">Processing...</div>
+```
+
+## Examples
+
+### Payment Confirmation
+
+```tsx
+// Modify confirmation message
+<motion.p>
+  Are you sure you want to process this payment of $99.99?
+</motion.p>
+```
+
+### Form Submission
+
+```tsx
+// Change success message
+<motion.p>
+  Form Submitted Successfully
+</motion.p>
+```
+
+### Delete Confirmation
+
+```tsx
+// Warning style
+<motion.h3 className="text-red-600 dark:text-red-400">
+  Delete Item
+</motion.h3>
+<motion.p>
+  This action cannot be undone. Are you sure?
+</motion.p>
+```
+
+## Animation Performance
+
+### Optimizations Used
+
+- **GPU Acceleration**: Animations use `transform` and `opacity` (GPU-accelerated properties)
+- **Layout Animations**: Framer Motion's `layoutId` prevents layout thrashing
+- **Minimal Re-renders**: Conditional rendering with `AnimatePresence`
+- **Cleanup**: `useEffect` cleanup function prevents memory leaks
+
+### Performance Tips
+
+```tsx
+// Use transform instead of position
+animate={{ y: 0 }} // ✅ Good
+animate={{ top: 0 }} // ❌ Avoid
+
+// Use opacity instead of visibility
+animate={{ opacity: 1 }} // ✅ Good
+```
+
+## Browser Support
+
+- ✅ Chrome (latest)
+- ✅ Firefox (latest)
+- ✅ Safari (latest)
+- ✅ Edge (latest)
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+
+## TypeScript Support
+
+The component is fully typed with TypeScript:
+
+```typescript
+type ModalStep = "initial" | "confirmation" | "processing" | "success";
+```
+
+This ensures type safety when extending or modifying the component.
+
+## Common Use Cases
+
+1. **Payment Confirmation** - Confirm and process payments
+2. **Form Submission** - Multi-step form workflows
+3. **Delete Confirmation** - Confirm destructive actions
+4. **Award/Achievement** - Celebrate user accomplishments
+5. **Download Progress** - Show download/upload progress
+6. **Account Actions** - Verify important account changes
+
+## Troubleshooting
+
+### Modal doesn't close on backdrop click
+
+Ensure the backdrop has `onClick={handleClose}` and the modal container has `onClick={(e) => e.stopPropagation()}`.
+
+### Animations are jerky
+
+Check that you're not animating layout properties. Use `transform` (x, y, scale) instead.
+
+### Button doesn't morph smoothly
+
+Verify both buttons have the same `layoutId`:
+
+```tsx
+layoutId="receive-button" // Must match exactly
+```
+
+### Auto-progression doesn't work
+
+Check the `useEffect` dependencies and cleanup:
+
+```tsx
+useEffect(() => {
+  if (step === "processing") {
+    const timer = setTimeout(() => setStep("success"), 5000);
+    return () => clearTimeout(timer); // Important!
+  }
+}, [step]); // Include step in dependencies
+```
+
+## Advanced Customization
+
+### Add Custom Steps
+
+```tsx
+type ModalStep = "initial" | "confirmation" | "processing" | "success" | "error";
+
+// Add error step
+{step === "error" && (
+  <motion.div key="error">
+    <AlertCircle className="w-12 h-12 text-red-500" />
+    <p>Something went wrong</p>
+  </motion.div>
+)}
+```
+
+### Pass Props for Customization
+
+```tsx
+interface FamilyStyleModalProps {
+  title?: string;
+  message?: string;
+  buttonText?: string;
+  processingTime?: number;
+}
+
+export function FamilyStyleModal({
+  title = "Confirm",
+  message = "Are you sure?",
+  buttonText = "Receive",
+  processingTime = 5000
+}: FamilyStyleModalProps) {
+  // Use props in component
+}
+```
+
+### Add Callbacks
+
+```tsx
+interface FamilyStyleModalProps {
+  onConfirm?: () => void;
+  onCancel?: () => void;
+  onSuccess?: () => void;
+}
+
+const handleConfirm = () => {
+  setStep("processing");
+  onConfirm?.(); // Call callback if provided
+};
+```
+
+## Related Components
+
+- **Origin Aware Cards** - Cards with origin-aware animations
+- **Dialog** - Simple modal dialogs
+- **Drawer** - Side panel drawers
+- **Toast** - Notification toasts
+
+## License
+
+MIT
+
+## Credits
+
+Built with [Framer Motion](https://www.framer.com/motion/) and [Lucide React](https://lucide.dev/) by Ankit Yadav.
+
+---
+
+**Live Demo**: [View Demo](/craft)
+
+**Source Code**: [GitHub](https://github.com/BearerOP/next-portfolio)

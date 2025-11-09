@@ -77,7 +77,7 @@ export interface OriginAwareCardsProps {
  * @component
  * @example
  * ```tsx
- * import { OriginAwareCards } from "@/components/resources/origin-aware-cards";
+ * import { OriginAwareCards } from "@/components/craft/origin-aware-cards";
  *
  * const cards = [
  *   {

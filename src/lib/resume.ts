@@ -70,6 +70,7 @@ export const education = [
     endDate: "2025",
     gpa: "8.31",
     cgpa: "8.31 CGPA",
+    logo: "/images/logos/liet-logo.jpeg",
     achievements: [
       "Maintained 8.31 CGPA throughout the program",
       "Coursework: Networking, Python, C/C++, JavaScript, DSA, OOPs",
@@ -86,6 +87,7 @@ export const education = [
     endDate: "2021",
     gpa: "79.00",
     percentage: "79.00%",
+    logo: "/images/logos/vlm-logo.png",
     achievements: [
       "Completed Senior Secondary with 79% in PCM stream",
     ],
@@ -103,6 +105,7 @@ export const workExperience = [
     startDate: "September 2025",
     endDate: "Present",
     current: true,
+    logo: "/images/logos/jspt-logo.png",
     description: "Developing comprehensive electoral software solutions supporting Bihar Assembly Elections 2025 campaign operations.",
     responsibilities: [
       "Built production-grade Electronic Voting Machine interfaces supporting 74.2M voters across 243 constituencies, featuring authentic Indian EVM styling, LED indicators, and real-time audio feedback for Bihar Assembly Elections 2025",
@@ -120,6 +123,7 @@ export const workExperience = [
     startDate: "May 2025",
     endDate: "September 2025",
     current: false,
+    logo: "/images/logos/spl-logo.png",
     description: "Designed and developed internal applications using the Clappia no-code platform to streamline operations.",
     responsibilities: [
       "Designed and developed internal attendance applications and digital forms using the Clappia no-code platform to streamline employee time tracking and reporting",
