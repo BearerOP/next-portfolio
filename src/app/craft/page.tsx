@@ -1,11 +1,12 @@
-import { Metadata } from "next";
-import { CraftLayout } from "@/components/craft/craft-layout";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Craft | Portfolio",
-  description: "Explore components, blogs, and documentation for my portfolio projects.",
-};
+import { CraftLayout } from "@/components/craft/craft-layout";
+import { CraftProvider } from "@/contexts/craft-context";
 
 export default function CraftPage() {
-  return <CraftLayout />;
+  return (
+    <CraftProvider>
+      <CraftLayout />
+    </CraftProvider>
+  );
 }

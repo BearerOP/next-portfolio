@@ -127,7 +127,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                     duration: 0.5,
                     delay: 0.2 * index,
                     ease: "easeInOut",
-                    once: true,
                   },
                 }}
                 className="last:pr-[5%] md:last:pr-[33%] rounded-3xl transition-transform duration-500 hover:-translate-y-4 cursor-pointer"

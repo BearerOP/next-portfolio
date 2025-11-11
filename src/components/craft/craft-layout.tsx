@@ -2,10 +2,11 @@
 
 import { useState, useMemo } from "react";
 import { OriginAwareCards } from "./origin-aware-cards";
-import { motion } from "framer-motion";
-import { Copy, Check, Maximize2, ArrowLeft, ChevronRight, ChevronLeft } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Copy, Check, Maximize2, ArrowLeft, ChevronRight, ChevronLeft, Menu, X as CloseIcon } from "lucide-react";
 import Link from "next/link";
 import { FamilyStyleModal } from "./family-style-modal";
+import { useCraft } from "@/contexts/craft-context";
 
 interface Component {
   id: string;
@@ -57,9 +58,10 @@ function CopyButton({ code }: { code: string }) {
 }
 
 export function CraftLayout() {
-  const [selectedComponent, setSelectedComponent] = useState<string>("origin-aware-cards");
+  const { selectedComponent, setSelectedComponent } = useCraft();
   const [activeTab, setActiveTab] = useState<"usage" | "source">("usage");
   const [isSourceExpanded, setIsSourceExpanded] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Get current component index and navigation info
   const currentIndex = components.findIndex((c) => c.id === selectedComponent);
@@ -944,7 +946,7 @@ export function FamilyStyleModal() {
     };
 
     return renderComponentDemo();
-  }, [selectedComponent, activeTab, isSourceExpanded, previousComponent, nextComponent]);
+  }, [selectedComponent, activeTab, isSourceExpanded, previousComponent, nextComponent, setSelectedComponent]);
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">

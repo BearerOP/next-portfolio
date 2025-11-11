@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
-import { motion } from "framer-motion";
+import { motion, Variants } from "motion/react";
 import SplitText from "./split-text";
 import { CustomButton } from "./custom-button";
 import AvatarComponent from "./avatar-comp";
@@ -153,7 +153,7 @@ export function ProjectCarousel() {
               href={href}
               target={href.startsWith("http") ? "_blank" : "_self"}
               rel="noopener noreferrer"
-              variants={itemVariants}
+              variants={itemVariants as Variants}
               whileHover={{ scale: 1.15 }}
               onHoverStart={hoverSound}
               whileTap={{ scale: 0.9 }}
