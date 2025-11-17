@@ -67,7 +67,7 @@ function DemoCard({ demo, index }: { demo: DemoVideo; index: number }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-video rounded-2xl overflow-hidden bg-zinc-900 dark:bg-zinc-800 shadow-lg">
+      <div className="relative aspect-video rounded-[18px] overflow-hidden bg-zinc-900 dark:bg-zinc-800 shadow-lg">
         {/* Video */}
         <video
           src={demo.videoPath}

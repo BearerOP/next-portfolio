@@ -105,7 +105,7 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
                   "relative m-auto h-4 w-4 transition-colors duration-200",
                   isActive
                     ? "text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-foreground"
                 )}
               />
             </button>

@@ -16,7 +16,7 @@ export const personalInfo = {
   },
   age: 21,
   website: "https://bearerop.live",
-  avatar: "/images/avatar.jpg", // Update with your avatar path
+  avatar: "/images/avatar2.JPG", // Update with your avatar path
   resumeUrl: "https://dub.sh/resume189",
 } as const;
 
@@ -212,6 +212,25 @@ export const allSkills = [
 export const projects = [
   {
     id: "project-1",
+    title: "Yukti",
+    category: "Opinion Trading App (Solana)",
+    description: "It is a mobile application built using React Native and Expo, essentially an opinion trading application built on Solana.",
+    longDescription: "It is a mobile application built using React Native and Expo, essentially an opinion trading application built on Solana.",
+    image: "/images/yukti.png",
+    technologies: ["React Native", "TypeScript", "Tailwind CSS", "Solana", "Postgres", "Anchor","Prsima", "Docker","Socket.io"],
+    githubUrl: "https://github.com/BearerOP/projekt-yukti",
+    liveUrl: "https://yukti.bearerop.live/",
+    featured: true,
+    status: "completed",
+    startDate: "2024-01",
+    endDate: "2024-03",
+    highlights: [
+      "Built Opinion Trading System on top of Blockchain.",
+      "Clean UI design with dark mode support",
+    ],
+  },
+  {
+    id: "project-2",
     title: "Vraksh",
     category: "Link-in-bio web",
     description: "A comprehensive link-in-bio web application that allows users to create personalized landing pages with multiple links.",
@@ -231,7 +250,7 @@ export const projects = [
     ],
   },
   {
-    id: "project-2",
+    id: "project-3",
     title: "GyanSagar",
     category: "Learning Management System",
     description: "A full-featured Learning Management System (LMS) for online education.",
@@ -251,7 +270,7 @@ export const projects = [
     ],
   },
   {
-    id: "project-3",
+    id: "project-4",
     title: "MagicUI Template",
     category: "Startup Website Clone",
     description: "A pixel-perfect clone of MagicUI startup landing page template.",
@@ -271,7 +290,7 @@ export const projects = [
     ],
   },
   {
-    id: "project-4",
+    id: "project-5",
     title: "Avadhi",
     category: "API Monitoring Dashboard",
     description: "Real-time API monitoring and analytics dashboard.",
@@ -291,7 +310,7 @@ export const projects = [
     ],
   },
   {
-    id: "project-5",
+    id: "project-6",
     title: "Swasthya",
     category: "Health & Fitness Monitoring System",
     description: "Backend API for health and fitness tracking application.",
@@ -311,7 +330,7 @@ export const projects = [
     ],
   },
   {
-    id: "project-6",
+    id: "project-7",
     title: "FoodPlanet",
     category: "Food Order & Delivery App",
     description: "Backend system for food ordering and delivery platform.",
@@ -331,7 +350,7 @@ export const projects = [
     ],
   },
   {
-    id: "project-7",
+    id: "project-8",
     title: "Dhanam",
     category: "Web3 Wallet",
     description: "Decentralized cryptocurrency wallet built with Web3 technologies.",
