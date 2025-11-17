@@ -235,7 +235,7 @@ export const projects = [
     category: "Link-in-bio web",
     description: "A comprehensive link-in-bio web application that allows users to create personalized landing pages with multiple links.",
     longDescription: "Vraksh is a modern link-in-bio platform that enables users to consolidate all their important links in one place. Built with Next.js and featuring a clean, responsive design.",
-    image: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/portfolio%2F632shots_so.png?alt=media&token=a79bac5e-b1aa-45e3-b989-85edceacaed4",
+    image: "/images/vraksh.png",
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "MongoDB"],
     githubUrl: "https://github.com/BearerOP/vraksh-project",
     liveUrl: "https://vraksh.bearerop.live/",
