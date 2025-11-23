@@ -6,7 +6,7 @@ import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
 import { ConditionalSplashLayout } from "@/components/conditional-splash-layout";
 import { AnimatedLayout } from "@/components/animated-layout";
-
+import { Analytics } from "@vercel/analytics/next"
 // metadata imports
 import { metadata, viewport } from "./metadata";
 
@@ -59,11 +59,12 @@ export default function RootLayout({
           <AnimatedLayout>
             <ThemeProvider
               attribute="class"
-              defaultTheme="system"
-              enableSystem
+              defaultTheme="dark"
+              enableSystem={false}
               disableTransitionOnChange
             >
               {children}
+              <Analytics />
               <Toaster richColors closeButton />
               {/* <TextSVG text="bearerop" /> */}
               <ScrollToTopButton />

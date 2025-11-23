@@ -24,27 +24,27 @@ function SpotifySkeleton() {
       <div className="p-4">
         <div className="flex items-start gap-3">
           {/* Album Art Skeleton */}
-          <div className="relative w-14 h-14 rounded-xl bg-neutral-200 dark:bg-neutral-700 animate-pulse flex-shrink-0" />
+          <div className="relative w-14 h-14 rounded-xl bg-neutral-200 dark:bg-neutral-600 animate-pulse flex-shrink-0" />
           
           {/* Song Details and Progress Skeleton */}
           <div className="flex-1 min-w-0">
             {/* Title and Badge Row */}
             <div className="flex items-start justify-between gap-2 mb-1">
-              <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse flex-1 max-w-[60%]" />
-              <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded-xl animate-pulse flex-shrink-0" />
+              <div className="h-4 bg-neutral-200 dark:bg-neutral-600 rounded animate-pulse flex-1 max-w-[60%]" />
+              <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-600 rounded-xl animate-pulse flex-shrink-0" />
             </div>
             
             {/* Artist Skeleton */}
-            <div className="h-3 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse w-2/3 mb-2" />
+            <div className="h-3 bg-neutral-200 dark:bg-neutral-600 rounded animate-pulse w-2/3 mb-2" />
             
             {/* Progress Bar Skeleton */}
             <div className="space-y-1">
-              <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-1 overflow-hidden">
-                <div className="h-full bg-neutral-300 dark:bg-neutral-600 rounded-full w-1/3 animate-pulse" />
+              <div className="w-full bg-neutral-200 dark:bg-neutral-600 rounded-full h-1 overflow-hidden">
+                <div className="h-full bg-neutral-300 dark:bg-neutral-500 rounded-full w-1/3 animate-pulse" />
               </div>
               <div className="flex justify-between">
-                <div className="h-2.5 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse w-8" />
-                <div className="h-2.5 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse w-8" />
+                <div className="h-2.5 bg-neutral-200 dark:bg-neutral-600 rounded animate-pulse w-8" />
+                <div className="h-2.5 bg-neutral-200 dark:bg-neutral-600 rounded animate-pulse w-8" />
               </div>
             </div>
           </div>

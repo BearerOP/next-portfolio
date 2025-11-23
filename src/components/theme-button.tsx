@@ -18,10 +18,7 @@ export function ModeToggle() {
 
   if (!mounted) return null;
 
-  const isDarkMode =
-    theme === "dark" ||
-    (theme === "system" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const isDarkMode = theme === "dark";
 
   const handleThemeChange = (checked: boolean) => {
    clickSound();

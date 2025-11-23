@@ -34,9 +34,11 @@
   --variable-collection-16-pro-max-h: 852px;
   --variable-collection-iphone13-width: 390px;
   --variable-collection-iphone14-height: 844px;
-  --variable-collection-iphone16-pro-max-height: 953px;
-  --variable-collection-iphone16-pro-max-width: 440px;
-  --variable-collection-number: var(--variable-collection-iphone14-height);
+    --variable-collection-iphone16-pro-max-height: 953px;
+    --variable-collection-iphone16-pro-max-width: 440px;
+    --variable-collection-number: var(--variable-collection-iphone14-height);
+    --expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --expo-in: cubic-bezier(0.7, 0, 0.84, 0);
   }
 
   .dark {

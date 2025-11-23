@@ -219,7 +219,7 @@ export const projects = [
     image: "/images/yukti.png",
     technologies: ["React Native", "TypeScript", "Tailwind CSS", "Solana", "Postgres", "Anchor","Prsima", "Docker","Socket.io"],
     githubUrl: "https://github.com/BearerOP/projekt-yukti",
-    liveUrl: "https://dub.sh/yukti",
+    liveUrl: "https://yukti.bearerop.live",
     featured: true,
     status: "completed",
     startDate: "2024-01",

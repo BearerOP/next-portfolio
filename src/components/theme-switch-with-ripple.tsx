@@ -10,14 +10,12 @@ declare global {
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
-import { Monitor, Moon, Sun } from "lucide-react";
-import { createPortal } from "react-dom";
+import { motion } from "framer-motion";
+import { Moon, Sun } from "lucide-react";
 
 const themes = [
   { key: "light", icon: Sun, label: "Light theme" },
   { key: "dark", icon: Moon, label: "Dark theme" },
-  { key: "system", icon: Monitor, label: "System theme" },
 ];
 
 export type ThemeSwitcherProps = {
@@ -27,7 +25,6 @@ export type ThemeSwitcherProps = {
 export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
 
   const switchSound = () => {
     const audio = new Audio("/audio/netflix-tudum.mp3");
@@ -48,27 +45,110 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
   ) => {
     if (newTheme === theme) return;
   
-    // Safe check using built-in DOM typing
-    if (typeof document.startViewTransition !== "function") {
-      setTheme(newTheme);
-      return;
-    }
-  
     switchSound();
   
-    const x = e.clientX;
-    const y = e.clientY;
-    setRipple({ x, y });
+    // Find avatar element and get its center position
+    const avatarElement = document.querySelector('[data-slot="avatar-image"]') as HTMLElement
+    let centerX = "50%"
+    let centerY = "50%"
+    
+    if (avatarElement) {
+      const rect = avatarElement.getBoundingClientRect()
+      const avatarCenterX = rect.left + rect.width / 2
+      const avatarCenterY = rect.top + rect.height / 2
+      
+      // Convert to percentage relative to viewport
+      centerX = `${(avatarCenterX / window.innerWidth) * 100}%`
+      centerY = `${(avatarCenterY / window.innerHeight) * 100}%`
+    }
+    
+    // Create custom circle animation from avatar position with blur effect
+    const animationCSS = `
+      ::view-transition-group(root) {
+        animation-duration: 0.7s;
+        animation-timing-function: var(--expo-out);
+      }
+      
+      ::view-transition-new(root) {
+        animation-name: reveal-light;
+      }
+      ::view-transition-old(root) {
+        animation-name: fade-out-old;
+      }
+      .dark::view-transition-old(root) {
+        animation-name: fade-out-old-dark;
+        z-index: -1;
+      }
+      .dark::view-transition-new(root) {
+        animation-name: reveal-dark;
+      }
+      @keyframes reveal-dark {
+        from {
+          clip-path: circle(0% at ${centerX} ${centerY});
+          filter: blur(20px);
+          opacity: 0.5;
+        }
+        to {
+          clip-path: circle(150% at ${centerX} ${centerY});
+          filter: blur(0px);
+          opacity: 1;
+        }
+      }
+      @keyframes reveal-light {
+        from {
+          clip-path: circle(0% at ${centerX} ${centerY});
+          filter: blur(20px);
+          opacity: 0.5;
+        }
+        to {
+          clip-path: circle(150% at ${centerX} ${centerY});
+          filter: blur(0px);
+          opacity: 1;
+        }
+      }
+      @keyframes fade-out-old {
+        from {
+          filter: blur(0px);
+          opacity: 1;
+        }
+        to {
+          filter: blur(15px);
+          opacity: 0;
+        }
+      }
+      @keyframes fade-out-old-dark {
+        from {
+          filter: blur(0px);
+          opacity: 1;
+        }
+        to {
+          filter: blur(15px);
+          opacity: 0;
+        }
+      }
+    `
+    
+    // Apply animation CSS
+    const styleId = "theme-transition-style"
+    let styleElement = document.getElementById(styleId) as HTMLStyleElement
+    if (!styleElement) {
+      styleElement = document.createElement("style")
+      styleElement.id = styleId
+      document.head.appendChild(styleElement)
+    }
+    styleElement.textContent = animationCSS
+    
+    // Safe check using built-in DOM typing
+    if (typeof document.startViewTransition !== "function") {
+      setTheme(newTheme)
+      return
+    }
   
     // TypeScript expects a ViewTransitionCallback
     document.startViewTransition(() => {
-      setTheme(newTheme);
-    });
-  
-    setTimeout(() => {
-      setRipple(null);
-    }, 1000);
-  };
+      setTheme(newTheme)
+    })
+  }
   
 
   return (
@@ -112,34 +192,6 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
           );
         })}
       </motion.div>
-
-      {/* Ripple transition animation */}
-      {createPortal(
-        <AnimatePresence>
-          {ripple && (
-            <motion.div
-              key="ripple"
-              initial={{ scale: 0, opacity: 0.5 }}
-              animate={{ scale: 5, opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              style={{
-                position: "fixed",
-                top: ripple.y,
-                left: ripple.x,
-                transform: "translate(-50%, -50%)",
-                width: 1000,
-                height: 1000,
-                borderRadius: "9999px",
-                backgroundColor: "hsl(var(--primary))",
-                zIndex: 50,
-                pointerEvents: "none",
-              }}
-            />
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
     </>
   );
 };
