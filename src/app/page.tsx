@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
     
-      <main role="main" className="max-w-5xl mx-auto flex flex-col gap-4 px-4 min-h-[92vh]">
+      <main role="main" className="max-w-3xl mx-auto flex flex-col gap-4 px-4 min-h-[92vh]">
         <DotPattern
           width={5}
           height={5}

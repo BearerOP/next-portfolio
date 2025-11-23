@@ -32,7 +32,7 @@ export function CraftDemos() {
     <section className="w-full py-12">
       <div className="space-y-4 mb-8">
         <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-white">
-          Craft Components
+          My Crafts & Components
         </h2>
         <p className="text-zinc-600 dark:text-zinc-400">
           Interactive UI components with smooth animations

@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/components/themeprovider";
 import Footer from "@/components/footer";
 import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { Toaster } from "@/components/ui/sonner";
-import TextSVG from "@/components/ui/text-hover-effect";
 import { ConditionalSplashLayout } from "@/components/conditional-splash-layout";
 import { AnimatedLayout } from "@/components/animated-layout";
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, Link as LinkIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { education, workExperience } from "@/lib/resume";
+import { Badge } from "@/components/ui/badge";
 
 interface ExperienceItem {
   id: string;
@@ -199,16 +200,20 @@ function ExperienceSection({
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-base font-medium text-zinc-900 dark:text-white mb-1 group-hover:text-zinc-950 dark:group-hover:text-zinc-50 transition-colors flex items-center gap-2">
-                        {item.organization} — {item.location}
-                      {item.current && (
-                    <div className="">
-                      <span className="relative flex size-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full size-2 bg-cyan-500"></span>
-                      </span>
-                    </div>
-                  )}
+                      <h4 className="text-base font-medium text-zinc-900 dark:text-white mb-1 group-hover:text-zinc-950 dark:group-hover:text-zinc-50 transition-colors flex items-center gap-2 flex-wrap">
+                        <span>{item.organization} — {item.location}</span>
+                        {item.current && (
+                          <Badge 
+                            variant="secondary" 
+                            className="align-middle gap-1.5 py-0.5 px-2 rounded-xl bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20 font-medium text-[10px] uppercase tracking-wider"
+                          >
+                            <span className="relative flex h-1.5 w-1.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                            </span>
+                            Working
+                          </Badge>
+                        )}
                       </h4>
                       <p className="text-sm text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-300 transition-colors">
                         {item.duration}
