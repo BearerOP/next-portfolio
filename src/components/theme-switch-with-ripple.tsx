@@ -1,12 +1,5 @@
 "use client";
 
-// 👇 Add this patch to tell TypeScript about startViewTransition
-declare global {
-  interface Document {
-    startViewTransition?: (callback: () => void) => void;
-  }
-}
-
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -63,24 +56,37 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
     }
     
     // Create custom circle animation from avatar position with blur effect
+    const animationDuration = 2
     const animationCSS = `
       ::view-transition-group(root) {
-        animation-duration: 0.7s;
-        animation-timing-function: var(--expo-out);
+        animation-duration: ${animationDuration}s !important;
+        animation-timing-function: var(--expo-out) !important;
       }
       
       ::view-transition-new(root) {
-        animation-name: reveal-light;
+        animation-name: reveal-light !important;
+        animation-duration: ${animationDuration}s !important;
+        animation-timing-function: var(--expo-out) !important;
+        animation-fill-mode: both !important;
       }
       ::view-transition-old(root) {
-        animation-name: fade-out-old;
+        animation-name: fade-out-old !important;
+        animation-duration: ${animationDuration}s !important;
+        animation-timing-function: var(--expo-out) !important;
+        animation-fill-mode: both !important;
       }
       .dark::view-transition-old(root) {
-        animation-name: fade-out-old-dark;
+        animation-name: fade-out-old-dark !important;
+        animation-duration: ${animationDuration}s !important;
+        animation-timing-function: var(--expo-out) !important;
+        animation-fill-mode: both !important;
         z-index: -1;
       }
       .dark::view-transition-new(root) {
-        animation-name: reveal-dark;
+        animation-name: reveal-dark !important;
+        animation-duration: ${animationDuration}s !important;
+        animation-timing-function: var(--expo-out) !important;
+        animation-fill-mode: both !important;
       }
       @keyframes reveal-dark {
         from {
@@ -128,7 +134,7 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
       }
     `
     
-    // Apply animation CSS
+    // Apply animation CSS BEFORE transition
     const styleId = "theme-transition-style"
     let styleElement = document.getElementById(styleId) as HTMLStyleElement
     if (!styleElement) {
@@ -138,16 +144,25 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
     }
     styleElement.textContent = animationCSS
     
-    // Safe check using built-in DOM typing
-    if (typeof document.startViewTransition !== "function") {
-      setTheme(newTheme)
-      return
+    // Force synchronous style application
+    if (styleElement.sheet) {
+      // Styles are already applied via textContent
     }
-  
-    // TypeScript expects a ViewTransitionCallback
-    document.startViewTransition(() => {
+    
+    // Safe check for View Transition API support
+    if (typeof (document as any).startViewTransition === "function") {
+      try {
+        (document as any).startViewTransition(() => {
+          setTheme(newTheme)
+        })
+      } catch (error) {
+        console.warn("View transition failed, falling back to direct theme change", error)
+        setTheme(newTheme)
+      }
+    } else {
+      // Fallback for browsers without View Transition API
       setTheme(newTheme)
-    })
+    }
   }
   
 

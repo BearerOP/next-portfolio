@@ -76,6 +76,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  html {
+    view-transition-name: root;
+  }
 }
 
 @layer components {

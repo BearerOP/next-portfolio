@@ -15,6 +15,7 @@ import { VolumeIcon } from "./volume-icon";
 import { projects } from "@/lib/resume";
 import { SpotifyNowPlaying } from "./spotify-live";
 import { Badge } from "@/components/ui/badge";
+import { CompanyLogo } from "@/components/magicui/company-logo";
 
 export function ProjectCarousel() {
   const cards = data.map((card, index) => (
@@ -120,7 +121,15 @@ export function ProjectCarousel() {
                   variant="secondary"
                   className="rounded-md border border-dashed border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800/50 text-neutral-700 dark:text-neutral-300 px-2 py-0.5 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors gap-1.5 font-medium cursor-default"
                 >
-                  <Icon className="w-3.5 h-3.5" />
+                  <div className="relative w-3.5 h-3.5 flex-shrink-0">
+                    <CompanyLogo
+                      name={name}
+                      size={14}
+                      className="w-3.5 h-3.5"
+                      fallback={<Icon className="w-3.5 h-3.5" />}
+                      lazy={false}
+                    />
+                  </div>
                   {name}
                 </Badge>
               </TooltipItem>

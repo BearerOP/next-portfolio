@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp, Link as LinkIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { education, workExperience } from "@/lib/resume";
 import { Badge } from "@/components/ui/badge";
+import { CompanyLogo } from "@/components/magicui/company-logo";
 
 interface ExperienceItem {
   id: string;
@@ -294,8 +295,16 @@ function ExperienceSection({
                         {item.skills.map((skill, idx) => (
                           <span
                             key={idx}
-                            className="px-2.5 py-1 text-xs bg-zinc-200/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 rounded-md hover:bg-zinc-300/80 dark:hover:bg-zinc-700/80 transition-colors"
+                            className="px-2.5 py-1 text-xs bg-zinc-200/60 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-300 rounded-md hover:bg-zinc-300/80 dark:hover:bg-zinc-700/80 transition-colors flex items-center gap-1.5"
                           >
+                            <div className="relative w-4 h-4 flex-shrink-0">
+                              <CompanyLogo
+                                name={skill}
+                                size={16}
+                                className="w-4 h-4"
+                                lazy={true}
+                              />
+                            </div>
                             {skill}
                           </span>
                         ))}
