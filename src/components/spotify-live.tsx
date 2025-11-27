@@ -67,8 +67,9 @@ export function SpotifyNowPlaying() {
         const response = await fetch("/api/spotify/now-playing")
 
         if (response.status === 204) {
+          // Nothing new from the API – keep showing the last known track (last played)
+          // instead of forcing the "Not Playing / Offline" fallback card.
           setIsOnline(false)
-          setData(null)
           setError(null)
           setIsLoading(false)
           return
@@ -145,8 +146,11 @@ export function SpotifyNowPlaying() {
     )
   }
 
-  // Offline state - Vibrant Blue/Purple theme
-  if (!isOnline || !data) {
+  // Fallback state when we truly have no track data at all
+  // (e.g. first load and Spotify returns nothing).
+  // Once we have at least one response, we always keep showing
+  // the last known track instead of a "Not Playing" card.
+  if (!data) {
     return (
       <Card className="overflow-hidden bg-gradient-to-br from-slate-100/80 via-blue-50/60 to-indigo-100/50 dark:from-slate-900/50 dark:via-blue-950/40 dark:to-indigo-950/30 border-slate-300/50 dark:border-slate-700/50 rounded-[32px] shadow-sm shadow-slate-200/20 dark:shadow-slate-900/20">
         <div className="p-4">

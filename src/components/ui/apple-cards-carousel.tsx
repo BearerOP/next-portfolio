@@ -265,7 +265,7 @@ export const Card = ({
         <motion.div
           layoutId={layout ? `card-${card.title}` : undefined}
           onClick={redirectLiveLink}
-          className="rounded-3xl bg-black dark:bg-neutral-900 h-[20rem] w-56 md:h-[33rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 transition-opacity duration-300 group-hover:[absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black opacity-100 group-hover:opacity-80 transition-opacity duration-300 z-20 pointer-events-none]"
+          className="rounded-3xl bg-black dark:bg-neutral-900 h-[20rem] w-56 md:h-[32rem] md:w-80 lg:h-[30rem] lg:w-84 xl:w-84 overflow-hidden flex flex-col items-start justify-start relative z-10 transition-opacity duration-300 group-hover:[absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black opacity-100 group-hover:opacity-80 transition-opacity duration-300 z-20 pointer-events-none]"
         >
           {/* Overlay gradient */}
           <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none rounded-3xl" />

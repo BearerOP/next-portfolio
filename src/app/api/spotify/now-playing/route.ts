@@ -5,6 +5,8 @@ const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET
 const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN
 
 const NOW_PLAYING_ENDPOINT = "https://api.spotify.com/v1/me/player/currently-playing"
+const RECENTLY_PLAYED_ENDPOINT =
+  "https://api.spotify.com/v1/me/player/recently-played?limit=1"
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token"
 
 async function getAccessToken() {
@@ -45,6 +47,15 @@ async function getNowPlaying(accessToken: string) {
   })
 }
 
+async function getRecentlyPlayed(accessToken: string) {
+  return fetch(RECENTLY_PLAYED_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-store",
+  })
+}
+
 export async function GET() {
   try {
     // Check for environment variables
@@ -59,9 +70,41 @@ export async function GET() {
     const { access_token } = await getAccessToken()
     const response = await getNowPlaying(access_token)
 
-    // 204 means user is not playing anything
+    // 204 means user is not playing anything right now
+    // Fallback to the most recently played track instead of "Not Playing"
     if (response.status === 204) {
-      return new NextResponse(null, { status: 204 })
+      const recentResponse = await getRecentlyPlayed(access_token)
+
+      if (!recentResponse.ok) {
+        return new NextResponse(null, { status: 204 })
+      }
+
+      const recent = await recentResponse.json()
+      const lastItem = recent?.items?.[0]
+
+      if (!lastItem?.track) {
+        return new NextResponse(null, { status: 204 })
+      }
+
+      const track = lastItem.track
+
+      const title = track.name
+      const artist = track.artists?.map((a: any) => a.name).join(", ") ?? ""
+      const album = track.album?.name ?? ""
+      const albumImageUrl = track.album?.images?.[0]?.url ?? ""
+      const songUrl = track.external_urls?.spotify ?? ""
+      const duration = track.duration_ms ?? 0
+
+      return NextResponse.json({
+        isPlaying: false,
+        title,
+        artist,
+        album,
+        albumImageUrl,
+        songUrl,
+        progress: 0,
+        duration,
+      })
     }
 
     // Handle other error status codes
