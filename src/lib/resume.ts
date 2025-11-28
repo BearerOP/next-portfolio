@@ -16,7 +16,7 @@ export const personalInfo = {
   },
   age: 21,
   website: "https://bearerop.live",
-  avatar: "/images/avatar2.JPG", // Update with your avatar path
+  avatar: "/images/gabimaru.jpg", // Update with your avatar path
   resumeUrl: "https://dub.sh/resume189",
 } as const;
 

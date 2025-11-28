@@ -17,7 +17,7 @@ export default function AvatarComponent() {
     className="relative rounded-full size-full bg-transparent ring-1 ring-gray-700 dark:bg-neutral-900 p-[5px] overflow-hidden shadow-[inset_0px_4.35px_8.7px_#ffffff99,inset_0px_-4.35px_4px_#cccccc99,0px_7px_11.7px_#00000040]
 ">
       <Avatar className="w-24 h-24  outline-lime-50 ">
-        <AvatarImage src="/images/avatar2.JPG" alt="Ankit Yadav" />
+        <AvatarImage src="/images/gabimaru.jpg" alt="Ankit Yadav" />
         <AvatarFallback>ay.</AvatarFallback>
       </Avatar>
     </motion.div>
