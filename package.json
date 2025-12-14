@@ -31,7 +31,7 @@
     "mini-svg-data-uri": "^1.4.4",
     "motion": "^12.9.4",
     "motion-plus": "^0.1.6",
-    "next": "14.2.7",
+    "next": "14.2.35",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-activity-calendar": "^2.7.10",
