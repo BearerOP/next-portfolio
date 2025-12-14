@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Copy, Check, Maximize2, ArrowLeft, ChevronRight, ChevronLeft, Menu, X as CloseIcon } from "lucide-react";
 import Link from "next/link";
 import { FamilyStyleModal } from "./family-style-modal";
+import { ToastContainer } from "./toast-container";
+import { useToast as useToastNotification } from "@/hooks/use-toast-notification";
 import { useCraft } from "@/contexts/craft-context";
 
 interface Component {
@@ -27,6 +29,12 @@ const components: Component[] = [
     name: "Family Style Modal",
     description: "Modal with family-style layout",
     category: "Modal",
+  },
+  {
+    id: "toast-notification",
+    name: "Toast Notification",
+    description: "Toast notification system with stacking animations",
+    category: "Notification",
   },
 ];
 
@@ -62,6 +70,9 @@ export function CraftLayout() {
   const [activeTab, setActiveTab] = useState<"usage" | "source">("usage");
   const [isSourceExpanded, setIsSourceExpanded] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Toast notification hook - must be at top level per Rules of Hooks
+  const { toasts, success, warning, danger, info, removeToast, clearAllToasts } = useToastNotification();
 
   // Get current component index and navigation info
   const currentIndex = components.findIndex((c) => c.id === selectedComponent);
@@ -139,8 +150,8 @@ export function CraftLayout() {
                     <button
                       onClick={() => setActiveTab("usage")}
                       className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "usage"
-                          ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
-                          : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                        ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
+                        : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
                         }`}
                     >
                       Usage
@@ -148,8 +159,8 @@ export function CraftLayout() {
                     <button
                       onClick={() => setActiveTab("source")}
                       className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "source"
-                          ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
-                          : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                        ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
+                        : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
                         }`}
                     >
                       Source Code
@@ -597,21 +608,19 @@ export function OriginAwareCards({ cards = defaultCards }: OriginAwareCardsProps
                   <div className="flex gap-2 border-b border-zinc-200 dark:border-zinc-800">
                     <button
                       onClick={() => setActiveTab("usage")}
-                      className={`px-4 py-2 text-sm font-medium transition-colors ${
-                        activeTab === "usage"
-                          ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
-                          : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
-                      }`}
+                      className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "usage"
+                        ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
+                        : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                        }`}
                     >
                       Usage
                     </button>
                     <button
                       onClick={() => setActiveTab("source")}
-                      className={`px-4 py-2 text-sm font-medium transition-colors ${
-                        activeTab === "source"
-                          ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
-                          : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
-                      }`}
+                      className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "source"
+                        ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
+                        : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                        }`}
                     >
                       Source Code
                     </button>
@@ -682,9 +691,8 @@ export function FamilyStyleModal() {
                         />
                         <div className="relative rounded-xl overflow-hidden">
                           <div
-                            className={`bg-zinc-900 dark:bg-zinc-800 p-6 overflow-y-auto transition-all ${
-                              isSourceExpanded ? "max-h-[800px]" : "max-h-[400px]"
-                            }`}
+                            className={`bg-zinc-900 dark:bg-zinc-800 p-6 overflow-y-auto transition-all ${isSourceExpanded ? "max-h-[800px]" : "max-h-[400px]"
+                              }`}
                             style={{ scrollbarWidth: "none" }}
                           >
                             <pre className="text-sm text-zinc-100 whitespace-pre-wrap break-words pb-12">
@@ -940,13 +948,522 @@ export function FamilyStyleModal() {
             </div>
           );
 
+        case "toast-notification":
+          return (
+            <div className="space-y-6 sm:space-y-8">
+              {/* Component Header */}
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-2">
+                    Toast Notification
+                  </h2>
+                  <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
+                    Toast notification system with multiple toasts, stacking animations, and hover effects using Motion for React
+                  </p>
+                </div>
+
+                {/* Navigation Buttons */}
+                <div className="flex items-center gap-2">
+                  {previousComponent && (
+                    <button
+                      onClick={() => setSelectedComponent(previousComponent.id)}
+                      className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg transition-colors text-sm text-zinc-900 dark:text-zinc-100"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      <span className="hidden md:inline">{previousComponent.name}</span>
+                    </button>
+                  )}
+                  {nextComponent && (
+                    <button
+                      onClick={() => setSelectedComponent(nextComponent.id)}
+                      className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg transition-colors text-sm text-zinc-900 dark:text-zinc-100"
+                    >
+                      <span className="hidden md:inline">{nextComponent.name}</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Demo Section */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">Demo</h3>
+                <div className="min-h-[400px] flex items-center justify-center bg-zinc-100 dark:bg-zinc-900 rounded-2xl p-8">
+                  <div className="flex flex-col gap-4 items-center">
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        onClick={() => success('Success!', 'Your action was completed successfully')}
+                        className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium"
+                      >
+                        Show Success
+                      </button>
+                      <button
+                        onClick={() => warning('Warning!', 'Please review your settings')}
+                        className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg transition-colors text-sm font-medium"
+                      >
+                        Show Warning
+                      </button>
+                      <button
+                        onClick={() => danger('Error!', 'Something went wrong')}
+                        className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium"
+                      >
+                        Show Error
+                      </button>
+                      <button
+                        onClick={() => info('Info', 'Here is some information')}
+                        className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium"
+                      >
+                        Show Info
+                      </button>
+                    </div>
+                    <button
+                      onClick={() => {
+                        success('Success!', 'First notification')
+                        setTimeout(() => warning('Warning!', 'Second notification'), 200)
+                        setTimeout(() => danger('Error!', 'Third notification'), 400)
+                        setTimeout(() => info('Info', 'Fourth notification'), 600)
+                      }}
+                      className="px-6 py-2 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors text-sm font-medium"
+                    >
+                      Show Multiple Toasts
+                    </button>
+                    <button
+                      onClick={clearAllToasts}
+                      className="px-4 py-2 bg-zinc-600 hover:bg-zinc-700 text-white rounded-lg transition-colors text-xs"
+                    >
+                      Clear All
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Installation Section */}
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">
+                  Installation
+                </h3>
+
+                {/* Step 1 */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-bold text-sm">
+                      1
+                    </div>
+                    <h4 className="font-semibold text-zinc-900 dark:text-white">
+                      Install dependencies
+                    </h4>
+                  </div>
+                  <div className="relative">
+                    <CopyButton code="npm install motion lucide-react" />
+                    <div className="bg-zinc-900 dark:bg-zinc-800 rounded-xl p-6 overflow-x-auto">
+                      <pre className="text-sm text-zinc-100">
+                        <code>npm install motion lucide-react</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-bold text-sm">
+                      2
+                    </div>
+                    <h4 className="font-semibold text-zinc-900 dark:text-white">
+                      Copy and paste the following code into your project.
+                    </h4>
+                  </div>
+
+                  {/* Tabs */}
+                  <div className="flex gap-2 border-b border-zinc-200 dark:border-zinc-800">
+                    <button
+                      onClick={() => setActiveTab("usage")}
+                      className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "usage"
+                        ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
+                        : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                        }`}
+                    >
+                      Usage
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("source")}
+                      className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "source"
+                        ? "text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white"
+                        : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                        }`}
+                    >
+                      Source Code
+                    </button>
+                  </div>
+
+                  {/* Tab Content */}
+                  <div className="relative">
+                    {activeTab === "usage" ? (
+                      <div className="relative">
+                        <CopyButton
+                          code={`// Step 1: Add ToastProvider to your root layout (recommended for global usage)
+// src/app/layout.tsx or src/components/toast-provider.tsx
+
+'use client'
+
+import { useToast } from '@/hooks/use-toast-notification'
+import { ToastContainer } from '@/components/craft/toast-container'
+
+export function ToastProvider() {
+    const { toasts, removeToast } = useToast()
+    return <ToastContainer toasts={toasts} onClose={removeToast} />
+}
+
+// Then in your layout.tsx:
+import { ToastProvider } from '@/components/toast-provider'
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <ToastProvider />
+      </body>
+    </html>
+  )
+}
+
+// Step 2: Use the toast hook in any component
+'use client'
+
+import { useToast } from '@/hooks/use-toast-notification'
+
+export default function MyComponent() {
+  const { success, warning, danger, info } = useToast()
+  
+  return (
+    <div>
+      <button onClick={() => success('Success!', 'Your action was completed')}>
+        Show Success Toast
+      </button>
+      <button onClick={() => warning('Warning!', 'Please review your settings')}>
+        Show Warning Toast
+      </button>
+      <button onClick={() => danger('Error!', 'Something went wrong')}>
+        Show Error Toast
+      </button>
+      <button onClick={() => info('Info', 'Here is some information')}>
+        Show Info Toast
+      </button>
+    </div>
+  )
+}`}
+                        />
+                        <div className="bg-zinc-900 dark:bg-zinc-800 rounded-xl p-6 overflow-x-auto">
+                          <pre className="text-sm text-zinc-100">
+                            <code>{`// Step 1: Add ToastProvider to your root layout (recommended for global usage)
+// src/app/layout.tsx or src/components/toast-provider.tsx
+
+'use client'
+
+import { useToast } from '@/hooks/use-toast-notification'
+import { ToastContainer } from '@/components/craft/toast-container'
+
+export function ToastProvider() {
+    const { toasts, removeToast } = useToast()
+    return <ToastContainer toasts={toasts} onClose={removeToast} />
+}
+
+// Then in your layout.tsx:
+import { ToastProvider } from '@/components/toast-provider'
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <ToastProvider />
+      </body>
+    </html>
+  )
+}
+
+// Step 2: Use the toast hook in any component
+'use client'
+
+import { useToast } from '@/hooks/use-toast-notification'
+
+export default function MyComponent() {
+  const { success, warning, danger, info } = useToast()
+  
+  return (
+    <div>
+      <button onClick={() => success('Success!', 'Your action was completed')}>
+        Show Success Toast
+      </button>
+      <button onClick={() => warning('Warning!', 'Please review your settings')}>
+        Show Warning Toast
+      </button>
+      <button onClick={() => danger('Error!', 'Something went wrong')}>
+        Show Error Toast
+      </button>
+      <button onClick={() => info('Info', 'Here is some information')}>
+        Show Info Toast
+      </button>
+    </div>
+  )
+}`}</code>
+                          </pre>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="relative">
+                        <CopyButton
+                          code={`// toast-notification.tsx
+'use client'
+
+import { useEffect } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
+import { CheckCircle2, AlertTriangle, XCircle, Info, X } from 'lucide-react'
+
+export type ToastVariant = 'success' | 'warning' | 'danger' | 'info'
+export type ToastWidth = 'sm' | 'md' | 'lg' | 'full'
+
+export interface ToastProps {
+  isOpen: boolean
+  onClose: () => void
+  variant?: ToastVariant
+  title: string
+  message: string
+  duration?: number
+  showCloseButton?: boolean
+  width?: ToastWidth
+  standalone?: boolean
+}
+
+const variantConfig = {
+  success: { icon: CheckCircle2, iconBg: 'bg-green-500/15', iconColor: 'text-green-300' },
+  warning: { icon: AlertTriangle, iconBg: 'bg-yellow-500/15', iconColor: 'text-yellow-300' },
+  danger: { icon: XCircle, iconBg: 'bg-red-500/15', iconColor: 'text-red-300' },
+  info: { icon: Info, iconBg: 'bg-blue-500/15', iconColor: 'text-blue-300' },
+}
+
+const widthConfig: Record<ToastWidth, string> = {
+  sm: 'sm:max-w-sm', md: 'sm:max-w-md', lg: 'sm:max-w-lg', full: 'sm:max-w-2xl',
+}
+
+export function Toast({ isOpen, onClose, variant = 'info', title, message, duration = 5000, showCloseButton = true, width = 'md', standalone = true }: ToastProps) {
+  const config = variantConfig[variant]
+  const IconComponent = config.icon
+  const widthClass = widthConfig[width]
+
+  useEffect(() => {
+    if (isOpen && duration > 0 && standalone) {
+      const timer = setTimeout(() => onClose(), duration)
+      return () => clearTimeout(timer)
+    }
+  }, [isOpen, duration, onClose, standalone])
+
+  const toastContent = (
+    <motion.div initial={{ opacity: 0, y: standalone ? 100 : 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: standalone ? 100 : 0 }} transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }} className="pointer-events-auto flex items-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl bg-[#141118] px-3 sm:px-4 py-2.5 sm:py-3 text-xs text-white shadow-[0_18px_60px_rgba(0,0,0,0.75)] border border-white/10 backdrop-blur-xl">
+      <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 500, damping: 25, delay: 0.15 }} className={\`flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full \${config.iconBg} \${config.iconColor} flex-shrink-0\`}>
+        <IconComponent className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+      </motion.div>
+      <div className="space-y-0.5 min-w-0 flex-1">
+        <motion.p initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.1, ease: [0.32, 0.72, 0, 1] }} className="font-medium text-xs sm:text-sm">{title}</motion.p>
+        <motion.p initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.15, ease: [0.32, 0.72, 0, 1] }} className="text-[10px] sm:text-[11px] text-white/70">{message}</motion.p>
+      </div>
+      {showCloseButton && <motion.button initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2, delay: 0.25, ease: [0.32, 0.72, 0, 1] }} onClick={onClose} className="flex-shrink-0 p-1 hover:bg-white/10 rounded-lg transition-colors" aria-label="Close notification"><X className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white/50 hover:text-white/80" /></motion.button>}
+    </motion.div>
+  )
+
+  if (standalone) {
+    return <AnimatePresence mode="wait">{isOpen && <div className={\`pointer-events-none fixed bottom-4 sm:bottom-6 left-1/2 z-[60] -translate-x-1/2 w-full max-w-[calc(100%-2rem)] \${widthClass} px-4 sm:px-0\`}>{toastContent}</div>}</AnimatePresence>
+  }
+
+  return <div className={\`w-full \${widthClass} mx-auto\`}>{toastContent}</div>
+}`}
+                        />
+                        <div className="relative">
+                          <div
+                            className={`bg-zinc-900 dark:bg-zinc-800 rounded-xl p-6 overflow-y-auto transition-all ${isSourceExpanded ? "max-h-[800px]" : "max-h-[400px]"
+                              }`}
+                          >
+                            <pre className="text-sm text-zinc-100 whitespace-pre-wrap break-words">
+                              <code>{`// toast-notification.tsx
+'use client'
+
+import { useEffect } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
+import { CheckCircle2, AlertTriangle, XCircle, Info, X } from 'lucide-react'
+
+export type ToastVariant = 'success' | 'warning' | 'danger' | 'info'
+export type ToastWidth = 'sm' | 'md' | 'lg' | 'full'
+
+export interface ToastProps {
+  isOpen: boolean
+  onClose: () => void
+  variant?: ToastVariant
+  title: string
+  message: string
+  duration?: number
+  showCloseButton?: boolean
+  width?: ToastWidth
+  standalone?: boolean
+}
+
+const variantConfig = {
+  success: { icon: CheckCircle2, iconBg: 'bg-green-500/15', iconColor: 'text-green-300' },
+  warning: { icon: AlertTriangle, iconBg: 'bg-yellow-500/15', iconColor: 'text-yellow-300' },
+  danger: { icon: XCircle, iconBg: 'bg-red-500/15', iconColor: 'text-red-300' },
+  info: { icon: Info, iconBg: 'bg-blue-500/15', iconColor: 'text-blue-300' },
+}
+
+const widthConfig: Record<ToastWidth, string> = {
+  sm: 'sm:max-w-sm', md: 'sm:max-w-md', lg: 'sm:max-w-lg', full: 'sm:max-w-2xl',
+}
+
+export function Toast({ isOpen, onClose, variant = 'info', title, message, duration = 5000, showCloseButton = true, width = 'md', standalone = true }: ToastProps) {
+  const config = variantConfig[variant]
+  const IconComponent = config.icon
+  const widthClass = widthConfig[width]
+
+  useEffect(() => {
+    if (isOpen && duration > 0 && standalone) {
+      const timer = setTimeout(() => onClose(), duration)
+      return () => clearTimeout(timer)
+    }
+  }, [isOpen, duration, onClose, standalone])
+
+  const toastContent = (
+    <motion.div initial={{ opacity: 0, y: standalone ? 100 : 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: standalone ? 100 : 0 }} transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }} className="pointer-events-auto flex items-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl bg-[#141118] px-3 sm:px-4 py-2.5 sm:py-3 text-xs text-white shadow-[0_18px_60px_rgba(0,0,0,0.75)] border border-white/10 backdrop-blur-xl">
+      <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 500, damping: 25, delay: 0.15 }} className={\`flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full \${config.iconBg} \${config.iconColor} flex-shrink-0\`}>
+        <IconComponent className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+      </motion.div>
+      <div className="space-y-0.5 min-w-0 flex-1">
+        <motion.p initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.1, ease: [0.32, 0.72, 0, 1] }} className="font-medium text-xs sm:text-sm">{title}</motion.p>
+        <motion.p initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.15, ease: [0.32, 0.72, 0, 1] }} className="text-[10px] sm:text-[11px] text-white/70">{message}</motion.p>
+      </div>
+      {showCloseButton && <motion.button initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2, delay: 0.25, ease: [0.32, 0.72, 0, 1] }} onClick={onClose} className="flex-shrink-0 p-1 hover:bg-white/10 rounded-lg transition-colors" aria-label="Close notification"><X className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white/50 hover:text-white/80" /></motion.button>}
+    </motion.div>
+  )
+
+  if (standalone) {
+    return <AnimatePresence mode="wait">{isOpen && <div className={\`pointer-events-none fixed bottom-4 sm:bottom-6 left-1/2 z-[60] -translate-x-1/2 w-full max-w-[calc(100%-2rem)] \${widthClass} px-4 sm:px-0\`}>{toastContent}</div>}</AnimatePresence>
+  }
+
+  return <div className={\`w-full \${widthClass} mx-auto\`}>{toastContent}</div>
+}`}</code>
+                            </pre>
+                          </div>
+
+                          {/* Gradient mask and expand button */}
+                          {!isSourceExpanded && (
+                            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-zinc-900 dark:from-zinc-800 to-transparent rounded-b-xl pointer-events-none" />
+                          )}
+                          <button
+                            onClick={() => setIsSourceExpanded(!isSourceExpanded)}
+                            className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg transition-colors flex items-center gap-2 text-sm text-zinc-100"
+                          >
+                            <Maximize2 className="w-4 h-4" />
+                            {isSourceExpanded ? "Collapse" : "Expand"}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Features Section */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">Features</h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Multiple toasts support</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Stacking animations</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Hover to expand</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Auto-dismiss (configurable)</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>4 variants (success, warning, danger, info)</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>4 width options (sm, md, lg, full)</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>Mobile responsive</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>TypeScript support</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Props Section */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">Props</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                        <th className="text-left py-2 px-4 font-semibold text-zinc-900 dark:text-white">Component</th>
+                        <th className="text-left py-2 px-4 font-semibold text-zinc-900 dark:text-white">Prop</th>
+                        <th className="text-left py-2 px-4 font-semibold text-zinc-900 dark:text-white">Type</th>
+                        <th className="text-left py-2 px-4 font-semibold text-zinc-900 dark:text-white">Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                        <td className="py-2 px-4 font-mono text-zinc-600 dark:text-zinc-400">Toast</td>
+                        <td className="py-2 px-4 font-mono text-zinc-600 dark:text-zinc-400">variant</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">success | warning | danger | info</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">info</td>
+                      </tr>
+                      <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                        <td className="py-2 px-4 font-mono text-zinc-600 dark:text-zinc-400">Toast</td>
+                        <td className="py-2 px-4 font-mono text-zinc-600 dark:text-zinc-400">width</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">sm | md | lg | full</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">md</td>
+                      </tr>
+                      <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                        <td className="py-2 px-4 font-mono text-zinc-600 dark:text-zinc-400">Toast</td>
+                        <td className="py-2 px-4 font-mono text-zinc-600 dark:text-zinc-400">duration</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">number</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">5000</td>
+                      </tr>
+                      <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                        <td className="py-2 px-4 font-mono text-zinc-600 dark:text-zinc-400">ToastContainer</td>
+                        <td className="py-2 px-4 font-mono text-zinc-600 dark:text-zinc-400">maxVisible</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">number</td>
+                        <td className="py-2 px-4 text-zinc-600 dark:text-zinc-400">3</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Toast Container for Demo */}
+              <ToastContainer toasts={toasts} onClose={removeToast} />
+            </div>
+          );
+
         default:
           return null;
       }
     };
 
     return renderComponentDemo();
-  }, [selectedComponent, activeTab, isSourceExpanded, previousComponent, nextComponent, setSelectedComponent]);
+  }, [selectedComponent, activeTab, isSourceExpanded, previousComponent, nextComponent, setSelectedComponent, toasts, success, warning, danger, info, removeToast, clearAllToasts]);
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
@@ -989,8 +1506,8 @@ export function FamilyStyleModal() {
                         key={component.id}
                         onClick={() => setSelectedComponent(component.id)}
                         className={`flex-shrink-0 lg:w-full text-left px-4 py-3 rounded-xl relative z-10 ${selectedComponent === component.id
-                            ? "text-white dark:text-zinc-900"
-                            : "text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700"
+                          ? "text-white dark:text-zinc-900"
+                          : "text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700"
                           }`}
                       >
                         {selectedComponent === component.id && (
@@ -1005,8 +1522,8 @@ export function FamilyStyleModal() {
                         </div>
                         <div
                           className={`text-xs mt-1 hidden sm:block ${selectedComponent === component.id
-                              ? "text-zinc-300 dark:text-zinc-600"
-                              : "text-zinc-500 dark:text-zinc-400"
+                            ? "text-zinc-300 dark:text-zinc-600"
+                            : "text-zinc-500 dark:text-zinc-400"
                             }`}
                         >
                           {component.category}

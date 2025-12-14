@@ -9,8 +9,10 @@ import { AnimatedLayout } from "@/components/animated-layout";
 import { Analytics } from "@vercel/analytics/next"
 // metadata imports
 import { metadata, viewport } from "./metadata";
-
 export { metadata, viewport };
+
+// Toast provider
+import { ToastProvider } from "@/components/toast-provider";
 
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
@@ -72,7 +74,9 @@ export default function RootLayout({
             </ThemeProvider>
           </AnimatedLayout>
         </ConditionalSplashLayout>
+        <ToastProvider />
       </body>
+
     </html>
   );
 }
