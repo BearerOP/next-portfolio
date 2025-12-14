@@ -1,4 +1,10 @@
+// ============================================
+// FILE: app/api/spotify/now-playing/route.ts
+// Updated API route with Turso integration
+// ============================================
+
 import { NextResponse } from "next/server"
+import { saveLastTrack, getLastTrack } from "@/lib/spotify-db"
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET
@@ -61,6 +67,13 @@ export async function GET() {
     // Check for environment variables
     if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
       console.error("Missing Spotify environment variables")
+      
+      // Try to return cached data from Turso
+      const cachedTrack = await getLastTrack()
+      if (cachedTrack) {
+        return NextResponse.json(cachedTrack)
+      }
+      
       return NextResponse.json(
         { error: "Spotify credentials not configured" },
         { status: 500 }
@@ -71,11 +84,15 @@ export async function GET() {
     const response = await getNowPlaying(access_token)
 
     // 204 means user is not playing anything right now
-    // Fallback to the most recently played track instead of "Not Playing"
     if (response.status === 204) {
       const recentResponse = await getRecentlyPlayed(access_token)
 
       if (!recentResponse.ok) {
+        // Return cached data from Turso
+        const cachedTrack = await getLastTrack()
+        if (cachedTrack) {
+          return NextResponse.json(cachedTrack)
+        }
         return new NextResponse(null, { status: 204 })
       }
 
@@ -83,33 +100,44 @@ export async function GET() {
       const lastItem = recent?.items?.[0]
 
       if (!lastItem?.track) {
+        // Return cached data from Turso
+        const cachedTrack = await getLastTrack()
+        if (cachedTrack) {
+          return NextResponse.json(cachedTrack)
+        }
         return new NextResponse(null, { status: 204 })
       }
 
       const track = lastItem.track
 
-      const title = track.name
-      const artist = track.artists?.map((a: any) => a.name).join(", ") ?? ""
-      const album = track.album?.name ?? ""
-      const albumImageUrl = track.album?.images?.[0]?.url ?? ""
-      const songUrl = track.external_urls?.spotify ?? ""
-      const duration = track.duration_ms ?? 0
-
-      return NextResponse.json({
+      const trackData = {
         isPlaying: false,
-        title,
-        artist,
-        album,
-        albumImageUrl,
-        songUrl,
+        title: track.name,
+        artist: track.artists?.map((a: any) => a.name).join(", ") ?? "",
+        album: track.album?.name ?? "",
+        albumImageUrl: track.album?.images?.[0]?.url ?? "",
+        songUrl: track.external_urls?.spotify ?? "",
         progress: 0,
-        duration,
-      })
+        duration: track.duration_ms ?? 0,
+        playedAt: lastItem.played_at,
+      }
+
+      // Save to Turso for caching
+      await saveLastTrack(trackData)
+
+      return NextResponse.json(trackData)
     }
 
     // Handle other error status codes
     if (response.status === 401) {
       console.error("Spotify token expired or invalid")
+      
+      // Return cached data from Turso
+      const cachedTrack = await getLastTrack()
+      if (cachedTrack) {
+        return NextResponse.json(cachedTrack)
+      }
+      
       return NextResponse.json(
         { error: "Invalid Spotify token" },
         { status: 401 }
@@ -118,6 +146,13 @@ export async function GET() {
 
     if (!response.ok) {
       console.error(`Spotify API error: ${response.status}`)
+      
+      // Return cached data from Turso
+      const cachedTrack = await getLastTrack()
+      if (cachedTrack) {
+        return NextResponse.json(cachedTrack)
+      }
+      
       return NextResponse.json(
         { error: "Failed to fetch from Spotify" },
         { status: response.status }
@@ -127,30 +162,42 @@ export async function GET() {
     const song = await response.json()
 
     if (!song.item) {
+      // Return cached data from Turso
+      const cachedTrack = await getLastTrack()
+      if (cachedTrack) {
+        return NextResponse.json(cachedTrack)
+      }
       return new NextResponse(null, { status: 204 })
     }
 
-    const isPlaying = song.is_playing
-    const title = song.item.name
-    const artist = song.item.artists.map((artist: any) => artist.name).join(", ")
-    const album = song.item.album.name
-    const albumImageUrl = song.item.album.images[0]?.url
-    const songUrl = song.item.external_urls.spotify
-    const progress = song.progress_ms
-    const duration = song.item.duration_ms
+    const trackData = {
+      isPlaying: song.is_playing,
+      title: song.item.name,
+      artist: song.item.artists.map((artist: any) => artist.name).join(", "),
+      album: song.item.album.name,
+      albumImageUrl: song.item.album.images[0]?.url,
+      songUrl: song.item.external_urls.spotify,
+      progress: song.progress_ms,
+      duration: song.item.duration_ms,
+    }
 
-    return NextResponse.json({
-      isPlaying,
-      title,
-      artist,
-      album,
-      albumImageUrl,
-      songUrl,
-      progress,
-      duration,
-    })
+    // Save to Turso for caching
+    await saveLastTrack(trackData)
+
+    return NextResponse.json(trackData)
   } catch (error) {
     console.error("Error fetching Spotify data:", error)
+    
+    // Try to return cached data from Turso on any error
+    try {
+      const cachedTrack = await getLastTrack()
+      if (cachedTrack) {
+        return NextResponse.json(cachedTrack)
+      }
+    } catch (dbError) {
+      console.error("Error fetching from Turso:", dbError)
+    }
+    
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -159,4 +206,3 @@ export async function GET() {
 }
 
 export const revalidate = 0
-
