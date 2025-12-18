@@ -8,6 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
       "Full Stack Developer specializing in React, Next.js, Node.js, and modern web technologies. Portfolio showcasing projects and experience.",
     start_url: "/",
     id: "/",
+    scope: "/",
     display: "standalone",
     background_color: "#0a0a0a",
     theme_color: "#6b9ff3",
@@ -37,24 +38,9 @@ export default function manifest(): MetadataRoute.Manifest {
         purpose: "any",
       },
     ],
-    screenshots: [
-      {
-        src: "/images/screenshot-desktop.png",
-        sizes: "1920x1080",
-        type: "image/png",
-        form_factor: "wide",
-        label: "Portfolio Desktop View",
-      },
-      {
-        src: "/images/screenshot-mobile.png",
-        sizes: "390x844",
-        type: "image/png",
-        form_factor: "narrow",
-        label: "Portfolio Mobile View",
-      },
-    ] as any, // Type assertion needed as Next.js types don't include form_factor yet
     categories: ["portfolio", "technology", "development"],
     orientation: "any",
+    dir: "ltr",
     lang: "en-US",
   };
 }

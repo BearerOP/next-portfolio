@@ -108,13 +108,10 @@ export const metadata: Metadata = {
     ],
   },
 
-  manifest: "/manifest.json",
+  manifest: "/manifest.json", // ✅ CORRECTED: Changed from /manifest.webmanifest
 
   verification: {
-    google: "xmaUG5cyzz03GizUm6bniYzI2CWZAGswioMrduKg0DE", // Add after setting up Google Search Console
-    // other: {
-    //   "msvalidate.01": "YOUR_BING_VERIFICATION_CODE",
-    // },
+    google: "xmaUG5cyzz03GizUm6bniYzI2CWZAGswioMrduKg0DE",
   },
 
   alternates: {
