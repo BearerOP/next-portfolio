@@ -20,7 +20,7 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
   const [mounted, setMounted] = useState(false);
 
   const switchSound = () => {
-    const audio = new Audio("/audio/netflix-tudum.mp3");
+    const audio = new Audio("/audio/nakime_biwa.mp3");
     audio.volume = 0.5;
     audio.play();
   };
