@@ -113,7 +113,7 @@ export const workExperience = [
       "Developed opinion poll visualization platforms and prediction tables for 200,000+ party members, matching industry-standard formats with full customization for rapid campaign deployment",
       "Created interactive political dashboards with real-time electoral data management and voter sentiment analysis, supporting field operations across all 243 seats and 38 districts statewide",
     ],
-    technologies: ["Next.js","Framer Motion","TypeScript","Tailwind CSS", "React", "Google Apps Script", "JavaScript", "Data Visualization", "Dashboard Development", "Electoral Systems"],
+    technologies: ["Next.js", "Framer Motion", "TypeScript", "Tailwind CSS", "React", "Google Apps Script", "JavaScript", "Data Visualization", "Dashboard Development", "Electoral Systems"],
   },
   {
     id: "surepath-labs",
@@ -209,8 +209,10 @@ export const allSkills = [
 ] as const;
 
 // Projects
+// Optional fields: buttonText and buttonUrl can be added to customize the card button
+// If not provided, the default GitHub button will be shown
 export const projects = [
-  
+
   {
     id: "project-1",
     title: "Elara",
@@ -218,7 +220,7 @@ export const projects = [
     description: "Elara is a fashion styling application that helps users discover their personal style through an engaging onboarding experience. The platform includes a Try-on feature with interactive card swiping, style preferences, and a chat interface for personalized fashion recommendations.",
     longDescription: "Elara is a fashion styling application that helps users discover their personal style through an engaging onboarding experience. The platform includes a multi-step onboarding flow with interactive card swiping, style preferences, and a chat interface for personalized fashion recommendations.",
     image: "/images/elara.png",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS"," Motion"],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", " Motion"],
     githubUrl: "https://github.com/BearerOP/elara",
     liveUrl: "https://elara.bearerop.live",
     featured: true,
@@ -233,12 +235,14 @@ export const projects = [
     id: "project-2",
     title: "Figma Designs",
     category: "Some of my design stuff",
-    description:  "Some of my design stuff",
+    description: "Some of my design stuff",
     longDescription: "Some of my design stuff",
     image: "/images/figma.png",
     technologies: ["Figma"],
     githubUrl: "https://dub.sh/figma-builds",
     liveUrl: "https://dub.sh/figma-builds",
+    buttonText: "View Design Sheet", // Custom button text
+    buttonUrl: "https://dub.sh/figma-builds", // Custom button URL
     featured: true,
     status: "completed",
     startDate: "2024-01",
@@ -254,7 +258,7 @@ export const projects = [
     description: "It is a mobile application built using React Native and Expo, essentially an opinion trading application built on Solana.",
     longDescription: "It is a mobile application built using React Native and Expo, essentially an opinion trading application built on Solana.",
     image: "/images/yukti.png",
-    technologies: ["React Native", "TypeScript", "Tailwind CSS", "Solana", "Postgres", "Anchor","Prsima", "Docker","Socket.io"],
+    technologies: ["React Native", "TypeScript", "Tailwind CSS", "Solana", "Postgres", "Anchor", "Prsima", "Docker", "Socket.io"],
     githubUrl: "https://github.com/BearerOP/projekt-yukti",
     liveUrl: "https://yukti.bearerop.live",
     featured: true,
@@ -346,7 +350,7 @@ export const projects = [
       "Alert system for downtime notifications",
     ],
   },
-   {
+  {
     id: "project-8",
     title: "Dhanam",
     category: "Web3 Wallet",
@@ -406,7 +410,7 @@ export const projects = [
       "Restaurant and menu management",
     ],
   },
- 
+
   // {
   //   id: "project-8",
   //   title: "Slug",

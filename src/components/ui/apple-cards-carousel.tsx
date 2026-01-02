@@ -25,6 +25,8 @@ type Card = {
   category: string;
   githubLink: string;
   liveLink: string;
+  buttonText?: string; // Optional custom button text
+  buttonUrl?: string;  // Optional custom button URL
 };
 
 export const CarouselContext = createContext<{
@@ -283,35 +285,43 @@ export const Card = ({
             >
               {card.category}
             </motion.h2>
-            {/* GitHub button, hidden by default and appears on hover */}
-            <div className="flex justify-start pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 gap-2 z-[999]">
-              <motion.button
-                onMouseEnter={() => setIsButtonHovered(true)}
-                onMouseLeave={() => setIsButtonHovered(false)}
-                whileTap={{ scale: 0.95 }}
-                className="relative overflow-hidden rounded-full border border-white/60 hover:border-white/90 hover:bg-white/10 bg-white/5 text-white transition-all duration-300 hover:cursor-pointer backdrop-blur-sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  redirectGithubLink();
-                }}
-              >
-                <div className="flex items-center gap-2 px-3 py-2">
-                  <GithubIcon size={12} className="text-white flex-shrink-0" />
-                  <span className="text-sm font-medium whitespace-nowrap">Github</span>
-                  <motion.div
-                    animate={{
-                      width: isButtonHovered ? "auto" : 0,
-                      opacity: isButtonHovered ? 1 : 0,
-                      marginLeft: isButtonHovered ? "0.125rem" : 0,
-                    }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="overflow-hidden flex items-center"
-                  >
-                    <ArrowUpRight className="size-4 text-white flex-shrink-0" />
-                  </motion.div>
-                </div>
-              </motion.button>
-            </div>
+            {/* Dynamic button - shows custom button or GitHub button */}
+            {(card.buttonUrl || card.githubLink) && (
+              <div className="flex justify-start pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 gap-2 z-[999]">
+                <motion.button
+                  onMouseEnter={() => setIsButtonHovered(true)}
+                  onMouseLeave={() => setIsButtonHovered(false)}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative overflow-hidden rounded-full border border-white/60 hover:border-white/90 hover:bg-white/10 bg-white/5 text-white transition-all duration-300 hover:cursor-pointer backdrop-blur-sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    clickSound(); // 🔊
+                    const targetUrl = card.buttonUrl || card.githubLink;
+                    if (targetUrl) {
+                      window.open(targetUrl, "_blank");
+                    }
+                  }}
+                >
+                  <div className="flex items-center gap-2 px-3 py-2">
+                    {!card.buttonText && <GithubIcon size={12} className="text-white flex-shrink-0" />}
+                    <span className="text-sm font-medium whitespace-nowrap">
+                      {card.buttonText || "Github"}
+                    </span>
+                    <motion.div
+                      animate={{
+                        width: isButtonHovered ? "auto" : 0,
+                        opacity: isButtonHovered ? 1 : 0,
+                        marginLeft: isButtonHovered ? "0.125rem" : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="overflow-hidden flex items-center"
+                    >
+                      <ArrowUpRight className="size-4 text-white flex-shrink-0" />
+                    </motion.div>
+                  </div>
+                </motion.button>
+              </div>
+            )}
           </div>
           <BlurImage
             src={card.src}
