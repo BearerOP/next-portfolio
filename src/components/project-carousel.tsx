@@ -104,7 +104,7 @@ export function ProjectCarousel() {
           />
           <SplitText
             className="text-sm md:text-lg w-fit font-semibold text-neutral-800/90 dark:text-neutral-200/90 "
-            description="I build web applications that look good, feel fast, and work flawlessly across devices."
+            description="Welcome to my little corner on the Internet. I build web applications that look good, feel fast, and work flawlessly across devices."
           />
 
           {/* Tech Stack Badges */}

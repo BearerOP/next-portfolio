@@ -7,9 +7,9 @@ export const personalInfo = {
   fullName: "Ankit Yadav",
   firstName: "Ankit",
   lastName: "Yadav",
-  title: "Full Stack Developer",
-  headline: "Passionate Full Stack Developer crafting elegant solutions",
-  bio: "Experienced full stack developer proficient in web development, software engineering, and building scalable applications. Passionate about creating seamless user experiences and robust backend systems.",
+  title: "Frontend Developer",
+  headline: "Passionate Frontend Developer crafting elegant solutions",
+  bio: "Experienced frontend developer proficient in web development, software engineering, and building scalable applications. Passionate about creating seamless user experiences and robust backend systems.",
   location: {
     city: "Rajasthan",
     country: "India",
