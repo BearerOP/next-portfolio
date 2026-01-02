@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Image from "next/image";
 import logo from "/public/images/ay.png";
 import { Easing } from "motion/react";

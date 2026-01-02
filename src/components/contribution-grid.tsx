@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useMemo } from "react";
 import { format, parseISO } from "date-fns";
 
@@ -24,8 +24,8 @@ export function ContributionGrid({ weeks }: { weeks: any[] }) {
               <span
                 key={index}
                 className="absolute text-[10px] transform -translate-x-1/2"
-                style={{ 
-                  left: `${(index * 11 + (index * 2))}px` 
+                style={{
+                  left: `${(index * 11 + (index * 2))}px`
                 }}
               >
                 {label}

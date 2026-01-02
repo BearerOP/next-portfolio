@@ -228,7 +228,7 @@ export default function MyComponent() {
                           code={`"use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export interface Card {
   id: number;
@@ -319,7 +319,7 @@ export function OriginAwareCards({ cards = defaultCards }: OriginAwareCardsProps
                               <code>{`"use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export interface Card {
   id: number;

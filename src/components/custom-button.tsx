@@ -2,7 +2,7 @@ import { ClipboardCopyIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import useSound from "@/hooks/use-sound";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export const CustomButton = ({ textToCopy }: { textToCopy: string }) => {
   const [isCopied, setIsCopied] = useState(false);

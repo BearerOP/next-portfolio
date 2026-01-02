@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Calendar, Tag } from "lucide-react"

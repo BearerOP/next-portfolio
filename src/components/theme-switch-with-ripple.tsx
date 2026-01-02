@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Moon, Sun } from "lucide-react";
 
 const themes = [
@@ -37,24 +37,24 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
     e: React.MouseEvent
   ) => {
     if (newTheme === theme) return;
-  
+
     switchSound();
-  
+
     // Find avatar element and get its center position
     const avatarElement = document.querySelector('[data-slot="avatar-image"]') as HTMLElement
     let centerX = "50%"
     let centerY = "50%"
-    
+
     if (avatarElement) {
       const rect = avatarElement.getBoundingClientRect()
       const avatarCenterX = rect.left + rect.width / 2
       const avatarCenterY = rect.top + rect.height / 2
-      
+
       // Convert to percentage relative to viewport
       centerX = `${(avatarCenterX / window.innerWidth) * 100}%`
       centerY = `${(avatarCenterY / window.innerHeight) * 100}%`
     }
-    
+
     // Create custom circle animation from avatar position with blur effect
     const animationDuration = 2
     const animationCSS = `
@@ -133,7 +133,7 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
         }
       }
     `
-    
+
     // Apply animation CSS BEFORE transition
     const styleId = "theme-transition-style"
     let styleElement = document.getElementById(styleId) as HTMLStyleElement
@@ -143,12 +143,12 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
       document.head.appendChild(styleElement)
     }
     styleElement.textContent = animationCSS
-    
+
     // Force synchronous style application
     if (styleElement.sheet) {
       // Styles are already applied via textContent
     }
-    
+
     // Safe check for View Transition API support
     if (typeof (document as any).startViewTransition === "function") {
       try {
@@ -164,7 +164,7 @@ export const ThemeSwitch = ({ className }: ThemeSwitcherProps) => {
       setTheme(newTheme)
     }
   }
-  
+
 
   return (
     <>

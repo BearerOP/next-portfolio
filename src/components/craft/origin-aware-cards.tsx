@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export interface Card {
   id: number;
@@ -53,20 +53,20 @@ export function OriginAwareCards({ cards = defaultCards }: OriginAwareCardsProps
 
       {current !== null && (
         <>
-        <motion.div
-          layoutId={`card-${current?.id}`}
-          className="fixed inset-4 md:inset-0 z-20 md:m-auto bg-zinc-300/80 dark:bg-zinc-800 rounded-[24px] md:rounded-[36px] flex flex-col items-start justify-start h-[30rem] md:h-[36rem] w-auto md:w-[36rem] max-h-[calc(100vh-2rem)]"
+          <motion.div
+            layoutId={`card-${current?.id}`}
+            className="fixed inset-4 md:inset-0 z-20 md:m-auto bg-zinc-300/80 dark:bg-zinc-800 rounded-[24px] md:rounded-[36px] flex flex-col items-start justify-start h-[30rem] md:h-[36rem] w-auto md:w-[36rem] max-h-[calc(100vh-2rem)]"
           >
-          <div className="overflow-y-auto p-4 md:p-6 flex flex-col gap-3 md:gap-4 w-full" style={{ scrollbarWidth: "none" }}>
-            <motion.img layoutId={`image-${current?.id}`} src={current?.image} alt={current?.title} className="w-full h-48 md:h-full object-cover rounded-2xl md:rounded-3xl" />
-            <motion.h1 layoutId={`title-${current?.id}`} className="text-xl md:text-2xl font-bold dark:text-white text-zinc-900">
-              {current?.title}
-            </motion.h1>
-            <motion.p className="text-zinc-800 dark:text-zinc-300 text-sm md:text-base pb-8" layoutId={`description-${current?.id}`}>{current?.longDescription}</motion.p>
-          </div>
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-zinc-300/80 dark:from-zinc-900 to-transparent rounded-b-[24px] md:rounded-b-[36px] pointer-events-none " />
-        </motion.div>
-          </>
+            <div className="overflow-y-auto p-4 md:p-6 flex flex-col gap-3 md:gap-4 w-full" style={{ scrollbarWidth: "none" }}>
+              <motion.img layoutId={`image-${current?.id}`} src={current?.image} alt={current?.title} className="w-full h-48 md:h-full object-cover rounded-2xl md:rounded-3xl" />
+              <motion.h1 layoutId={`title-${current?.id}`} className="text-xl md:text-2xl font-bold dark:text-white text-zinc-900">
+                {current?.title}
+              </motion.h1>
+              <motion.p className="text-zinc-800 dark:text-zinc-300 text-sm md:text-base pb-8" layoutId={`description-${current?.id}`}>{current?.longDescription}</motion.p>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-zinc-300/80 dark:from-zinc-900 to-transparent rounded-b-[24px] md:rounded-b-[36px] pointer-events-none " />
+          </motion.div>
+        </>
       )}
 
       {cards.map((card) => (

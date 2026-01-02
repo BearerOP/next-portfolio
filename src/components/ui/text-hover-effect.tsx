@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useRef, useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 
 export default function TextHoverEffect({
   text,
@@ -117,7 +117,7 @@ export default function TextHoverEffect({
         strokeWidth="0.3"
         mask="url(#textMask)"
         className="font-[helvetica] font-bold fill-transparent text-7xl"
-        // style={{ strokeDasharray: ".5 .5" }}
+      // style={{ strokeDasharray: ".5 .5" }}
       >
         {text}
       </text>

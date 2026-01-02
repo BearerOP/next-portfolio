@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { ActivityCalendar, Activity } from "react-activity-calendar"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { useTheme } from "next-themes"
 
 interface ContributionData {
@@ -31,10 +31,10 @@ function generateSkeletonData(): Activity[] {
   const today = new Date()
   const oneYearAgo = new Date(today)
   oneYearAgo.setFullYear(today.getFullYear() - 1)
-  
+
   const activities: Activity[] = []
   const currentDate = new Date(oneYearAgo)
-  
+
   // Generate 371 days (53 weeks)
   for (let i = 0; i < 371; i++) {
     activities.push({
@@ -44,7 +44,7 @@ function generateSkeletonData(): Activity[] {
     })
     currentDate.setDate(currentDate.getDate() + 1)
   }
-  
+
   return activities
 }
 
@@ -52,7 +52,7 @@ function generateSkeletonData(): Activity[] {
 function ContributionSkeleton({ theme }: { theme: string | undefined }) {
   const skeletonData = generateSkeletonData()
   const isDark = theme === 'dark'
-  
+
   const bgColor = isDark ? 'bg-neutral-800' : 'bg-neutral-200'
 
   return (
@@ -67,7 +67,7 @@ function ContributionSkeleton({ theme }: { theme: string | undefined }) {
           />
         ))}
       </div>
-      
+
       <div className="flex gap-2">
         {/* Weekday labels skeleton */}
         {/* <div className="flex flex-col justify-between py-0.5 pr-2">
@@ -75,7 +75,7 @@ function ContributionSkeleton({ theme }: { theme: string | undefined }) {
             <div key={day} className={`h-2.5 w-8 ${bgColor} rounded animate-pulse`} style={{ opacity: 0.4 }} />
           ))}
         </div> */}
-        
+
         {/* Grid skeleton */}
         <div className="flex-1">
           <div className="grid grid-cols-[repeat(53,min-content)] grid-rows-7 gap-[2px]">
@@ -90,12 +90,12 @@ function ContributionSkeleton({ theme }: { theme: string | undefined }) {
               />
             ))}
           </div>
-          
+
           {/* Count and Legend row */}
           <div className="flex items-center justify-between mt-3">
             {/* Contribution count skeleton - left */}
             <div className={`h-4 w-40 ${bgColor} rounded animate-pulse`} style={{ opacity: 0.4 }} />
-            
+
             {/* Legend skeleton - right */}
             <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
               <span className="opacity-50">Less</span>
@@ -111,7 +111,7 @@ function ContributionSkeleton({ theme }: { theme: string | undefined }) {
               <span className="opacity-50">More</span>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -129,15 +129,15 @@ export default function ContributionsPage() {
       try {
         setLoading(true)
         setError(null)
-        
+
         const response = await fetch("/api/github/contributions")
-        
+
         if (!response.ok) {
           throw new Error("Failed to fetch contributions")
         }
 
         const contributionData = await response.json()
-        
+
         if (contributionData.error) {
           throw new Error(contributionData.error)
         }
@@ -147,7 +147,7 @@ export default function ContributionsPage() {
           ...activity,
           level: activity.level ?? Math.min(4, Math.floor(activity.count / 5)),
         }))
-        
+
         setData({
           ...contributionData,
           activities: activitiesWithLevel,
@@ -180,9 +180,8 @@ export default function ContributionsPage() {
     <div className="max-w-4xl mx-auto px-4 relative">
       {/* Skeleton - always rendered, faded out when data loads */}
       <div
-        className={`transition-opacity duration-500 ${
-          loading ? "opacity-100" : "opacity-0 pointer-events-none absolute"
-        }`}
+        className={`transition-opacity duration-500 ${loading ? "opacity-100" : "opacity-0 pointer-events-none absolute"
+          }`}
       >
         <ContributionSkeleton theme={currentTheme} />
       </div>
