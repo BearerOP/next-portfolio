@@ -99,7 +99,7 @@ const BookOpenIcon = () => {
 }
 // Transform work experience data
 const workItems: ExperienceItem[] = workExperience.map(work => {
-  const workAny = work as any;
+  const workAny = work as { logo?: string; websiteUrl?: string };
   return {
     id: work.id,
     title: work.position,
@@ -112,6 +112,7 @@ const workItems: ExperienceItem[] = workExperience.map(work => {
     skills: [...work.technologies],
     current: work.current,
     logo: workAny.logo,
+    link: workAny.websiteUrl,
   };
 }) as ExperienceItem[];
 
@@ -199,10 +200,25 @@ function ExperienceSection({
                   className="w-full text-left p-4"
                   aria-expanded={expandedIds.has(item.id)}
                 >
-                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <h4 className="text-base font-medium text-zinc-900 dark:text-white mb-1 group-hover:text-zinc-950 dark:group-hover:text-zinc-50 transition-colors flex items-center gap-2 flex-wrap">
-                        <span>{item.organization} — {item.location}</span>
+                        {item.link ? (
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1.5 hover:underline focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-500 focus:ring-offset-2 rounded"
+                            aria-label={`Visit ${item.organization} website`}
+                          >
+                            <span>{item.organization}</span>
+                            <LinkIcon className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400 shrink-0" />
+                          </a>
+                        ) : (
+                          <span>{item.organization}</span>
+                        )}
+                        <span>— {item.location}</span>
                         {item.current && (
                           <Badge 
                             variant="secondary" 
@@ -223,9 +239,6 @@ function ExperienceSection({
 
                     {/* Toggle Icons */}
                     <div className="flex items-center gap-1 flex-shrink-0">
-                      {item.link && (
-                        <LinkIcon className="w-4 h-4 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors" />
-                      )}
                       <div className="flex flex-col items-center">
                         <ChevronUp
                           className={cn(
