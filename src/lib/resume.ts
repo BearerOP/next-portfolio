@@ -98,13 +98,31 @@ export const education = [
 // Work Experience
 export const workExperience = [
   {
+    id: "elara",
+    company: "Elara",
+    position: "Frontend Developer",
+    location: "Remote",
+    startDate: "December 2025",
+    endDate: "Present",
+    current: true,
+    logo: "/images/elara.png",
+    description: "Developing AI-powered fashion styling platform at joinelara.com enabling personalized outfit suggestions, virtual try-ons, and digital wardrobe management.",
+    responsibilities: [
+      "Developed AI-powered fashion styling platform enabling users to receive personalized outfit suggestions, generate virtual try-ons, create custom outfits, and manage digital wardrobes seamlessly",
+      "Built responsive UI components using Next.js, Tailwind CSS, and Shadcn UI with cohesive design system, custom color schemes, and Framer Motion animations for enhanced user engagement",
+      "Implemented Zustand for efficient state management across wardrobe organization, outfit creation, and AI suggestion features with real-time updates and seamless user interactions",
+      "Configured PWA capabilities and optimized performance through code splitting, lazy loading, and SEO enhancements, achieving improved Core Web Vitals scores and faster load times",
+    ],
+    technologies: ["Next.js", "Figma", "Framer Motion", "Tailwind CSS"],
+  },
+  {
     id: "jan-suraaj",
     company: "Jan Suraaj Consultants Pvt. Ltd.",
     position: "Full Stack Developer",
     location: "Patna, Bihar",
     startDate: "September 2025",
-    endDate: "Present",
-    current: true,
+    endDate: "December 2025",
+    current: false,
     logo: "/images/logos/jspt-logo.png",
     description: "Developing comprehensive electoral software solutions supporting Bihar Assembly Elections 2025 campaign operations.",
     responsibilities: [
@@ -222,7 +240,7 @@ export const projects = [
     image: "/images/elara.png",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", " Motion"],
     githubUrl: "https://github.com/BearerOP/elara",
-    liveUrl: "https://elara.bearerop.live",
+    liveUrl: "https://joinelara.com",
     featured: true,
     status: "completed",
     startDate: "2024-01",
