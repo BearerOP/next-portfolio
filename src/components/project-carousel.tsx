@@ -100,7 +100,7 @@ export function ProjectCarousel() {
           />
           <SplitText
             className="text-sm md:text-md w-fit font-semibold text-neutral-800/90 dark:text-neutral-200/70 "
-            description="21 • Rajasthan, IN • Web Developer/Designer"
+            description="22 • Rajasthan, IN • Frontend Developer/Designer"
           />
           <SplitText
             className="text-sm md:text-lg w-fit font-semibold text-neutral-800/90 dark:text-neutral-200/90 "
