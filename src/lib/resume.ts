@@ -103,6 +103,16 @@ export const workExperience = [
     position: "Frontend Developer",
     location: "Remote",
     websiteUrl: "https://joinelara.com",
+    relatedLinks: [
+      {
+        label: "Mobile App (iOS)",
+        url: "https://apps.apple.com/us/app/elara-ai/id6759782185",
+      },
+      {
+        label: "Chrome Extension",
+        url: "https://chromewebstore.google.com/detail/elara-virtual-try-on/mogecocckgjongfincjbemeogplbblii?hl=en-US&utm_source=ext_sidebar",
+      },
+    ],
     startDate: "December 2025",
     endDate: "Present",
     current: true,

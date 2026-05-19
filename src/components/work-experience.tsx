@@ -19,6 +19,7 @@ interface ExperienceItem {
   achievements?: string[];
   skills?: string[];
   link?: string;
+  relatedLinks?: { label: string; url: string }[];
   logo?: string;
 }
 
@@ -99,7 +100,11 @@ const BookOpenIcon = () => {
 }
 // Transform work experience data
 const workItems: ExperienceItem[] = workExperience.map(work => {
-  const workAny = work as { logo?: string; websiteUrl?: string };
+  const workAny = work as {
+    logo?: string;
+    websiteUrl?: string;
+    relatedLinks?: { label: string; url: string }[];
+  };
   return {
     id: work.id,
     title: work.position,
@@ -113,6 +118,7 @@ const workItems: ExperienceItem[] = workExperience.map(work => {
     current: work.current,
     logo: workAny.logo,
     link: workAny.websiteUrl,
+    relatedLinks: workAny.relatedLinks,
   };
 }) as ExperienceItem[];
 
@@ -235,6 +241,25 @@ function ExperienceSection({
                       <p className="text-sm text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-300 transition-colors">
                         {item.duration}
                       </p>
+                      {item.relatedLinks && item.relatedLinks.length > 0 && (
+                        <div
+                          className="flex flex-wrap gap-2 mt-2"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {item.relatedLinks.map((related) => (
+                            <a
+                              key={related.url}
+                              href={related.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:underline focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-500 focus:ring-offset-2 rounded"
+                            >
+                              <LinkIcon className="w-3 h-3 shrink-0" />
+                              {related.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
                     {/* Toggle Icons */}
