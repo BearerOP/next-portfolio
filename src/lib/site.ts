@@ -6,4 +6,4 @@
  * so moving the site is one change. Set NEXT_PUBLIC_SITE_URL to override it,
  * for example when a custom domain is attached.
  */
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ankit-dev.vercel.app").replace(/\/$/, "");
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://bearerop.in").replace(/\/$/, "");
