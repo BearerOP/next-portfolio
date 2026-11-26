@@ -79,6 +79,7 @@ Import everything from `@/components/ds`. Components take typed props and, excep
 | `Annotation` | A handwritten note in the gutter, outside the content column, with an arrow pointing in. Pass it to `Panel` via `annotation`, or place it in a `relative` box. A few per page | Information the reader needs (decorative; hidden below `lg`, where there is no gutter). Never inside the frame |
 | `Petal` | A drifting leaf in the margins. `PageFrame` scatters them already | Inside panels; it is the only soft, coloured shape and belongs to the margins |
 | `Tabs` | Switching between views of the same thing. `cells` for an index grid, `line` for compact tabs above content | Navigating to another page (use `Button href`) |
+| `Slider` | A continuous value: zoom, quality, a position in a track. `glideMs` when a clock drives it | A short fixed set of choices (use `Segmented`). Never a raw `<input type="range">` |
 | `Segmented` | Choosing one value of a setting from a short fixed set (parts: 2 / 3 / 4) | Switching views (use `Tabs`); actions (use `Button`) |
 | `CodeBlock` | Anything the reader is meant to copy: commands, usage, source. `collapsible` for long listings | Inline code in a sentence |
 | `DataTable` | A reference table (props, specs) | Layout |

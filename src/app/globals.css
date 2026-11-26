@@ -82,7 +82,10 @@
     @apply border-border;
   }
   html {
-    overflow-x: hidden;
+    /* clip, not hidden: `hidden` on one axis turns the other into a scroll
+       container, and the sticky navbar then sticks to that box (which never
+       scrolls) instead of the window. `clip` cuts the overshoot without that. */
+    overflow-x: clip;
     width: 100%;
     view-transition-name: root;
     scroll-behavior: smooth;
@@ -90,7 +93,7 @@
   }
   body {
     @apply bg-background text-foreground font-mono;
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
   }
   @media (prefers-reduced-motion: reduce) {

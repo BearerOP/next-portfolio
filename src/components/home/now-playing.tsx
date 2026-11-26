@@ -3,7 +3,7 @@
 import { Music2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Label, Panel, PanelSection, TextLink } from "@/components/ds";
+import { Label, Panel, PanelSection, Slider, TextLink } from "@/components/ds";
 import { useSpotifyPlayer } from "./spotify-player";
 
 interface SpotifyData {
@@ -18,6 +18,8 @@ interface SpotifyData {
 }
 
 const POLL_MS = 5000;
+/** Roughly how often the embedded player reports its position while playing. */
+const REPORT_MS = 1000;
 
 function formatTime(ms: number) {
   const minutes = Math.floor(ms / 60000);
@@ -66,16 +68,30 @@ export function NowPlaying() {
     return () => clearInterval(interval);
   }, [data?.isPlaying, data?.duration]);
 
-  const { button, player } = useSpotifyPlayer(data?.songUrl ?? "", data?.title ?? "");
+  const { button, player, playback, seek } = useSpotifyPlayer(data?.songUrl ?? "", data?.title ?? "");
   const playing = data?.isPlaying ?? false;
-  const fraction = data && data.duration > 0 ? Math.min(progress / data.duration, 1) : 0;
+  // Once the visitor plays the track here, the bar follows this page's
+  // playback instead of what the account is doing elsewhere
+  const position = playback ? playback.position : progress;
+  const length = playback && playback.duration > 0 ? playback.duration : (data?.duration ?? 0);
+  const fraction = length > 0 ? Math.min(position / length, 1) : 0;
 
   return (
     <Panel
       id="listening"
       label="Signal // Spotify"
-      live={playing}
-      meta={loading ? "Syncing" : playing ? "Now playing" : data ? "Last played" : "Offline"}
+      live={playing || (playback?.playing ?? false)}
+      meta={
+        playback?.playing
+          ? "Playing here"
+          : loading
+            ? "Syncing"
+            : playing
+              ? "Now playing"
+              : data
+                ? "Last played"
+                : "Offline"
+      }
     >
       <PanelSection className="media-mono-group flex items-center gap-4">
         <div className="relative flex size-14 shrink-0 items-center justify-center border border-line bg-fill-strong">
@@ -93,15 +109,29 @@ export function NowPlaying() {
               </p>
               <p className="truncate text-xs text-muted-foreground">{data.artist}</p>
               <div className="mt-2 flex items-center gap-2">
-                <Label>{formatTime(progress)}</Label>
-                <div className="h-px flex-1 overflow-hidden bg-line-strong">
-                  {/* scaleX, not width: stays on the compositor */}
-                  <div
-                    className="h-full w-full origin-left bg-foreground transition-transform duration-1000 ease-linear"
-                    style={{ transform: `scaleX(${fraction})` }}
-                  />
-                </div>
-                <Label>{formatTime(data.duration)}</Label>
+                <Label>{formatTime(position)}</Label>
+                {playback ? (
+                  // Playing on this page: the bar becomes a scrubber
+                  <div className="min-w-0 flex-1">
+                    <Slider
+                      aria-label="Seek"
+                      max={length}
+                      step={250}
+                      value={Math.min(position, length)}
+                      onChange={seek}
+                      glideMs={playback.playing ? REPORT_MS : undefined}
+                    />
+                  </div>
+                ) : (
+                  <div className="h-px flex-1 overflow-hidden bg-line-strong">
+                    {/* scaleX, not width: stays on the compositor */}
+                    <div
+                      className="h-full w-full origin-left bg-foreground transition-transform duration-1000 ease-linear"
+                      style={{ transform: `scaleX(${fraction})` }}
+                    />
+                  </div>
+                )}
+                <Label>{formatTime(length)}</Label>
               </div>
             </>
           ) : (

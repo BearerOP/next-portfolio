@@ -12,7 +12,7 @@ import {
   type PointerEvent,
 } from "react";
 import { toast } from "sonner";
-import { Button, Label, Panel, PanelSection, Segmented, backdrops } from "@/components/ds";
+import { Button, Label, Panel, PanelSection, Segmented, Slider, backdrops } from "@/components/ds";
 import { cn } from "@/lib/utils";
 import {
   MAX_ZOOM,
@@ -470,22 +470,17 @@ export function SplitTool() {
               <Label as="p" className="w-16 shrink-0">
                 Zoom
               </Label>
-              <input
-                type="range"
+              <Slider
                 aria-label="Zoom"
                 min={1}
                 max={MAX_ZOOM}
                 step={0.01}
                 value={view.zoom}
-                onChange={(event) =>
+                onChange={(zoom) =>
                   setView((current) =>
-                    clampView(scene.width, scene.height, parts, shape, {
-                      ...current,
-                      zoom: Number(event.target.value),
-                    })
+                    clampView(scene.width, scene.height, parts, shape, { ...current, zoom })
                   )
                 }
-                className="h-8 w-full accent-foreground"
               />
               <Label tone="default" className="w-12 shrink-0 text-right tabular-nums">
                 {view.zoom.toFixed(2)}×
@@ -542,16 +537,13 @@ export function SplitTool() {
               <Label as="p" className="w-16 shrink-0">
                 Margin
               </Label>
-              <input
-                type="range"
+              <Slider
                 aria-label="Margin around the image"
                 min={2}
                 max={24}
-                step={1}
                 value={padding}
                 disabled={backdropId === "none"}
-                onChange={(event) => setPadding(Number(event.target.value))}
-                className="h-8 w-full accent-foreground disabled:opacity-40"
+                onChange={setPadding}
               />
               <Label tone="default" className="w-12 shrink-0 text-right tabular-nums">
                 {backdropId === "none" ? "--" : `${padding}%`}
@@ -580,16 +572,13 @@ export function SplitTool() {
               </div>
               <div className="flex min-w-48 flex-1 items-center gap-3">
                 <Label>Quality</Label>
-                <input
-                  type="range"
+                <Slider
                   aria-label="Quality"
                   min={40}
                   max={100}
-                  step={1}
                   value={quality}
                   disabled={format === "png"}
-                  onChange={(event) => setQuality(Number(event.target.value))}
-                  className="h-8 w-full accent-foreground disabled:opacity-40"
+                  onChange={setQuality}
                 />
                 <Label tone="default" className="w-8 shrink-0 text-right tabular-nums">
                   {format === "png" ? "--" : quality}

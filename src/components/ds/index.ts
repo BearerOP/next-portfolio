@@ -9,6 +9,7 @@ export { Petal, type PetalProps } from "./petal";
 export { Panel, PanelSection, type PanelProps, type PanelSectionProps } from "./panel";
 export { Reveal, type RevealProps } from "./reveal";
 export { Segmented, type SegmentedOption, type SegmentedProps } from "./segmented";
+export { Slider, type SliderProps } from "./slider";
 export { StatusDot, type StatusDotProps } from "./status-dot";
 export { Tabs, type TabItem, type TabsProps } from "./tabs";
 export { Tag, type TagProps } from "./tag";
