@@ -1,4 +1,5 @@
 import "./globals.css";
+import { siteUrl } from "@/lib/site";
 import { Caveat, Instrument_Serif } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -30,8 +31,8 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Ankit Yadav",
-  url: "https://bearerop.live",
-  image: "https://bearerop.live/images/og.jpg",
+  url: siteUrl,
+  image: `${siteUrl}/images/og.jpg`,
   sameAs: [
     "https://github.com/bearerop",
     "https://linkedin.com/in/yadavankit189",

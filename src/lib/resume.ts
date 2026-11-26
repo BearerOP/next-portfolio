@@ -1,3 +1,5 @@
+import { siteUrl } from "./site";
+
 // ============================================================================
 // RESUME DATA - Complete Profile Information
 // ============================================================================
@@ -15,7 +17,7 @@ export const personalInfo = {
     country: "India",
   },
   age: 21,
-  website: "https://bearerop.live",
+  website: siteUrl,
   avatar: "/images/gabimaru.jpg", // Update with your avatar path
   resumeUrl: "https://dub.sh/resume189",
 } as const;

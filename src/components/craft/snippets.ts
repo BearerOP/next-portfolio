@@ -1,3 +1,5 @@
+import { siteUrl } from "@/lib/site";
+
 /**
  * Code shown to visitors on /craft. These are copy-paste snippets for the
  * standalone demo components in this folder, so they keep their own styling
@@ -21,7 +23,7 @@ export const packageMyWorkUsage = "import { PackageMyWork } from \"@/components/
 
 // The skill itself is published from public/skills/package-my-work; keep packageMyWorkSkillSource in sync with its SKILL.md.
 
-export const packageMyWorkSkillInstall = "mkdir -p ~/.claude/skills/package-my-work/{scripts,references,examples}\ncd ~/.claude/skills/package-my-work\nfor f in SKILL.md references/shot-plan.md scripts/record.mjs scripts/sheet.mjs examples/self-running-demo.json; do\n  curl -fsSL \"https://bearerop.live/skills/package-my-work/$f\" -o \"$f\"\ndone";
+export const packageMyWorkSkillInstall = "mkdir -p ~/.claude/skills/package-my-work/{scripts,references,examples}\ncd ~/.claude/skills/package-my-work\nfor f in SKILL.md references/shot-plan.md scripts/record.mjs scripts/sheet.mjs examples/self-running-demo.json; do\n  curl -fsSL \"" + siteUrl + "/skills/package-my-work/$f\" -o \"$f\"\ndone";
 
 export const packageMyWorkSkillUsage = "# In Claude Code, from the project you want to show off:\n/package-my-work record the add-to-cart stepper on /groceries\n\n# Or drive the recorder yourself with a shot plan:\nnpm i -D playwright-core ffmpeg-static\nnode ~/.claude/skills/package-my-work/scripts/record.mjs shot.json --draft\nnode ~/.claude/skills/package-my-work/scripts/record.mjs shot.json\n\n# shot.json\n{\n  \"url\": \"http://localhost:3000/groceries\",\n  \"output\": \"out/add-to-cart-7s.mp4\",\n  \"frame\": \".product-card\",\n  \"padding\": 60,\n  \"isolate\": \".product-card\",\n  \"outputWidth\": 3840,\n  \"steps\": [\n    { \"do\": \"wait\", \"ms\": 600 },\n    { \"do\": \"click\", \"to\": \"button[aria-label='Increase']\", \"zoom\": { \"to\": \".stepper-row\", \"padding\": 64 } },\n    { \"do\": \"wait\", \"ms\": 450 },\n    { \"do\": \"click\" },\n    { \"do\": \"wait\", \"ms\": 700 },\n    { \"do\": \"click\", \"to\": \"button[aria-label='Decrease']\" },\n    { \"do\": \"wait\", \"ms\": 450 },\n    { \"do\": \"click\" },\n    { \"do\": \"wait\", \"ms\": 500 },\n    { \"do\": \"move\", \"to\": { \"x\": 330, \"y\": 300 }, \"zoom\": { \"to\": \"reset\" } },\n    { \"do\": \"wait\", \"ms\": 500 }\n  ]\n}";
 
