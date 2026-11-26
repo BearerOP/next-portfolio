@@ -1,3 +1,53 @@
 {
-  "extends": "next"
+  "extends": "next",
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "framer-motion",
+            "message": "Import from \"motion/react\". It is the same library; one import path keeps a single copy in the bundle."
+          }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/app/**",
+        "src/components/home/**",
+        "src/components/*.tsx"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "framer-motion",
+                "message": "Import from \"motion/react\"."
+              },
+              {
+                "name": "@/components/ui/button",
+                "message": "Use Button from \"@/components/ds\"."
+              },
+              {
+                "name": "@/components/ui/badge",
+                "message": "Use Tag or Label from \"@/components/ds\"."
+              },
+              {
+                "name": "@/components/ui/card",
+                "message": "Use Panel from \"@/components/ds\"."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "src/components/stageshow/kit/**"
+  ]
 }

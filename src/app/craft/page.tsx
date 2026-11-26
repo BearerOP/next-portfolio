@@ -1,12 +1,19 @@
 "use client";
 
-import { CraftLayout } from "@/components/craft/craft-layout";
+import { CraftPage } from "@/components/craft-page/craft-page";
+import { PageFrame } from "@/components/ds";
+import { SiteFooter } from "@/components/home/site-footer";
+import { Navbar } from "@/components/navbar";
 import { CraftProvider } from "@/contexts/craft-context";
 
-export default function CraftPage() {
+export default function Craft() {
   return (
     <CraftProvider>
-      <CraftLayout />
+      <Navbar />
+      <PageFrame>
+        <CraftPage />
+        <SiteFooter />
+      </PageFrame>
     </CraftProvider>
   );
 }

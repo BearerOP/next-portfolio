@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:ds": "node scripts/ds-lint.mjs --self-test && node scripts/ds-lint.mjs",
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm lint && pnpm lint:ds && pnpm typecheck"
   },
   "dependencies": {
     "@calcom/atoms": "^1.0.101-booker",
@@ -27,12 +30,14 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
     "framer-motion": "^12.23.24",
+    "geist": "^1.9.2",
     "lucide-react": "^0.553.0",
     "mini-svg-data-uri": "^1.4.4",
     "motion": "^12.9.4",
     "motion-plus": "^0.1.6",
     "next": "14.2.35",
     "next-themes": "^0.3.0",
+    "pnpm": "^12.23.0",
     "react": "^18",
     "react-activity-calendar": "^2.7.10",
     "react-dom": "^18",

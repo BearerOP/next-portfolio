@@ -1,0 +1,41 @@
+{
+  "url": "http://localhost:3000/craft",
+  "output": "out/package-my-work.mp4",
+  "pointer": "none",
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "frame": "[role=\"img\"][aria-label^=\"Before\"]",
+  "padding": 40,
+  "isolate": "[role=\"img\"][aria-label^=\"Before\"]",
+  "outputWidth": 3840,
+  "setup": [
+    {
+      "do": "eval",
+      "js": "sessionStorage.setItem('craft-selected-component','package-my-work'); location.reload()"
+    },
+    {
+      "do": "wait",
+      "ms": 4000
+    },
+    {
+      "do": "eval",
+      "js": "document.querySelector('[role=\"img\"][aria-label^=\"Before\"]').scrollIntoView({block:'center'})"
+    },
+    {
+      "do": "wait",
+      "ms": 1000
+    },
+    {
+      "do": "eval",
+      "js": "new Promise((done) => {\n  const root = document.querySelector('[role=\"img\"][aria-label^=\"Before\"]');\n  const camera = root.querySelectorAll(\".aspect-video\")[1].firstElementChild;\n  const cursor = camera.querySelector(\".pointer-events-none\");\n  const atRest = () => {\n    const m = new DOMMatrix(getComputedStyle(cursor).transform);\n    return Math.abs(m.m41 - camera.offsetWidth * 0.3) < 0.5 && Math.abs(m.m42 - camera.offsetHeight * 0.86) < 0.5;\n  };\n  let left = false;\n  const id = setInterval(() => {\n    if (!atRest()) left = true;\n    else if (left) { clearInterval(id); done(); }\n  }, 16);\n})"
+    }
+  ],
+  "steps": [
+    {
+      "do": "wait",
+      "ms": 6300
+    }
+  ]
+}

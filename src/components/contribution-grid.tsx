@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { useMemo } from "react";
-import { format, parseISO } from "date-fns";
 
 export function ContributionGrid({ weeks }: { weeks: any[] }) {
   const monthLabels = useMemo(() => getMonthLabels(weeks), [weeks]);

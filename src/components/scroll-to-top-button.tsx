@@ -1,40 +1,33 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { ChevronUp } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { ChevronUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ds";
+import { cn } from "@/lib/utils";
 
 export const ScrollToTopButton = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(false)
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      window.scrollY > 500 ? setIsVisible(true) : setIsVisible(false)
-    }
-    window.addEventListener('scroll', toggleVisibility)
-    return () => {
-      window.removeEventListener('scroll', toggleVisibility)
-    }
-  }, [])
-
-  const scrollToTop = () => {
-    isVisible &&
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      })
-  }
+    const onScroll = () => setVisible(window.scrollY > 500);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <Button
-      aria-label='scroll to the top button'
-      size='sm'
-      className={`text-xs h-10 w-10 bg-gray-100 hover:bg-gray-200 dark:bg-transparent border-2 border-gray-300 dark:border-slate-700 backdrop-blur-md dark:hover:bg-white/5 fixed bottom-4 right-4 rounded-full p-2 outline-none scrollToTheTop transition-all duration-300 hover:scale-110 active:scale-95 text-gray-700 dark:text-white ${
-        isVisible ? 'showBtn opacity-100' : 'opacity-0'
-      }`}
-      onClick={scrollToTop}
+    <div
+      aria-hidden={!visible}
+      className={cn(
+        "fixed bottom-4 right-4 z-40 transition-opacity duration-ui ease-out",
+        visible ? "opacity-100" : "pointer-events-none opacity-0"
+      )}
     >
-      <ChevronUp className="transition-transform duration-200" />
-    </Button>
-  )
-}
+      <Button
+        aria-label="Scroll to top"
+        disabled={!visible}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        icon={<ChevronUp className="size-4" />}
+      />
+    </div>
+  );
+};

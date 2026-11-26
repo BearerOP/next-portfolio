@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { SplashLayout } from './splash-layout'
+import { SplashScreen } from './splash-screen'
 
 interface ConditionalSplashLayoutProps {
   children: React.ReactNode
@@ -11,9 +11,10 @@ export function ConditionalSplashLayout({ children }: ConditionalSplashLayoutPro
   const pathname = usePathname()
   const isRootRoute = pathname === '/'
 
-  if (isRootRoute) {
-    return <SplashLayout>{children}</SplashLayout>
-  }
-
-  return <>{children}</>
-} 
+  return (
+    <>
+      {children}
+      {isRootRoute && <SplashScreen />}
+    </>
+  )
+}

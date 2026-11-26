@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 
 const GITHUB_GRAPHQL_API = "https://api.github.com/graphql"
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME || "BearerOP"
+/** Contribution counts change slowly; ask GitHub at most once an hour. */
+const REVALIDATE_SECONDS = 3600
 
 export async function GET() {
   try {
@@ -38,7 +40,7 @@ export async function GET() {
           query,
           variables: { userName: GITHUB_USERNAME },
         }),
-        cache: "no-store",
+        next: { revalidate: REVALIDATE_SECONDS },
       })
 
       if (!res.ok) {
@@ -76,7 +78,7 @@ export async function GET() {
     } else {
       // Fallback to public API
       const response = await fetch(`https://github.vineet.pro/api/${GITHUB_USERNAME}`, {
-        cache: "no-store",
+        next: { revalidate: REVALIDATE_SECONDS },
       })
 
       if (!response.ok) {
@@ -112,5 +114,9 @@ export async function GET() {
   }
 }
 
-export const revalidate = 3600 // Revalidate every hour
+// Run on request, never at build time. The route used to ask for both a
+// static, hourly-revalidated page and uncached fetches, which contradict each
+// other: the build tried to prerender it, hit the uncached fetch, and logged
+// "Dynamic server usage". The hourly caching now lives on the fetches above.
+export const dynamic = "force-dynamic"
 

@@ -1,0 +1,430 @@
+/*
+ * The look and scene styles for SplitDemo, the cursor walkthrough on /split.
+ *
+ * The first block maps the Stageshow kit's tokens onto the portfolio's own
+ * (globals.css), so the kit's parts draw in the site's monochrome, square,
+ * mono-type language and follow the light/dark theme with no extra work.
+ * No raw colours: everything here references a site token.
+ *
+ * Kit CSS lives in `@layer stageshow`; these rules are unlayered, so they win.
+ */
+.split-demo .ss-stage {
+  --ss-canvas: hsl(var(--background));
+  --ss-surface: hsl(var(--background));
+  --ss-chrome: hsl(var(--background));
+  --ss-raised: hsl(var(--foreground));
+  --ss-ink-2: transparent;
+  --ss-line: var(--line-strong);
+  --ss-line-faint: var(--line);
+  --ss-text: hsl(var(--muted-foreground));
+  --ss-text-strong: hsl(var(--foreground));
+  --ss-text-faint: hsl(var(--muted-foreground));
+  --ss-icon: hsl(var(--muted-foreground));
+  --ss-accent: hsl(var(--foreground));
+  --ss-font: inherit;
+  --ss-radius-sm: 0px;
+  --ss-radius-md: 0px;
+  --ss-radius-lg: 0px;
+  --ss-row: 26px;
+  background: transparent;
+  color: hsl(var(--foreground));
+}
+
+/* Kit parts, restyled to the site's controls */
+.split-demo .ss-seg {
+  border: 1px solid var(--line-strong);
+  padding: 0;
+}
+.split-demo .ss-seg__thumb {
+  box-shadow: none;
+  inset-block: 0;
+}
+.split-demo .ss-seg__option {
+  min-width: 34px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.split-demo .ss-seg__option[data-on] {
+  color: hsl(var(--background));
+}
+.split-demo .ss-button {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+.split-demo .ss-button[data-variant="primary"] {
+  color: hsl(var(--background));
+  box-shadow: none;
+}
+.split-demo .ss-button[data-variant="primary"][data-hover] {
+  background: hsl(var(--foreground) / 0.85);
+}
+.split-demo .ss-button[data-hover]:not([data-variant="primary"]) {
+  background: var(--fill-strong);
+}
+
+/* The scene: a crop preview, its seams, and the controls under it */
+.sd-frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background: var(--fill);
+}
+.sd-art {
+  display: block;
+  color: hsl(var(--foreground));
+}
+.sd-seam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -6px;
+  width: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 500ms var(--ease-in-out);
+}
+/* While it is held the seam follows the pointer exactly */
+.sd-seam[data-held] {
+  transition: none;
+}
+.sd-seam::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 5.5px;
+  width: 1px;
+  background: var(--line-strong);
+}
+.sd-grip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 24px;
+  border: 1px solid var(--line-strong);
+  background: hsl(var(--background));
+  color: hsl(var(--muted-foreground));
+  transition:
+    border-color 150ms var(--ease-out),
+    color 150ms var(--ease-out);
+}
+.sd-seam[data-held] .sd-grip,
+.sd-seam[data-hover] .sd-grip {
+  border-color: hsl(var(--foreground));
+  color: hsl(var(--foreground));
+}
+.sd-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--line-strong);
+  background: hsl(var(--background));
+  font-size: 10px;
+  line-height: 1;
+  transition: transform 500ms var(--ease-in-out);
+}
+.sd-badge[data-held] {
+  transition: none;
+}
+
+.sd-row {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sd-label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+.sd-spacer {
+  flex: 1;
+}
+
+.sd-cells {
+  position: absolute;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.sd-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  font-size: 11px;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.sd-cell__index {
+  color: hsl(var(--muted-foreground));
+}
+.sd-cell__unit {
+  color: hsl(var(--muted-foreground));
+}
+/* The tick that says this part was saved: it grows from 0.9, never from nothing */
+.sd-tick {
+  display: flex;
+  margin-left: auto;
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+.sd-tick[data-on] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.sd-rest {
+  position: absolute;
+}
+
+/* ── The small tile demos (split-tiles.tsx) ─────────────────────────────── */
+
+/* A tile's stage sits on the copy's left edge, not centred in a wider slot */
+.split-demo--tile {
+  margin-inline: 0;
+}
+.sd-rest--corner {
+  right: 4px;
+  bottom: 2px;
+}
+
+.sd-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+.sd-stack--loose {
+  gap: 12px;
+}
+.sd-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sd-value {
+  font-size: 11px;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Something that slides sideways inside a frame: a seam and what rides on it */
+.sd-slide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  transition: transform 500ms var(--ease-in-out);
+}
+.sd-rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--line-strong);
+}
+.sd-frame--small {
+  height: 56px;
+}
+.sd-badge--inline {
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+}
+.sd-badge--inline[data-on] {
+  opacity: 1;
+}
+
+/* Open */
+.sd-zone {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 68px;
+  border: 1px dashed var(--line-strong);
+  background: repeating-linear-gradient(135deg, var(--hatch) 0 1px, transparent 1px 6px);
+  transition: background-color 200ms var(--ease-out);
+}
+.sd-zone[data-filled] {
+  border-style: solid;
+  background: var(--fill-strong);
+}
+.sd-chip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px;
+  border: 1px solid var(--line-strong);
+  background: hsl(var(--background));
+  font-size: 10px;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform 500ms var(--ease-in-out);
+}
+.sd-chip[data-held] {
+  transition: none;
+}
+.sd-chip__clear {
+  display: flex;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+}
+.sd-chip__clear[data-on] {
+  opacity: 1;
+}
+
+/* Attach */
+.sd-file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  background: var(--fill);
+  font-size: 11px;
+  line-height: 1.3;
+  white-space: nowrap;
+  transition: border-color 200ms var(--ease-out);
+}
+.sd-file[data-on],
+.sd-file[data-hover] {
+  border-color: var(--line-strong);
+}
+.sd-file__index {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--line-strong);
+  background: hsl(var(--background));
+  font-size: 10px;
+  line-height: 1;
+  transition:
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out);
+}
+.sd-file[data-on] .sd-file__index {
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+}
+
+/* Limit */
+.sd-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sd-stat__number {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 120px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.sd-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+.sd-slot {
+  display: flex;
+  align-items: flex-start;
+  height: 56px;
+  padding: 8px;
+  border: 1px dashed var(--line-strong);
+  transition: background-color 300ms var(--ease-out);
+}
+.sd-slot .sd-file__index {
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out);
+}
+.sd-slot[data-on] {
+  border-style: solid;
+  background: var(--fill-strong);
+}
+.sd-slot[data-on] .sd-file__index {
+  opacity: 1;
+}
+
+/* Shape */
+.sd-shapes {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+.sd-shape {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.sd-shape__box {
+  border: 1px solid var(--line-strong);
+  background: var(--fill);
+  transition:
+    background-color 200ms var(--ease-out),
+    border-color 200ms var(--ease-out);
+}
+.sd-shape[data-on] .sd-shape__box {
+  border-color: hsl(var(--foreground));
+  background: hsl(var(--foreground));
+}
+.sd-shape[data-on] .sd-label {
+  color: hsl(var(--foreground));
+}
+
+/* Weight */
+.sd-track {
+  flex: 1;
+  height: 4px;
+  background: var(--fill-strong);
+}
+.sd-track__fill {
+  display: block;
+  height: 100%;
+  background: hsl(var(--foreground));
+  transform-origin: left;
+  transition: transform 600ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-seam,
+  .sd-badge,
+  .sd-tick {
+    transition: none;
+  }
+}

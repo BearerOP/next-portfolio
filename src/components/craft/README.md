@@ -227,7 +227,7 @@ Modify the component directly or use `expandedClassName`:
 Wrap in a LayoutGroup to control animation timing:
 
 ```tsx
-import { LayoutGroup } from "framer-motion";
+import { LayoutGroup } from "motion/react";
 
 <LayoutGroup>
   <OriginAwareCards cards={myCards} />

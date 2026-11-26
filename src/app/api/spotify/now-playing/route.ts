@@ -15,7 +15,19 @@ const RECENTLY_PLAYED_ENDPOINT =
   "https://api.spotify.com/v1/me/player/recently-played?limit=1"
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token"
 
+/** The stored refresh token no longer works; only re-authorising fixes it. */
+class SpotifyAuthError extends Error {}
+
+// After an auth failure, stop asking Spotify (and stop logging) for a while:
+// the widget polls, and a revoked token fails the same way every time.
+const AUTH_RETRY_MS = 10 * 60 * 1000
+let authFailedAt = 0
+
 async function getAccessToken() {
+  if (Date.now() - authFailedAt < AUTH_RETRY_MS) {
+    throw new SpotifyAuthError("Spotify authorisation failed recently")
+  }
+
   if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
     throw new Error("Missing Spotify credentials in environment variables")
   }
@@ -37,6 +49,13 @@ async function getAccessToken() {
 
   if (!response.ok) {
     const error = await response.text()
+    if (response.status === 400 || response.status === 401) {
+      authFailedAt = Date.now()
+      console.warn(
+        `Spotify refresh token rejected (${error}). Run \`node scripts/spotify-token.mjs\` and update SPOTIFY_REFRESH_TOKEN. Serving the last saved track until then.`
+      )
+      throw new SpotifyAuthError("Spotify refresh token rejected")
+    }
     console.error("Spotify token error:", error)
     throw new Error("Failed to get access token")
   }
@@ -186,7 +205,9 @@ export async function GET() {
 
     return NextResponse.json(trackData)
   } catch (error) {
-    console.error("Error fetching Spotify data:", error)
+    // Already reported once, with what to do about it
+    const authFailed = error instanceof SpotifyAuthError
+    if (!authFailed) console.error("Error fetching Spotify data:", error)
     
     // Try to return cached data from Turso on any error
     try {
@@ -197,6 +218,9 @@ export async function GET() {
     } catch (dbError) {
       console.error("Error fetching from Turso:", dbError)
     }
+
+    // Nothing to show is not a server fault: the widget treats 204 as "no track"
+    if (authFailed) return new NextResponse(null, { status: 204 })
     
     return NextResponse.json(
       { error: "Internal server error" },

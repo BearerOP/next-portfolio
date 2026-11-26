@@ -6,6 +6,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Main portfolio sections
   return [
     {
+      url: `${baseUrl}/split`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "monthly",

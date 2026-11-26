@@ -19,8 +19,8 @@ export function ComponentCard({ title, description, demoPath, docsPath, tags }: 
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.2 }}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
     >
       <Card className="h-full">
         <CardHeader>

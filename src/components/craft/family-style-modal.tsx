@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { X, Check, Loader2 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
+
+const EASE_OUT: [number, number, number, number] = [0.23, 1, 0.32, 1];
 
 type ModalStep = "initial" | "confirmation" | "processing" | "success";
 
@@ -45,12 +47,12 @@ export function FamilyStyleModal() {
         <AnimatePresence>
           {!isOpen && (
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.2 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: EASE_OUT }}
               layoutId="receive-button"
               onClick={handleReceive}
               className="bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 rounded-full px-6 py-3 font-semibold cursor-pointer"
@@ -79,7 +81,7 @@ export function FamilyStyleModal() {
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 50, scale: 0.9 }}
-                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                transition={{ type: "spring", duration: 0.4, bounce: 0 }}
                 className="absolute inset-0 z-50 flex items-center justify-center p-4"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -87,10 +89,11 @@ export function FamilyStyleModal() {
                   {/* Close Button */}
                   {step !== "processing" && (
                     <motion.button
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={{ duration: 0.15, ease: "easeOut" }}
                       onClick={handleClose}
                       className="absolute top-4 right-4 z-10 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
                     >
@@ -108,14 +111,14 @@ export function FamilyStyleModal() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.2, ease: EASE_OUT }}
                         className="space-y-6"
                       >
                         <div className="text-center">
                           <motion.h3
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
+                            transition={{ delay: 0.1, duration: 0.25, ease: EASE_OUT }}
                             className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mb-2"
                           >
                             Confirm
@@ -123,7 +126,7 @@ export function FamilyStyleModal() {
                           <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.15 }}
+                            transition={{ delay: 0.15, duration: 0.25, ease: EASE_OUT }}
                             className="text-zinc-600 dark:text-zinc-400"
                           >
                             Are you sure you want to receive a load of money?
@@ -133,12 +136,12 @@ export function FamilyStyleModal() {
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.2 }}
+                          transition={{ delay: 0.2, duration: 0.25, ease: EASE_OUT }}
                           className="flex gap-3"
                         >
                           <motion.button
                             whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
+                            whileTap={{ scale: 0.97 }}
                             onClick={handleCancel}
                             className="flex-1 px-6 py-3 rounded-full border-2 border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-white font-semibold"
                           >
@@ -146,8 +149,8 @@ export function FamilyStyleModal() {
                           </motion.button>
                           <motion.button
                             layoutId="receive-button"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
                             onClick={handleConfirm}
                             className="flex-1 px-6 py-3 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold"
                           >
@@ -164,7 +167,7 @@ export function FamilyStyleModal() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.25, ease: EASE_OUT }}
                         className="text-center py-8"
                       >
                         <div className="flex flex-col items-center gap-4">
@@ -177,7 +180,7 @@ export function FamilyStyleModal() {
                           <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2 }}
+                            transition={{ delay: 0.2, duration: 0.25, ease: EASE_OUT }}
                             className="text-lg font-semibold text-zinc-900 dark:text-white"
                           >
                             Processing...
@@ -190,23 +193,23 @@ export function FamilyStyleModal() {
                     {step === "success" && (
                       <motion.div
                         key="success"
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ type: "spring", duration: 0.4, bounce: 0 }}
                         className="text-center py-8"
                       >
                         <div className="flex flex-col items-center gap-4">
                           <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", damping: 15, stiffness: 400, delay: 0.1 }}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ type: "spring", duration: 0.4, bounce: 0.2, delay: 0.1 }}
                             className="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center"
                           >
                             <motion.div
-                              initial={{ scale: 0, rotate: -90 }}
-                              animate={{ scale: 1, rotate: 0 }}
-                              transition={{ delay: 0.3, type: "spring", damping: 12 }}
+                              initial={{ opacity: 0, scale: 0.9, rotate: -90 }}
+                              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                              transition={{ delay: 0.3, type: "spring", duration: 0.4, bounce: 0.2 }}
                             >
                               <Check className="w-8 h-8 text-white" />
                             </motion.div>
@@ -214,17 +217,17 @@ export function FamilyStyleModal() {
                           <motion.p
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
+                            transition={{ delay: 0.4, duration: 0.25, ease: EASE_OUT }}
                             className="text-xl font-bold text-zinc-900 dark:text-white"
                           >
                             Amount Credited
                           </motion.p>
                           <motion.button
                             initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, transition: { delay: 0.5, duration: 0.25, ease: EASE_OUT } }}
+                            transition={{ duration: 0.15, ease: "easeOut" }}
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
                             onClick={handleClose}
                             className="mt-4 px-6 py-2 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold"
                           >

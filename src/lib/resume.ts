@@ -124,7 +124,7 @@ export const workExperience = [
       "Implemented Zustand for efficient state management across wardrobe organization, outfit creation, and AI suggestion features with real-time updates and seamless user interactions",
       "Configured PWA capabilities and optimized performance through code splitting, lazy loading, and SEO enhancements, achieving improved Core Web Vitals scores and faster load times",
     ],
-    technologies: ["Next.js", "Figma", "Framer Motion", "Tailwind CSS"],
+    technologies: ["Next.js", "Expo", "React Native", "Swift", "Customer.io", "Figma", "Framer Motion", "Tailwind CSS"],
   },
   {
     id: "jan-suraaj",
@@ -613,7 +613,7 @@ export const seoData = {
   title: "Ankit Yadav - Full Stack Developer Portfolio",
   description: "Discover the diverse skills and projects of Ankit Yadav, an experienced full stack developer proficient in web development, software engineering, and more.",
   keywords: allSkills,
-  ogImage: "/images/og-twitter.png",
+  ogImage: "/images/og.jpg",
   twitterCard: "summary_large_image",
 } as const;
 

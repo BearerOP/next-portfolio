@@ -1,30 +1,32 @@
-import { ProjectCarousel } from "@/components/project-carousel";
-import { cn } from "@/lib/utils";
-import DotPattern from "@/components/magicui/dot-pattern";
+import { PageFrame, Reveal } from "@/components/ds";
+import { About } from "@/components/home/about";
+import { Crafts } from "@/components/home/crafts";
+import { Education, Experience } from "@/components/home/experience";
+import { GithubActivity } from "@/components/home/github-activity";
+import { Hero } from "@/components/home/hero";
+import { NowPlaying } from "@/components/home/now-playing";
+import { Projects } from "@/components/home/projects";
+import { TechStack } from "@/components/home/tech-stack";
+import { SiteFooter } from "@/components/home/site-footer";
 import { Navbar } from "@/components/navbar";
-import { WorkExperience } from "@/components/work-experience";
-import { CraftDemos } from "@/components/craft-demos";
+
+// Each section is one Panel; the order here is the order on the sheet.
+const sections = [Hero, About, TechStack, GithubActivity, NowPlaying, Projects, Crafts, Experience, Education];
 
 export default function Home() {
   return (
     <>
-    
-      <main role="main" className="max-w-3xl mx-auto flex flex-col gap-4 px-4 min-h-[92vh]">
-        <DotPattern
-          width={5}
-          height={5}
-          cx={1}
-          cy={1}
-          cr={1}
-          className={cn(
-            "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
-          )}
-        />
-        <Navbar />
-        <ProjectCarousel />
-        <CraftDemos />
-        <WorkExperience />
-      </main>
+      <Navbar />
+      <PageFrame>
+        <main className="flex flex-col gap-6">
+          {sections.map((Section, index) => (
+            <Reveal key={Section.name} index={index}>
+              <Section />
+            </Reveal>
+          ))}
+        </main>
+        <SiteFooter />
+      </PageFrame>
     </>
   );
 }

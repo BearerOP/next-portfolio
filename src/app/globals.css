@@ -2,70 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/*
+ * Design tokens. This file and src/components/ds/tokens.ts are the only
+ * places raw colour values are allowed (enforced by `pnpm lint:ds`).
+ * Tokens are named for their ROLE, not their value. See DESIGN.md.
+ */
 @layer base {
   :root {
+    /* Surfaces and text */
     --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    --primary: 220.9 39.3% 11%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 224 71.4% 4.1%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --variable-collection-16-pro-max: 393px;
-  --variable-collection-16-pro-max-h: 852px;
-  --variable-collection-iphone13-width: 390px;
-  --variable-collection-iphone14-height: 844px;
-    --variable-collection-iphone16-pro-max-height: 953px;
-    --variable-collection-iphone16-pro-max-width: 440px;
-    --variable-collection-number: var(--variable-collection-iphone14-height);
-    --expo-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --expo-in: cubic-bezier(0.7, 0, 0.84, 0);
+    --foreground: 0 0% 9%;
+    --muted-foreground: 0 0% 40%;
+
+    /* shadcn roles, mapped onto the blueprint palette so vendored
+       components in src/components/ui follow the same system */
+    --card: var(--background);
+    --card-foreground: var(--foreground);
+    --popover: var(--background);
+    --popover-foreground: var(--foreground);
+    --primary: var(--foreground);
+    --primary-foreground: var(--background);
+    --secondary: 0 0% 96%;
+    --secondary-foreground: var(--foreground);
+    --muted: 0 0% 96%;
+    --accent: 0 0% 96%;
+    --accent-foreground: var(--foreground);
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 9%;
+    --radius: 0.125rem;
+
+    /* Construction lines: rules, hatching and fills drawn over the surface */
+    --line: rgb(0 0 0 / 0.1);
+    --line-subtle: rgb(0 0 0 / 0.06);
+    --line-strong: rgb(0 0 0 / 0.22);
+    --fill: rgb(0 0 0 / 0.03);
+    --fill-strong: rgb(0 0 0 / 0.06);
+    --hatch: rgb(0 0 0 / 0.07);
+
+    /* Status */
+    --live: 142 71% 36%;
+
+    /* Motion */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --duration-press: 150ms;
+    --duration-ui: 200ms;
+    --duration-panel: 300ms;
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 210 20% 98%;
-    --primary-foreground: 220.9 39.3% 11%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 216 12.2% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 93%;
+    --muted-foreground: 0 0% 60%;
+
+    --secondary: 0 0% 10%;
+    --muted: 0 0% 10%;
+    --accent: 0 0% 10%;
+    --destructive: 0 63% 40%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 93%;
+
+    --line: rgb(255 255 255 / 0.1);
+    --line-subtle: rgb(255 255 255 / 0.05);
+    --line-strong: rgb(255 255 255 / 0.22);
+    --fill: rgb(255 255 255 / 0.02);
+    --fill-strong: rgb(255 255 255 / 0.05);
+    --hatch: rgb(255 255 255 / 0.06);
+
+    --live: 142 71% 45%;
   }
 }
 
@@ -73,17 +81,22 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-    overflow-x: hidden;
-    width: 100%;
-  }
   html {
     overflow-x: hidden;
     width: 100%;
-  }
-  html {
     view-transition-name: root;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground font-mono;
+    overflow-x: hidden;
+    width: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
@@ -91,9 +104,202 @@
   .all-\[unset\] {
     all: unset;
   }
+
+  /* Splash: plays once per session, on top of the already-rendered page */
+  .splash {
+    animation: splash-out 300ms var(--ease-out) 700ms both;
+  }
+  .splash-logo {
+    animation: splash-logo-in 400ms var(--ease-out) both;
+  }
+  [data-splash="seen"] .splash {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .splash {
+      animation-delay: 300ms;
+    }
+    .splash-logo {
+      animation-name: splash-fade-in;
+    }
+  }
+}
+
+/*
+ * A box's top and bottom edges run on across the whole sheet, through both
+ * gutters, the way construction lines overshoot on a drawing. Built into
+ * Panel. The page clips horizontally, so the overshoot never scrolls.
+ */
+.cross-rules {
+  position: relative;
+  /* The box's own top and bottom edges are drawn by the rules below, so the
+     line is one continuous stroke of one colour from edge to edge. Drawing
+     both would stack two translucent lines and brighten the middle. */
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+.cross-rules::before,
+.cross-rules::after {
+  content: "";
+  position: absolute;
+  left: -100vw;
+  right: -100vw;
+  height: 1px;
+  background: var(--line-strong);
+  pointer-events: none;
+}
+.cross-rules::before {
+  top: -1px;
+}
+.cross-rules::after {
+  bottom: -1px;
+}
+
+/*
+ * Imagery is greyscale at rest, so the sheet stays monochrome, and takes its
+ * colour on hover (or tap, on touch). Put `media-mono` on the image or video.
+ * Put `media-mono-group` on an ancestor to colour it when the whole card is
+ * hovered or focused.
+ */
+.media-mono {
+  filter: grayscale(1);
+  transition: filter var(--duration-panel) var(--ease-out);
+}
+.media-mono:hover,
+.media-mono-group:hover .media-mono,
+.media-mono-group:focus-visible .media-mono,
+.media-mono-group:focus-within .media-mono {
+  filter: grayscale(0);
+}
+
+/*
+ * Tiles404: a field of real 3D tiles under perspective (see
+ * src/components/not-found/tiles-404.tsx). Each tile is a box: a top face
+ * plus two walls folded down from its edges. Hovering lifts a tile by
+ * raising --lift; only `transform` animates.
+ */
+.tiles-stage {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1100px;
+}
+.tiles-plane {
+  --tile: 1.75rem;
+  --wall: 0.625rem;
+  --rise: 0.875rem;
+  --tile-top: hsl(var(--muted-foreground));
+  --tile-front: hsl(var(--border));
+  --tile-side: hsl(var(--muted));
+  --tile-lit: hsl(var(--foreground));
+  display: grid;
+  grid-template-columns: repeat(var(--columns), var(--tile));
+  transform: rotateX(54deg) rotateZ(-32deg);
+  transform-style: preserve-3d;
+}
+.tiles-cell {
+  width: var(--tile);
+  height: var(--tile);
+  transform-style: preserve-3d;
+}
+.tile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--tile-top);
+  box-shadow: inset 0 0 0 0.5px hsl(var(--background));
+  transform: translateZ(calc(var(--rest, 0px) + var(--lift, 0px)));
+  transform-style: preserve-3d;
+  transition:
+    transform var(--duration-ui) var(--ease-out),
+    background-color var(--duration-ui) var(--ease-out);
+}
+.tile::before,
+.tile::after {
+  content: "";
+  position: absolute;
+  box-shadow: inset 0 0 0 0.5px hsl(var(--background));
+}
+/* Wall along the near edge, folded down */
+.tile::before {
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: var(--wall);
+  background: var(--tile-front);
+  transform: rotateX(-90deg);
+  transform-origin: top;
+}
+/* Wall along the right edge, folded down */
+.tile::after {
+  left: 100%;
+  top: 0;
+  width: var(--wall);
+  height: 100%;
+  background: var(--tile-side);
+  transform: rotateY(90deg);
+  transform-origin: left;
+}
+/* The numerals are pressed into the slab */
+.tiles-cell[data-lit] .tile {
+  --rest: calc(var(--wall) * -0.8);
+  background: var(--tile-side);
+}
+/* The tile under the pointer lifts and brightens. The cell, which does not
+   move, is the hover target, so the tile never slips out from under the cursor. */
+.tiles-cell:hover .tile {
+  --lift: var(--rise);
+  background: var(--tile-lit);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile {
+    transition: background-color var(--duration-ui) var(--ease-out);
+  }
+  .tiles-cell:hover .tile {
+    --lift: 0px;
+  }
+}
+
+/* Avatar switch: hard-cut slices, so steps rather than easing. 320ms matches
+   GLITCH_MS in avatar-toggle.tsx. Skipped entirely under reduced motion (in JS). */
+.avatar-glitch {
+  animation: avatar-glitch 320ms steps(1, end) both;
+}
+@keyframes avatar-glitch {
+  0% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+  12% { clip-path: inset(8% 0 62% 0); transform: translateX(-8%); }
+  25% { clip-path: inset(54% 0 12% 0); transform: translateX(7%); }
+  38% { clip-path: inset(28% 0 44% 0); transform: translateX(-5%) skewX(8deg); }
+  50% { clip-path: inset(70% 0 4% 0); transform: translateX(6%); }
+  62% { clip-path: inset(14% 0 50% 0); transform: translateX(-7%) skewX(-8deg); }
+  75% { clip-path: inset(42% 0 24% 0); transform: translateX(4%); }
+  88% { clip-path: inset(4% 0 78% 0); transform: translateX(-3%); }
+  100% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+}
+
+@keyframes splash-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes splash-logo-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes splash-fade-in {
+  from {
+    opacity: 0;
+  }
 }
 
 @layer utilities {
+  /* Keep pixel art crisp when it is scaled up */
+  .pixelated {
+    image-rendering: pixelated;
+  }
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

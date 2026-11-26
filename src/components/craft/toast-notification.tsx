@@ -99,12 +99,12 @@ export function Toast({
             className={`pointer-events-auto flex items-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl ${config.toastBg} px-3 sm:px-4 py-2.5 sm:py-3 text-xs ${config.toastText} shadow-[0_18px_60px_rgba(0,0,0,0.25)] border ${config.toastBorder} backdrop-blur-xl`}
         >
             <motion.div
-                initial={{ scale: 0, opacity: 0 }}
+                initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{
                     type: 'spring',
-                    stiffness: 500,
-                    damping: 25,
+                    duration: 0.4,
+                    bounce: 0,
                     delay: 0.15,
                 }}
                 className={`flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full ${config.iconBg} ${config.iconColor} flex-shrink-0`}
@@ -141,13 +141,18 @@ export function Toast({
 
             {showCloseButton && (
                 <motion.button
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                        duration: 0.2,
-                        delay: 0.25,
-                        ease: [0.32, 0.72, 0, 1]
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{
+                        opacity: 1,
+                        scale: 1,
+                        transition: {
+                            duration: 0.2,
+                            delay: 0.25,
+                            ease: [0.32, 0.72, 0, 1]
+                        }
                     }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
                     onClick={onClose}
                     className="flex-shrink-0 p-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition-colors"
                     aria-label="Close notification"

@@ -62,7 +62,7 @@ export const metadata: Metadata = {
       "Full Stack Developer specializing in React, Next.js, Node.js, and modern web technologies. Building innovative web applications.",
     images: [
       {
-        url: "https://bearerop.live/images/og-twitter.png",
+        url: "https://bearerop.live/images/og.jpg",
         width: 1200,
         height: 630,
         alt: "Ankit Yadav - Full Stack Developer Portfolio",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "Ankit Yadav - Full Stack Developer",
     description:
       "Full Stack Developer specializing in React, Next.js, Node.js, and modern web technologies.",
-    images: ["https://bearerop.live/images/og-twitter.png"],
+    images: ["https://bearerop.live/images/og.jpg"],
     creator: "@ankit_twt",
     site: "@ankit_twt",
   },
@@ -94,8 +94,9 @@ export const metadata: Metadata = {
   },
 
   icons: {
+    // The tab icon is src/app/favicon.ico (Next adds that <link> itself).
+    // These are the larger sizes.
     icon: [
-      { url: "/favicon.ico", sizes: "32x32" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
